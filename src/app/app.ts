@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Header } from './shared/ui/header';
+import { Footer } from './shared/ui/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Header, Footer],
   template: `
-    <h1>Welcome to {{title}}!</h1>
-
-    <router-outlet />
+    <app-header />
+    <main class="main">
+      <router-outlet />
+    </main>
+    <app-footer />
   `,
-  styles: [],
+  styles: ``,
 })
-export class App {
-  protected title = 'recipe-finder-website';
-}
+export class App {}

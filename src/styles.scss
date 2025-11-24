@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+@use "../public/scss/variables";
+@use "../public/scss/base";
+@use "../public/scss/media";
+@use "../public/scss/fonts";
+@use "../public/scss/typography";
+
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Nunito,
+    density: 0,
+  ));
+
+  @include mat.button-overrides((
+    filled-container-shape: 1rem,
+    filled-horizontal-padding: 3.2rem,
+    filled-container-height: 6rem,
+    filled-container-color: var(--neutral-900),
+    filled-focus-state-layer-opacity: 0,
+    filled-hover-state-layer-opacity: 1,
+    filled-label-text-color: var(--neutral-0),
+    filled-pressed-state-layer-opacity: 1,
+    filled-ripple-color: var(--teal-500),
+    filled-state-layer-color: var(--neutral-800),
+    filled-label-text-size: 2rem,
+    filled-label-text-tracking: -.5px,
+    filled-label-text-weight: 700,
+    filled-touch-target-display: 6rem,
+  ));
+
+  .mdc-button:focus {
+    box-shadow: 0 0 0 3px var(--neutral-0), 0 0 0 5px var(--mat-button-filled-container-color);
+  }
+}
+
+body {
+  color-scheme: light;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
