@@ -17,7 +17,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     @use '@angular/material' as mat;
 
     :host {
+      .footer {
+        &__toolbar {
+          justify-content: space-between;
+          padding: 0 12.4rem;
 
+          @include mat.toolbar-overrides((
+            container-background-color: transparent,
+            title-text-font: var(--ff-sans),
+            title-text-size: 1.6rem,
+            title-text-line-height: 2.4rem,
+            title-text-tracking: -.3px,
+            title-text-weight: 500,
+            standard-height: 10.4rem,
+            mobile-height: 7.2rem,
+          ));
+        }
+      }
     }
   `,
 })

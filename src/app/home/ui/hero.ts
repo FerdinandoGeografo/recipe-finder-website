@@ -40,6 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
 
         &__subtitle {
           margin-bottom: 2.8rem;
+          font-family: var(--ff-sans);
           font-size: 2rem;
           font-weight: 500;
           letter-spacing: -.4px;

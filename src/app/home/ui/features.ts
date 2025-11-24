@@ -1,15 +1,127 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-features',
-  imports: [],
+  imports: [MatIconModule],
   template: `
-    <p>
-      features works!
-    </p>
+    <section class="features">
+      <p class="features__title">What you’ll get</p>
+
+      <div class="features__list">
+        @for (feature of features(); track feature.title) {
+        <div class="feature">
+          <div class="feature__icon-box">
+            <mat-icon
+              class="feature__icon"
+              [svgIcon]="'custom:' + feature.icon"
+            />
+          </div>
+
+          <div class="feature__text">
+            <p class="feature__title">{{ feature.title }}</p>
+            <p class="feature__description">{{ feature.description }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
   `,
-  styles: ``,
+  styles: `
+    @use '@angular/material';
+
+    :host {
+      .features {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4.8rem;
+        padding-bottom: 9.6rem;
+
+        &__title {
+          font-size: 4.8rem;
+          line-height: 5.8rem;
+          letter-spacing: -2px;
+          font-weight: 800;
+          color: var(--neutral-900);
+        }
+
+        &__list {
+          display: flex;
+          gap: 3.2rem;
+        }
+
+        .feature {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          gap: 2.4rem;
+
+          &__icon-box {
+            --box-size: 6rem;
+            width: var(--box-size);
+            height: var(--box-size);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--neutral-0);
+            border-radius: 1.2rem;
+            border: 1px solid var(--neutral-200);
+            box-shadow: 0 1px 0 0 var(--neutral-200);
+          }
+
+          &__text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+          }
+
+          &__title {
+            font-size: 3.2rem;
+            line-height: 4.2rem;
+            letter-spacing: -.1px;
+            font-weight: 700;
+            color: var(--neutral-900);
+          }
+
+          &__description {
+            font-family: var(--ff-sans);
+            font-size: 2rem;
+            line-height: 3rem;
+            letter-spacing: -.4px;
+            font-weight: 500;
+            color: var(--neutral-800);
+          }
+        }
+      }
+    }
+  `,
 })
 export class Features {
+  protected features = signal<IFeature[]>([
+    {
+      icon: 'whole-food-recipes',
+      title: 'Whole-food recipes',
+      description: 'Each dish uses everyday, unprocessed ingredients.',
+    },
+    {
+      icon: 'minimum-fuss',
+      title: 'Minimum fuss',
+      description:
+        'All recipes are designed to make eating healthy quick and easy.',
+    },
+    {
+      icon: 'search-in-seconds',
+      title: 'Search in seconds',
+      description:
+        'Filter by name or ingredient and jump straight to the recipe you need.',
+    },
+  ]);
+}
 
+interface IFeature {
+  icon: string;
+  title: string;
+  description: string;
 }

@@ -20,7 +20,17 @@ import { MatButtonModule } from '@angular/material/button';
 
     :host {
       .header {
+        &__toolbar {
+          justify-content: space-between;
+          padding: 0 6rem;
+          border-bottom: 1px solid var(--neutral-300);
 
+          @include mat.toolbar-overrides((
+            container-background-color: transparent,
+            standard-height: 10rem,
+            mobile-height: 7.2rem,
+          ));
+        }
       }
     }
   `,
