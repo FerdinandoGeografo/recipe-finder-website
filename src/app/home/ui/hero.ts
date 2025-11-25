@@ -36,6 +36,20 @@ import { MatButtonModule } from '@angular/material/button';
           letter-spacing: -2px;
           line-height: 7.9rem;
           color: var(--neutral-900);
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 27rem;
+            height: 3.9rem;
+            border-radius: 4px;
+            background: var(--orange-500);
+            opacity: .4;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+          }
         }
 
         &__subtitle {

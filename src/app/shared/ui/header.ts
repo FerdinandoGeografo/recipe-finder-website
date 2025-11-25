@@ -2,16 +2,17 @@ import { Component } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Logo } from './logo';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, Logo, MatButtonModule],
+  imports: [MatToolbarModule, Logo, MatButtonModule, RouterLink],
   template: `
     <header class="header">
       <mat-toolbar class="header__toolbar">
         <app-logo />
 
-        <a matButton="filled">Browse recipes</a>
+        <a matButton="filled" routerLink="/recipes">Browse recipes</a>
       </mat-toolbar>
     </header>
   `,
