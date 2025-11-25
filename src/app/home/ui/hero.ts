@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-hero',
   imports: [MatButtonModule],
   template: `
-    <div class="hero__heading-box">
+    <section class="hero__heading-box">
       <h1 class="hero__title">Healthy meals, zero fuss</h1>
       <p class="hero__subtitle">
         Discover eight quick, whole-food recipes that you can cook tonight—no
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
       </p>
 
       <a matButton="filled" href="#"> Start exploring </a>
-    </div>
+    </section>
   `,
   styles: `
     :host {
