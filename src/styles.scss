@@ -36,6 +36,10 @@ html {
   .mdc-button:focus {
     box-shadow: 0 0 0 3px var(--neutral-0), 0 0 0 5px var(--mat-button-filled-container-color);
   }
+
+  @include mat.divider-overrides((
+    color: var(--neutral-300),
+  ));
 }
 
 body {
