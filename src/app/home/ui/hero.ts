@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
   template: `
     <section class="hero__heading-box">
       <h1 class="hero__title">Healthy meals, zero fuss</h1>
-      <p class="hero__subtitle">
+      <p class="hero__subtitle heading heading--md">
         Discover eight quick, whole-food recipes that you can cook tonight—no
         processed junk, no guesswork.
       </p>
@@ -54,12 +54,6 @@ import { MatButtonModule } from '@angular/material/button';
 
         &__subtitle {
           margin-bottom: 2.8rem;
-          font-family: var(--ff-sans);
-          font-size: 2rem;
-          font-weight: 500;
-          letter-spacing: -.4px;
-          line-height: 3rem;
-          color: var(--neutral-800);
           text-align: center;
           max-width: 58rem;
           flex: 1;

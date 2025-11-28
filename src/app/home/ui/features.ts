@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatIconModule],
   template: `
     <section class="features">
-      <p class="features__title">What you’ll get</p>
+      <p class="heading heading--2xl">What you’ll get</p>
 
       <div class="features__list">
         @for (feature of features(); track feature.title) {
@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 
           <div class="feature__text">
             <p class="feature__title">{{ feature.title }}</p>
-            <p class="feature__description">{{ feature.description }}</p>
+            <p class="heading heading--md">{{ feature.description }}</p>
           </div>
         </div>
         }
@@ -37,14 +37,6 @@ import { MatIconModule } from '@angular/material/icon';
         align-items: center;
         gap: 4.8rem;
         padding-bottom: 9.6rem;
-
-        &__title {
-          font-size: 4.8rem;
-          line-height: 5.8rem;
-          letter-spacing: -2px;
-          font-weight: 800;
-          color: var(--neutral-900);
-        }
 
         &__list {
           display: flex;
@@ -83,15 +75,6 @@ import { MatIconModule } from '@angular/material/icon';
             letter-spacing: -.1px;
             font-weight: 700;
             color: var(--neutral-900);
-          }
-
-          &__description {
-            font-family: var(--ff-sans);
-            font-size: 2rem;
-            line-height: 3rem;
-            letter-spacing: -.4px;
-            font-weight: 500;
-            color: var(--neutral-800);
           }
         }
       }

@@ -4,13 +4,20 @@ body {
 }
 
 .heading {
-}
+  &--2xl {
+    font-size: 4.8rem;
+    line-height: 5.8rem;
+    letter-spacing: -2px;
+    font-weight: 800;
+    color: var(--neutral-900);
+  }
 
-/**
-&--2xl {
-  font-size: 3.4rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -1px;
+  &--md {
+    font-family: var(--ff-sans);
+    font-size: 2rem;
+    line-height: 3rem;
+    letter-spacing: -.4px;
+    font-weight: 500;
+    color: var(--neutral-800);
+  }
 }
-**/

@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
       />
       <div class="call-to-action__text">
         <p class="call-to-action__title">Ready to cook smarter?</p>
-        <p class="call-to-action__subtitle">
+        <p class="heading heading--md">
           Hit the button, pick a recipe, and get dinner on the table—fast.
         </p>
       </div>
@@ -76,15 +76,6 @@ import { RouterLink } from '@angular/router';
           letter-spacing: -3px;
           font-weight: 800;
           color: var(--neutral-900);
-        }
-
-        &__subtitle {
-          font-family: var(--ff-sans);
-          font-size: 2rem;
-          line-height: 3rem;
-          letter-spacing: -.4px;
-          font-weight: 500;
-          color: var(--neutral-800);
         }
       }
     }

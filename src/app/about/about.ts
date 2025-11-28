@@ -7,19 +7,44 @@ import { MatDividerModule } from '@angular/material/divider';
   selector: 'app-about',
   imports: [AboutList, CallToAction, MatDividerModule],
   template: `
+    <section class="hero">
+      <div class="hero__text">
+        <p class="hero__title">Our mission</p>
+        <h1 class="heading heading--2xl">
+          Help more people cook nourishing meals, more often.
+        </h1>
+        <div class="hero__descriptions heading heading--md">
+          <p>
+            Healthy Recipe Finder was created to prove that healthy eating can
+            be convenient, affordable, and genuinely delicious.
+          </p>
+          <p>
+            We showcase quick, whole-food dishes that anyone can master—no fancy
+            equipment, no ultra-processed shortcuts—just honest ingredients and
+            straightforward steps.
+          </p>
+        </div>
+      </div>
+
+      <img
+        class="hero__img"
+        src="images/image-about-our-mission-large.webp"
+        alt="Our mission image"
+      />
+    </section>
     <app-about-list title="Why we exist" [list]="listWhy()" />
     <mat-divider />
     <app-about-list title="Our food philosophy" [list]="listPhilosophy()" />
     <div class="beyond">
       <div class="beyond__box">
         <div class="beyond__text">
-          <h2 class="beyond__heading">Beyond the plate</h2>
+          <h2 class="heading heading--2xl">Beyond the plate</h2>
           <div class="beyond__description">
-            <p class="beyond__paragraph">
+            <p class="heading heading--md">
               We believe food is a catalyst for community and well-being. By
               sharing approachable recipes, we hope to:
             </p>
-            <ul class="beyond__list">
+            <ul class="beyond__list heading heading--md">
               <li>Encourage family dinners and social cooking.</li>
               <li>
                 Reduce reliance on single-use packaging and delivery waste.
@@ -44,6 +69,43 @@ import { MatDividerModule } from '@angular/material/divider';
     :host {
       display: block;
 
+      .hero {
+        display: flex;
+        align-items: center;
+        gap: 6.4rem;
+        padding: 8rem 12.4rem 9.6rem;
+
+        &__text {
+          display: flex;
+          flex-direction: column;
+          gap: 2.4rem;
+        }
+
+        &__title {
+          align-self: start;
+          font-size: 2rem;
+          line-height: 2.8rem;
+          letter-spacing: -.5px;
+          font-weight: 700;
+          padding: 2px 6px;
+          border-radius: 6px;
+          background: var(--orange-500);
+          color: var(--neutral-900);
+        }
+
+        &__descriptions {
+          display: flex;
+          flex-direction: column;
+          gap: 1.6rem;
+        }
+
+        &__img {
+          border-radius: 2rem;
+          width: 100%;
+          max-height: 60rem;
+        }
+      }
+
       .beyond {
         padding: 0 12.4rem;
 
@@ -62,27 +124,10 @@ import { MatDividerModule } from '@angular/material/divider';
           gap: 2rem;
         }
 
-        &__heading {
-          font-size: 4.8rem;
-          line-height: 5.8rem;
-          font-weight: 800;
-          color: var(--neutral-900);
-          letter-spacing: -2px;
-        }
-
         &__description {
           display: flex;
           flex-direction: column;
           gap: 1.2rem;
-        }
-
-        &__paragraph {
-          font-family: var(--ff-sans);
-          font-size: 2rem;
-          line-height: 3rem;
-          letter-spacing: -.4px;
-          font-weight: 500;
-          color: var(--neutral-800);
         }
 
         &__list {
@@ -95,7 +140,6 @@ import { MatDividerModule } from '@angular/material/divider';
             gap: 1.2rem;
             margin-left: 1rem;
 
-
             &::before {
               content: "";
               margin-top: 1.1rem;
@@ -103,15 +147,7 @@ import { MatDividerModule } from '@angular/material/divider';
               min-width: 8px;
               border-radius: var(--mat-sys-corner-full);
               background: var(--neutral-800);
-
             }
-
-            font-family: var(--ff-sans);
-            font-size: 2rem;
-            line-height: 3rem;
-            letter-spacing: -.4px;
-            font-weight: 500;
-            color: var(--neutral-800);
           }
         }
 
