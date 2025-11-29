@@ -40,6 +40,67 @@ html {
   @include mat.divider-overrides((
     color: var(--neutral-300),
   ));
+
+  /******* FORM FIELD *******/
+  @include mat.form-field-overrides((
+    leading-icon-color: var(--neutral-900),
+    trailing-icon-color: var(--neutral-900),
+    focus-select-arrow-color: var(--neutral-900),
+    focus-state-layer-opacity: 1,
+    hover-state-layer-opacity: 1,
+    outlined-container-shape: 1rem,
+    outlined-outline-width: 1px,
+    outlined-outline-color: var(--neutral-300),
+    outlined-input-text-color: var(--neutral-900),
+    outlined-input-text-placeholder-color: rgba(22, 59, 53, .7),
+    outlined-caret-color: var(--neutral-900),
+    outlined-focus-outline-width: 1px,
+    outlined-focus-outline-color: var(--neutral-300),
+    outlined-hover-outline-color: var(--neutral-900),
+    select-option-text-color: var(--neutral-900),
+    state-layer-color: transparent,
+    container-text-size: 1.8rem,
+    container-text-tracking: -.3px,
+    container-text-weight: 600,
+    container-height: 4.7rem,
+    container-vertical-padding: 1rem,
+  ));
+
+  .mat-mdc-form-field {
+    .mdc-text-field--outlined {
+      transition: box-shadow .35s;
+      padding-right: 2.1rem;
+      border-radius: var(--mat-form-field-outlined-container-shape);
+
+      .mat-mdc-notch-piece {
+        transition: border-color .35s;
+      }
+    }
+
+    .mat-mdc-form-field-flex {
+      .mat-mdc-form-field-icon-prefix {
+        padding: 0;
+
+        .mat-icon {
+          height: 2rem;
+          width: 2rem;
+          padding: 0 8px 0 1.6rem;
+        }
+      }
+
+      .mat-mdc-form-field-infix {
+        width: 24.5rem;
+
+        .mdc-text-field__input {
+          height: 2.7rem;
+        }
+      }
+    }
+
+    &.mat-focused .mdc-text-field--outlined {
+      box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900)
+    }
+  }
 }
 
 body {
