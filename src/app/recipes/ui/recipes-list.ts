@@ -50,7 +50,9 @@ import { MatIconModule } from '@angular/material/icon';
             </div>
           </mat-card-content>
           <mat-card-actions class="recipe__actions">
-            <a matButton="filled" routerLink=".">View Recipe</a>
+            <a matButton="filled" [routerLink]="['.', recipe.slug]">
+              View Recipe
+            </a>
           </mat-card-actions>
         </mat-card>
       </li>
@@ -72,6 +74,7 @@ import { MatIconModule } from '@angular/material/icon';
       .recipe {
         &__card {
           padding: 7px;
+          width: 100%;
           max-width: 37.6rem;
 
           @include mat.card-overrides((
@@ -112,6 +115,9 @@ import { MatIconModule } from '@angular/material/icon';
           letter-spacing: -.5px;
           font-weight: 700;
           color: var(--neutral-900);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         &__description {
@@ -142,6 +148,9 @@ import { MatIconModule } from '@angular/material/icon';
         }
 
         &__actions {
+          min-height: auto;
+          padding: 0;
+
           a { flex: 1; }
 
           @include mat.button-overrides((

@@ -11,7 +11,17 @@ export const routes: Routes = [
   },
   {
     path: 'recipes',
-    loadComponent: () => import('./recipes/recipes').then((c) => c.Recipes),
+    loadChildren: () => [
+      {
+        path: '',
+        loadComponent: () => import('./recipes/recipes').then((c) => c.Recipes),
+      },
+      {
+        path: ':slug',
+        loadComponent: () =>
+          import('./recipes/recipe-details').then((c) => c.RecipeDetails),
+      },
+    ],
   },
   {
     path: '**',

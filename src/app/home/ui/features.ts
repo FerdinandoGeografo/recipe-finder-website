@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
           </div>
 
           <div class="feature__text">
-            <p class="feature__title">{{ feature.title }}</p>
+            <p class="heading heading--lg">{{ feature.title }}</p>
             <p class="heading heading--md">{{ feature.description }}</p>
           </div>
         </div>
@@ -67,14 +67,6 @@ import { MatIconModule } from '@angular/material/icon';
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
-          }
-
-          &__title {
-            font-size: 3.2rem;
-            line-height: 4.2rem;
-            letter-spacing: -.1px;
-            font-weight: 700;
-            color: var(--neutral-900);
           }
         }
       }
