@@ -32,9 +32,11 @@ import { MatDividerModule } from '@angular/material/divider';
         alt="Our mission image"
       />
     </section>
+    <mat-divider />
     <app-about-list title="Why we exist" [list]="listWhy()" />
     <mat-divider />
     <app-about-list title="Our food philosophy" [list]="listPhilosophy()" />
+    <mat-divider />
     <div class="beyond">
       <div class="beyond__box">
         <div class="beyond__text">

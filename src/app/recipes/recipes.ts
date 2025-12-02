@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { RecipesFilters } from './ui/recipes-filters';
 import { RecipesStore } from './data-access/recipes-store';
 import { RecipesList } from './ui/recipes-list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-recipes',
-  imports: [RecipesFilters, RecipesList],
+  imports: [RecipesFilters, RecipesList, MatDividerModule],
   template: `
     <section class="hero">
       <h1 class="heading heading--2xl">Explore our simple, healthy recipes</h1>
@@ -21,11 +22,11 @@ import { RecipesList } from './ui/recipes-list';
       <app-recipes-filters />
       <app-recipes-list [recipes]="rs.recipes()" />
     </section>
+    <mat-divider />
   `,
   styles: `
     :host {
       display: block;
-      padding: 0 12.4rem;
 
       .hero {
         padding: 8rem 0 6.4rem;
@@ -45,6 +46,7 @@ import { RecipesList } from './ui/recipes-list';
         display: flex;
         flex-direction: column;
         gap: 2.4rem;
+        padding: 0 12.4rem 9.6rem;
       }
     }
   `,

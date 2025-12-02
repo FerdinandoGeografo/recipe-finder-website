@@ -67,6 +67,9 @@ html {
   ));
 
   .mat-mdc-form-field {
+    background: var(--neutral-0);
+    border-radius: var(--mat-form-field-outlined-container-shape);
+
     .mdc-text-field--outlined {
       transition: box-shadow .35s;
       padding-right: 2.1rem;

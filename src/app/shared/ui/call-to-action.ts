@@ -21,6 +21,7 @@ import { RouterLink } from '@angular/router';
       </div>
       <a
         [style.--mat-button-filled-container-height.rem]="5.7"
+        [style.--mat-button-filled-horizontal-padding.rem]="2.4"
         matButton="filled"
         routerLink="/recipes"
       >
