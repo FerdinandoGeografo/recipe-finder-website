@@ -12,6 +12,20 @@ export class RecipesStore {
 
   loading = computed(() => this.#state().loading);
   recipes = computed(() => this.#state().recipes);
+  filter = computed(() => this.#state().filter);
+
+  filteredRecipes = computed(() => {
+    const { maxCookTime, maxPrepTime, query } = this.filter();
+    return this.recipes().filter((r) => {
+      return (
+        (!maxCookTime || r.cookMinutes <= maxCookTime) &&
+        (!maxPrepTime || r.prepMinutes <= maxPrepTime) &&
+        (!query ||
+          r.title.includes(query) ||
+          r.ingredients.join(' ').includes(query))
+      );
+    });
+  });
 
   #loadRecipes$ = new Subject<void>();
 
@@ -35,11 +49,19 @@ export class RecipesStore {
 
     this.#loadRecipes$.next();
   }
+
+  setFilter(filter: Filter) {
+    this.#state.update((s) => ({
+      ...s,
+      filter: { ...filter },
+    }));
+  }
 }
 
 interface RecipesState {
   loading: boolean;
   recipes: IRecipe[];
+  filter: Filter;
 }
 
 export interface IRecipe {
@@ -58,7 +80,14 @@ export interface IRecipe {
   instructions: string[];
 }
 
+export interface Filter {
+  maxPrepTime?: number;
+  maxCookTime?: number;
+  query?: string;
+}
+
 const initialState: RecipesState = {
   loading: false,
   recipes: [],
+  filter: {},
 };

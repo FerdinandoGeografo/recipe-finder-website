@@ -1,14 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, effect, model, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
+import { Filter } from '../data-access/recipes-store';
 
 @Component({
   selector: 'app-recipes-filters',
-  imports: [MatFormFieldModule, MatIconModule, MatInputModule],
+  imports: [
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRadioModule,
+    FormsModule,
+  ],
   template: `
-    <p>Max Prep Time</p>
-    <p>Max Cook Time</p>
+    <button matButton="outlined" [matMenuTriggerFor]="prepTimeMenu">
+      Max Prep Time
+      <mat-icon svgIcon="custom:chevron-down" />
+    </button>
+
+    <mat-menu #prepTimeMenu="matMenu">
+      <mat-radio-group
+        aria-labelledby="Max cook time group options"
+        [(ngModel)]="maxPrepTime"
+      >
+        <mat-radio-button [value]="0">0 minutes</mat-radio-button>
+        <mat-radio-button [value]="5">5 minutes</mat-radio-button>
+        <mat-radio-button [value]="10">10 minutes</mat-radio-button>
+      </mat-radio-group>
+      <button matButton="outlined" (click)="maxPrepTime.set(undefined)">
+        Clear
+      </button>
+    </mat-menu>
+
+    <button matButton="outlined" [matMenuTriggerFor]="cookTimeMenu">
+      <mat-icon svgIcon="custom:chevron-down" />
+      Max Cook Time
+    </button>
+
+    <mat-menu #cookTimeMenu="matMenu">
+      <mat-radio-group
+        aria-labelledby="Max cook time group options"
+        [(ngModel)]="maxCookTime"
+      >
+        <mat-radio-button [value]="0">0 minutes</mat-radio-button>
+        <mat-radio-button [value]="5">5 minutes</mat-radio-button>
+        <mat-radio-button [value]="10">10 minutes</mat-radio-button>
+        <mat-radio-button [value]="15">15 minutes</mat-radio-button>
+        <mat-radio-button [value]="20">20 minutes</mat-radio-button>
+      </mat-radio-group>
+      <button matButton="outlined" (click)="maxCookTime.set(undefined)">
+        Clear
+      </button>
+    </mat-menu>
 
     <mat-form-field
       subscriptSizing="dynamic"
@@ -19,6 +70,7 @@ import { MatInputModule } from '@angular/material/input';
         matInput
         type="text"
         placeholder="Search by name or ingredient..."
+        [(ngModel)]="query"
       />
       <mat-icon matPrefix svgIcon="custom:search" />
     </mat-form-field>
@@ -38,4 +90,26 @@ import { MatInputModule } from '@angular/material/input';
     }
   `,
 })
-export class RecipesFilters {}
+export class RecipesFilters {
+  maxPrepTime = model<number | undefined>();
+  maxCookTime = model<number | undefined>();
+  query = model<string>();
+
+  filterChanged = output<Filter>();
+
+  constructor() {
+    effect(() => {
+      console.log('Filters changed: \t', {
+        maxPrepTime: this.maxPrepTime(),
+        maxCookTime: this.maxCookTime(),
+        query: this.query(),
+      });
+
+      this.filterChanged.emit({
+        maxPrepTime: this.maxPrepTime(),
+        maxCookTime: this.maxCookTime(),
+        query: this.query(),
+      });
+    });
+  }
+}

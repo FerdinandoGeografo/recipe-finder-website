@@ -19,8 +19,13 @@ import { MatDividerModule } from '@angular/material/divider';
     </section>
 
     <section class="list">
-      <app-recipes-filters />
-      <app-recipes-list [recipes]="rs.recipes()" />
+      <app-recipes-filters
+        [maxPrepTime]="rs.filter().maxPrepTime"
+        [maxCookTime]="rs.filter().maxCookTime"
+        [query]="rs.filter().query"
+        (filterChanged)="rs.setFilter($event)"
+      />
+      <app-recipes-list [recipes]="rs.filteredRecipes()" />
     </section>
     <mat-divider />
   `,
