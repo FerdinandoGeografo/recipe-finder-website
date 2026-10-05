@@ -10,13 +10,13 @@ import {
   withViewTransitions,
 } from '@angular/router';
 import { routes } from './app/app.routes';
-import { provideHttpClient, withXhr } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(App, {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding(), withViewTransitions()),
-    provideHttpClient(withXhr()),
+    provideHttpClient(),
   ],
 }).catch((err) => console.error(err));
