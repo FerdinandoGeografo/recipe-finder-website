@@ -1,0 +1,36 @@
+@use "fonts";
+@use "variables";
+@use "base";
+@use "media" as *;
+@use "typography";
+
+@use "components/button";
+@use "components/form-field";
+@use "components/menu";
+@use "components/radio";
+
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Nunito,
+    density: 0,
+  ));
+
+  @include mat.divider-overrides((
+    color: var(--neutral-300),
+  ));
+}
+
+body {
+  color-scheme: light;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}

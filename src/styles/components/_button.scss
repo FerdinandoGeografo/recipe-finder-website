@@ -1,0 +1,62 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.button-overrides((
+    filled-container-shape: 1rem,
+    filled-horizontal-padding: 3.2rem,
+    filled-container-height: 6rem,
+    filled-container-color: var(--neutral-900),
+    filled-focus-state-layer-opacity: 0,
+    filled-hover-state-layer-opacity: 1,
+    filled-label-text-color: var(--neutral-0),
+    filled-pressed-state-layer-opacity: 1,
+    filled-ripple-color: var(--teal-500),
+    filled-state-layer-color: var(--neutral-800),
+    filled-label-text-size: 2rem,
+    filled-label-text-tracking: -.5px,
+    filled-label-text-weight: 700,
+    outlined-container-shape: 1rem,
+    outlined-horizontal-padding: 1.6rem,
+    outlined-icon-offset: 8px,
+    outlined-icon-spacing: 0,
+    outlined-outline-width: 1px,
+    outlined-outline-color: var(--neutral-300),
+    outlined-container-height: 4.7rem,
+    outlined-label-text-size: 1.8rem,
+    outlined-label-text-weight: 600,
+    outlined-label-text-tracking: -.3px,
+    outlined-focus-state-layer-opacity: 0,
+    outlined-hover-state-layer-opacity: 0,
+    outlined-pressed-state-layer-opacity: 0,
+    outlined-state-layer-color: transparent,
+    outlined-ripple-color: transparent,
+    outlined-label-text-color: var(--neutral-900),
+  ));
+
+  .mdc-button--unelevated:focus {
+    box-shadow: 0 0 0 3px var(--neutral-0), 0 0 0 5px var(--mat-button-filled-container-color);
+  }
+
+  .mat-mdc-outlined-button {
+    background: var(--neutral-0);
+    transition: all .35s;
+
+    &:not(:disabled) {
+      &:hover, &[aria-expanded=true] {
+        --mat-button-outlined-outline-color: var(--neutral-900);
+      }
+
+      &:focus:not([aria-expanded=true]) {
+        box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900);
+      }
+    }
+
+    .mat-icon {
+      order: 1;
+      height: 2rem;
+      width: 2rem;
+      font-size: 2rem;
+      min-height: auto;
+    }
+  }
+}

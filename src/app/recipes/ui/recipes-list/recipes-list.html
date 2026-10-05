@@ -1,0 +1,49 @@
+<ul class="recipes__list">
+  @for (recipe of recipes(); track recipe.id) {
+    <li class="recipe">
+      <mat-card appearance="outlined" class="recipe__card">
+        <img
+          class="recipe__img"
+          mat-card-image
+          [src]="recipe.image.large"
+          [alt]="recipe.title"
+        />
+        <mat-card-content class="recipe__card-content">
+          <div class="recipe__info">
+            <div class="recipe__box">
+              <h2 class="recipe__title">{{ recipe.title }}</h2>
+              <p class="recipe__description heading heading--xs">
+                {{ recipe.overview }}
+              </p>
+            </div>
+            <div class="recipe__details">
+              <div class="recipe__detail">
+                <mat-icon class="recipe__icon" svgIcon="custom:servings" />
+                <span class="recipe__value heading heading--xs">
+                  Servings: {{ recipe.servings }}
+                </span>
+              </div>
+              <div class="recipe__detail">
+                <mat-icon class="recipe__icon" svgIcon="custom:prep-time" />
+                <span class="recipe__value heading heading--xs">
+                  Prep: {{ recipe.prepMinutes }} mins
+                </span>
+              </div>
+              <div class="recipe__detail">
+                <mat-icon class="recipe__icon" svgIcon="custom:cook-time" />
+                <span class="recipe__value heading heading--xs">
+                  Cook: {{ recipe.cookMinutes }} mins
+                </span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="recipe__actions">
+          <a matButton="filled" [routerLink]="['.', recipe.slug]">
+            View Recipe
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </li>
+  }
+</ul>

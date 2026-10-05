@@ -1,0 +1,26 @@
+<header class="header">
+  <app-logo />
+
+  <mat-nav-list class="header__nav">
+    @for (link of links(); track $index) {
+      <a
+        class="header__nav-link"
+        mat-list-item
+        [routerLink]="link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ link | titlecase }}
+      </a>
+    }
+  </mat-nav-list>
+
+  <a
+    [style.marginLeft.px]="93"
+    [style.--mat-button-filled-container-height.rem]="5.2"
+    [style.--mat-button-filled-horizontal-padding.rem]="1.6"
+    matButton="filled"
+    routerLink="/recipes"
+    >Browse recipes</a
+  >
+</header>

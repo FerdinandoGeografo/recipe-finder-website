@@ -1,0 +1,24 @@
+:host {
+  display: block;
+
+  .hero {
+    padding: 8rem 0 6.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+
+    p {
+      text-align: center;
+      max-width: 72.8rem;
+      flex: 1;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding: 0 12.4rem 9.6rem;
+  }
+}

@@ -1,0 +1,48 @@
+
+@use '@angular/material' as mat;
+
+:host {
+  .footer {
+    &__toolbar {
+      justify-content: space-between;
+      padding: 0 12.4rem;
+
+      @include mat.toolbar-overrides((
+        container-background-color: transparent,
+        title-text-font: var(--ff-sans),
+        title-text-size: 1.6rem,
+        title-text-line-height: 2.4rem,
+        title-text-tracking: -.3px,
+        title-text-weight: 500,
+        standard-height: 10.4rem,
+        mobile-height: 7.2rem,
+      ));
+    }
+
+    &__socials {
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+    }
+
+    &__social {
+      outline: 0 none;
+      border: 0 none;
+      border-radius: 4px;
+      max-height: 2.2rem;
+      transition: box-shadow .3s, opacity .3s;
+
+      &:hover {
+        opacity: .7;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px var(--neutral-100), 0 0 0 4px var(--neutral-900);
+      }
+
+      .mat-icon {
+        height: 2.2rem;
+      }
+    }
+  }
+}

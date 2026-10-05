@@ -1,0 +1,111 @@
+:host {
+  .recipe {
+    &__details {
+      padding: 4.8rem 12.4rem 6.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    &__breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--neutral-900);
+
+      span {
+        opacity: 0.6;
+      }
+
+      span:last-child {
+        opacity: 1;
+      }
+    }
+
+    &__content {
+      display: flex;
+      align-items: start;
+      gap: 4rem;
+    }
+
+    &__img {
+      border-radius: 1rem;
+      max-width: 58rem;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &__stats {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+
+    &__data {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &__icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &__value {
+      color: var(--neutral-900);
+    }
+
+    &__list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    &__list-title {
+      font-size: 2.4rem;
+      line-height: 3.1rem;
+      letter-spacing: -1px;
+      font-weight: 700;
+      color: var(--neutral-900);
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &__item {
+      display: flex;
+      align-items: start;
+      gap: 8px;
+    }
+
+    &__list-icon {
+      margin-top: 3px;
+      min-width: 2.4rem;
+      height: 2.4rem;
+    }
+
+    &__text {
+      font-family: var(--ff-sans);
+      font-size: 2rem;
+      line-height: 3rem;
+      letter-spacing: -0.4px;
+      font-weight: 500;
+      color: var(--neutral-800);
+    }
+
+    &__more {
+      padding: 6.4rem 12.4rem 9.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+  }
+}

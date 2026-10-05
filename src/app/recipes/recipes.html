@@ -1,0 +1,19 @@
+<section class="hero">
+  <h1 class="heading heading--2xl">Explore our simple, healthy recipes</h1>
+  <p class="heading heading--md">
+    Discover eight quick, whole-food dishes that fit real-life schedules and
+    taste amazing. Use the search bar to find a recipe by name or ingredient, or
+    simply scroll the list and let something delicious catch your eye.
+  </p>
+</section>
+
+<section class="list">
+  <app-recipes-filters
+    [maxPrepTime]="rs.filter().maxPrepTime"
+    [maxCookTime]="rs.filter().maxCookTime"
+    [query]="rs.filter().query"
+    (filterChanged)="rs.setFilter($event)"
+  />
+  <app-recipes-list [recipes]="rs.filteredRecipes()" />
+</section>
+<mat-divider />

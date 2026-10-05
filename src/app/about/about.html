@@ -1,0 +1,55 @@
+<section class="hero">
+  <div class="hero__text">
+    <p class="hero__title">Our mission</p>
+    <h1 class="heading heading--2xl">
+      Help more people cook nourishing meals, more often.
+    </h1>
+    <div class="hero__descriptions heading heading--md">
+      <p>
+        Healthy Recipe Finder was created to prove that healthy eating can be
+        convenient, affordable, and genuinely delicious.
+      </p>
+      <p>
+        We showcase quick, whole-food dishes that anyone can master—no fancy
+        equipment, no ultra-processed shortcuts—just honest ingredients and
+        straightforward steps.
+      </p>
+    </div>
+  </div>
+
+  <img
+    class="hero__img"
+    src="images/image-about-our-mission-large.webp"
+    alt="Our mission image"
+  />
+</section>
+<mat-divider />
+<app-about-list title="Why we exist" [list]="listWhy()" />
+<mat-divider />
+<app-about-list title="Our food philosophy" [list]="listPhilosophy()" />
+<mat-divider />
+<div class="beyond">
+  <div class="beyond__box">
+    <div class="beyond__text">
+      <h2 class="heading heading--2xl">Beyond the plate</h2>
+      <div class="beyond__description">
+        <p class="heading heading--md">
+          We believe food is a catalyst for community and well-being. By sharing
+          approachable recipes, we hope to:
+        </p>
+        <ul class="beyond__list heading heading--md">
+          <li>Encourage family dinners and social cooking.</li>
+          <li>Reduce reliance on single-use packaging and delivery waste.</li>
+          <li>Spark curiosity about seasonal produce and local agriculture.</li>
+        </ul>
+      </div>
+    </div>
+    <img
+      class="beyond__img"
+      src="images/image-about-beyond-the-plate-large.webp"
+      alt="Beyond the plate image"
+    />
+  </div>
+
+  <app-call-to-action />
+</div>

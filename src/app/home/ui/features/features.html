@@ -1,0 +1,21 @@
+<section class="features">
+  <p class="heading heading--2xl">What you’ll get</p>
+
+  <div class="features__list">
+    @for (feature of features(); track feature.title) {
+      <div class="feature">
+        <div class="feature__icon-box">
+          <mat-icon
+            class="feature__icon"
+            [svgIcon]="'custom:' + feature.icon"
+          />
+        </div>
+
+        <div class="feature__text">
+          <p class="heading heading--lg">{{ feature.title }}</p>
+          <p class="heading heading--md">{{ feature.description }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</section>
