@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CallToAction } from '../shared/ui/call-to-action/call-to-action';
-import { AboutList, IAbout } from './ui/about-list/about-list';
+import { AboutItem, AboutList } from './ui/about-list/about-list';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './about.scss',
 })
 export class About {
-  listWhy = signal<IAbout[]>([
+  protected readonly whyWeExist: readonly AboutItem[] = [
     {
       heading: 'Cut through the noise.',
       description:
@@ -26,8 +26,8 @@ export class About {
       description:
         'High-resolution imagery shows you exactly what success looks like—because we eat with our eyes first, and confidence matters.',
     },
-  ]);
-  listPhilosophy = signal<IAbout[]>([
+  ];
+  protected readonly foodPhilosophy: readonly AboutItem[] = [
     {
       heading: 'Whole ingredients first.',
       description:
@@ -48,5 +48,5 @@ export class About {
       description:
         'Short ingredient lists cut down on food waste and carbon footprint, while plant-forward dishes keep things planet-friendly.',
     },
-  ]);
+  ];
 }

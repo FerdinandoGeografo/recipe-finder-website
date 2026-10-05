@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './features.scss',
 })
 export class Features {
-  protected features = signal<IFeature[]>([
+  protected readonly features: readonly Feature[] = [
     {
       icon: 'whole-food-recipes',
       title: 'Whole-food recipes',
@@ -26,10 +26,10 @@ export class Features {
       description:
         'Filter by name or ingredient and jump straight to the recipe you need.',
     },
-  ]);
+  ];
 }
 
-interface IFeature {
+interface Feature {
   icon: string;
   title: string;
   description: string;

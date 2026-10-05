@@ -1,29 +1,24 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { App } from './app/app';
-import {
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
-} from '@angular/core';
+import { provideBrowserGlobalErrorListeners } from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
   withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
+import { App } from './app/app';
 import { routes } from './app/app.routes';
 import { skipQueryOnlyTransitions } from './app/shared/view-transitions';
-import { provideHttpClient } from '@angular/common/http';
 
+// Zoneless change detection and HttpClient (fetch) are Angular defaults since v21.
 bootstrapApplication(App, {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
     provideRouter(
       routes,
       withComponentInputBinding(),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
       withViewTransitions({ onViewTransitionCreated: skipQueryOnlyTransitions }),
     ),
-    provideHttpClient(),
   ],
 }).catch((err) => console.error(err));

@@ -2,15 +2,15 @@
   <app-logo />
 
   <mat-nav-list class="header__nav">
-    @for (link of links(); track $index) {
+    @for (link of links; track link.path) {
       <a
         class="header__nav-link"
         mat-list-item
-        [routerLink]="link"
+        [routerLink]="link.path"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        {{ link | titlecase }}
+        {{ link.label }}
       </a>
     }
   </mat-nav-list>

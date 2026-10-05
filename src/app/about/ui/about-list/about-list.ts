@@ -8,11 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './about-list.scss',
 })
 export class AboutList {
-  title = input.required<string>();
-  list = input.required<IAbout[]>();
+  readonly heading = input.required<string>();
+  readonly items = input.required<readonly AboutItem[]>();
 }
 
-export interface IAbout {
+export interface AboutItem {
   heading: string;
   description: string;
 }
