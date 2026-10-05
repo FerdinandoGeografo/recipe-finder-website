@@ -1,76 +1,97 @@
-<section class="recipe__details">
-  <div class="recipe__breadcrumbs">
-    <span class="heading heading--sm">Recipes</span>
-    <span class="heading heading--sm">/</span>
-    <span class="heading heading--sm">{{ recipe()?.title }}</span>
-  </div>
+@if (recipe(); as recipe) {
+  <section class="recipe__details">
+    <div class="recipe__breadcrumbs">
+      <span class="heading heading--sm">Recipes</span>
+      <span class="heading heading--sm">/</span>
+      <span class="heading heading--sm">{{ recipe.title }}</span>
+    </div>
 
-  <div class="recipe__content">
-    <img
-      class="recipe__img"
-      [src]="$safeNavigationMigration(recipe()?.image?.large)"
-      [alt]="$safeNavigationMigration(recipe()?.title)"
-    />
+    <div class="recipe__content">
+      <img class="recipe__img" [src]="recipe.image.large" [alt]="recipe.title" />
 
-    <div class="recipe__info">
-      <h1 class="heading heading--2xl">{{ recipe()?.title }}</h1>
-      <p class="heading heading--md">{{ recipe()?.overview }}</p>
-      <div class="recipe__stats">
-        <div class="recipe__data">
-          <mat-icon class="recipe__icon" svgIcon="custom:servings" />
-          <span class="heading heading--sm recipe__value">
-            Servings: {{ recipe()?.servings }}
-          </span>
+      <div class="recipe__info">
+        <h1 class="heading heading--2xl">{{ recipe.title }}</h1>
+        <p class="heading heading--md">{{ recipe.overview }}</p>
+        <div class="recipe__stats">
+          <div class="recipe__data">
+            <mat-icon class="recipe__icon" svgIcon="custom:servings" />
+            <span class="heading heading--sm recipe__value">
+              Servings: {{ recipe.servings }}
+            </span>
+          </div>
+          <div class="recipe__data">
+            <mat-icon class="recipe__icon" svgIcon="custom:prep-time" />
+            <span class="heading heading--sm recipe__value">
+              Prep: {{ recipe.prepMinutes }} mins
+            </span>
+          </div>
+          <div class="recipe__data">
+            <mat-icon class="recipe__icon" svgIcon="custom:cook-time" />
+            <span class="heading heading--sm recipe__value">
+              Cook: {{ recipe.cookMinutes }} mins
+            </span>
+          </div>
         </div>
-        <div class="recipe__data">
-          <mat-icon class="recipe__icon" svgIcon="custom:prep-time" />
-          <span class="heading heading--sm recipe__value">
-            Prep: {{ recipe()?.prepMinutes }} mins
-          </span>
+        <div class="recipe__list-box">
+          <h2 class="recipe__list-title">Ingredients</h2>
+          <ul class="recipe__list">
+            @for (ingredient of recipe.ingredients; track $index) {
+              <li class="recipe__item">
+                <mat-icon
+                  class="recipe__list-icon"
+                  svgIcon="custom:bullet-point"
+                />
+                <p class="recipe__text">{{ ingredient }}</p>
+              </li>
+            }
+          </ul>
         </div>
-        <div class="recipe__data">
-          <mat-icon class="recipe__icon" svgIcon="custom:cook-time" />
-          <span class="heading heading--sm recipe__value">
-            Cook: {{ recipe()?.cookMinutes }} mins
-          </span>
+        <div class="recipe__list-box">
+          <h2 class="recipe__list-title">Instructions</h2>
+          <ul class="recipe__list">
+            @for (instruction of recipe.instructions; track $index) {
+              <li class="recipe__item">
+                <mat-icon
+                  class="recipe__list-icon"
+                  svgIcon="custom:bullet-point"
+                />
+                <p class="recipe__text">
+                  {{ instruction }}
+                </p>
+              </li>
+            }
+          </ul>
         </div>
-      </div>
-      <div class="recipe__list-box">
-        <h2 class="recipe__list-title">Ingredients</h2>
-        <ul class="recipe__list">
-          @for (ingredient of recipe()?.ingredients; track $index) {
-            <li class="recipe__item">
-              <mat-icon
-                class="recipe__list-icon"
-                svgIcon="custom:bullet-point"
-              />
-              <p class="recipe__text">{{ ingredient }}</p>
-            </li>
-          }
-        </ul>
-      </div>
-      <div class="recipe__list-box">
-        <h2 class="recipe__list-title">Instructions</h2>
-        <ul class="recipe__list">
-          @for (instruction of recipe()?.instructions; track $index) {
-            <li class="recipe__item">
-              <mat-icon
-                class="recipe__list-icon"
-                svgIcon="custom:bullet-point"
-              />
-              <p class="recipe__text">
-                {{ instruction }}
-              </p>
-            </li>
-          }
-        </ul>
       </div>
     </div>
-  </div>
-</section>
-<mat-divider />
-<section class="recipe__more">
-  <h2 class="heading heading--lg">More recipes</h2>
-  <app-recipes-list [recipes]="moreRecipes()" />
-</section>
+  </section>
+  <mat-divider />
+  <section class="recipe__more">
+    <h2 class="heading heading--lg">More recipes</h2>
+    <app-recipes-list [recipes]="moreRecipes()" />
+  </section>
+} @else {
+  @switch (rs.status()) {
+    @case ('loading') {
+      <p class="recipe__state heading heading--md">Loading recipe…</p>
+    }
+    @case ('error') {
+      <section class="recipe__state" role="alert">
+        <h1 class="heading heading--2xl">We couldn’t load this recipe</h1>
+        <button matButton="filled" type="button" (click)="rs.reload()">
+          Try again
+        </button>
+      </section>
+    }
+    @default {
+      <section class="recipe__state">
+        <h1 class="heading heading--2xl">Recipe not found</h1>
+        <p class="heading heading--md">
+          This recipe doesn’t exist or may have moved.
+        </p>
+        <a matButton="filled" routerLink="/recipes">Browse recipes</a>
+      </section>
+    }
+  }
+}
 <mat-divider />

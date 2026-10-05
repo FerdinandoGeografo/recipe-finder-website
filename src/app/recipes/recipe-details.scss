@@ -107,5 +107,14 @@
       flex-direction: column;
       gap: 2.4rem;
     }
+
+    &__state {
+      padding: 9.6rem 12.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.4rem;
+      text-align: center;
+    }
   }
 }
