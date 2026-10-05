@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CallToAction } from '../shared/ui/call-to-action/call-to-action';
 import { AboutList, IAbout } from './ui/about-list/about-list';
 import { MatDividerModule } from '@angular/material/divider';
@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
   selector: 'app-about',
   imports: [AboutList, CallToAction, MatDividerModule],
   templateUrl: './about.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './about.scss',
 })
 export class About {

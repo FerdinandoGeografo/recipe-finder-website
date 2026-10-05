@@ -8,8 +8,8 @@
   <div class="recipe__content">
     <img
       class="recipe__img"
-      [src]="recipe()?.image?.large"
-      [alt]="recipe()?.title"
+      [src]="$safeNavigationMigration(recipe()?.image?.large)"
+      [alt]="$safeNavigationMigration(recipe()?.title)"
     />
 
     <div class="recipe__info">

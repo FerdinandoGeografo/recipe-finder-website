@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { Hero } from './ui/hero/hero';
 import { Features } from './ui/features/features';
@@ -8,6 +8,7 @@ import { CallToAction } from '../shared/ui/call-to-action/call-to-action';
   selector: 'app-home',
   imports: [MatDividerModule, Hero, Features, CallToAction],
   templateUrl: './home.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home.scss',
 })
 export class Home {}

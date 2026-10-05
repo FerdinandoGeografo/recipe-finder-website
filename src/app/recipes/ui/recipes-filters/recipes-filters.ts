@@ -1,4 +1,4 @@
-import { Component, effect, model, output, signal } from '@angular/core';
+import { Component, effect, model, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -75,6 +75,7 @@ import { Filter } from '../../data-access/recipes-store';
       <mat-icon matPrefix svgIcon="custom:search" />
     </mat-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     :host {
       display: flex;
