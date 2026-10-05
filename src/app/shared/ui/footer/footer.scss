@@ -1,48 +1,86 @@
-
-@use '@angular/material' as mat;
+@use 'layout';
+@use 'media';
 
 :host {
-  .footer {
-    &__toolbar {
+  display: block;
+}
+
+.footer {
+  &__inner {
+    @include layout.container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.4rem;
+    padding-block: 3.2rem 2rem;
+
+    @include media.from(md) {
+      flex-direction: row;
       justify-content: space-between;
-      padding: 0 12.4rem;
+      padding-block: 4rem;
+    }
+  }
 
-      @include mat.toolbar-overrides((
-        container-background-color: transparent,
-        title-text-font: var(--ff-sans),
-        title-text-size: 1.6rem,
-        title-text-line-height: 2.4rem,
-        title-text-tracking: -.3px,
-        title-text-weight: 500,
-        standard-height: 10.4rem,
-        mobile-height: 7.2rem,
-      ));
+  &__text {
+    order: 1;
+    font-family: var(--ff-sans);
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -.3px;
+    text-align: center;
+    color: var(--neutral-900);
+
+    @include media.from(md) {
+      order: 0;
+      text-align: start;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+  }
+
+  &__social {
+    position: relative;
+    display: flex;
+    border-radius: 4px;
+    transition: box-shadow var(--motion-standard) var(--motion-ease-out),
+      opacity var(--motion-standard) var(--motion-ease-out);
+
+    // Enlarge the touch area without changing the Figma icon row.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -1.1rem;
     }
 
-    &__socials {
-      display: flex;
-      align-items: center;
-      gap: 2.4rem;
+    &:hover {
+      opacity: .7;
     }
 
-    &__social {
-      outline: 0 none;
-      border: 0 none;
-      border-radius: 4px;
-      max-height: 2.2rem;
-      transition: box-shadow .3s, opacity .3s;
+    &:focus-visible {
+      outline: 2px solid transparent;
+      outline-offset: 4px;
+      box-shadow: 0 0 0 2px var(--neutral-100), 0 0 0 4px var(--neutral-900);
+    }
 
-      &:hover {
-        opacity: .7;
-      }
+    .mat-icon {
+      height: 2.2rem;
+    }
 
-      &:focus {
-        box-shadow: 0 0 0 2px var(--neutral-100), 0 0 0 4px var(--neutral-900);
-      }
+    [svgIcon='custom:instagram'] {
+      width: 2.3rem;
+    }
 
-      .mat-icon {
-        height: 2.2rem;
-      }
+    [svgIcon='custom:bluesky'] {
+      width: 2.6rem;
+    }
+
+    [svgIcon='custom:tiktok'] {
+      width: 2rem;
     }
   }
 }
