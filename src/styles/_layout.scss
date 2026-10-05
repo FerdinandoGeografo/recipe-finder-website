@@ -1,0 +1,21 @@
+@use 'media';
+
+:root {
+  --page-gutter: 1.6rem;
+  --content-max-width: 119.2rem;
+
+  @include media.from(md) {
+    --page-gutter: 3.2rem;
+  }
+
+  @include media.from(lg) {
+    --page-gutter: clamp(3.2rem, 8.6vw, 12.4rem);
+  }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: calc(var(--content-max-width) + 2 * var(--page-gutter));
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}

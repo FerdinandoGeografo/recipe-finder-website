@@ -26,8 +26,9 @@ ul {
 }
 
 html {
+  box-sizing: border-box;
   color-scheme: light;
-  font-size: 10px;
+  font-size: 62.5%;
   background: var(--neutral-100);
 }
 

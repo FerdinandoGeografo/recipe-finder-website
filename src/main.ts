@@ -18,7 +18,10 @@ bootstrapApplication(App, {
       routes,
       withComponentInputBinding(),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
-      withViewTransitions({ onViewTransitionCreated: skipQueryOnlyTransitions }),
+      withViewTransitions({
+        skipInitialTransition: true,
+        onViewTransitionCreated: skipQueryOnlyTransitions,
+      }),
     ),
   ],
 }).catch((err) => console.error(err));

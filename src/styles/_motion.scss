@@ -1,0 +1,37 @@
+@use 'media';
+
+:root {
+  --motion-fast: 120ms;
+  --motion-standard: 200ms;
+  --motion-page: 250ms;
+  --motion-ease-out: cubic-bezier(.2, 0, 0, 1);
+}
+
+::view-transition-group(*) {
+  animation-duration: var(--motion-page);
+  animation-timing-function: var(--motion-ease-out);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: var(--motion-page);
+  animation-timing-function: var(--motion-ease-out);
+}
+
+@include media.reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
