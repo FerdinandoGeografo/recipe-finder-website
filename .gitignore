@@ -40,3 +40,12 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Premium design file and local agent context
+/design
+/AGENTS.md
+/CLAUDE.md
+/.ai-local/
+/.agents/
+/.claude/
+skills-lock.json
