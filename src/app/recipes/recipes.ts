@@ -40,7 +40,7 @@ export class Recipes {
   }
 
   // The store updates at once so the search field never waits for the navigation;
-  // replaceUrl keeps typing and picking filters out of the history.
+  // filter changes neither add history entries nor scroll the page.
   protected applyFilter(filter: Filter) {
     const { query, maxPrepTime, maxCookTime } = filter;
     this.rs.setFilter(filter);
@@ -48,6 +48,7 @@ export class Recipes {
       relativeTo: this.#route,
       queryParams: { q: query || undefined, maxPrep: maxPrepTime, maxCook: maxCookTime },
       replaceUrl: true,
+      scroll: 'manual',
     });
   }
 }

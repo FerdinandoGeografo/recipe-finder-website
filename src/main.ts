@@ -7,6 +7,7 @@ import {
 import {
   provideRouter,
   withComponentInputBinding,
+  withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
 import { routes } from './app/app.routes';
@@ -20,6 +21,7 @@ bootstrapApplication(App, {
     provideRouter(
       routes,
       withComponentInputBinding(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
       withViewTransitions({ onViewTransitionCreated: skipQueryOnlyTransitions }),
     ),
     provideHttpClient(),
