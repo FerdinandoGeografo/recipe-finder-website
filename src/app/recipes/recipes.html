@@ -12,7 +12,7 @@
     [maxPrepTime]="rs.filter().maxPrepTime"
     [maxCookTime]="rs.filter().maxCookTime"
     [query]="rs.filter().query"
-    (filterChanged)="rs.setFilter($event)"
+    (filterChanged)="applyFilter($event)"
   />
 
   @switch (rs.status()) {
@@ -33,7 +33,7 @@
       } @else {
         <div class="state">
           <p class="heading heading--md">No recipes match your search.</p>
-          <button matButton="outlined" type="button" (click)="rs.setFilter({})">
+          <button matButton="outlined" type="button" (click)="applyFilter({})">
             Clear all filters
           </button>
         </div>

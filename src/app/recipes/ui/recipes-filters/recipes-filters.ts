@@ -1,4 +1,4 @@
-import { Component, effect, model, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,13 +29,14 @@ import { Filter } from '../../data-access/recipes-store';
     <mat-menu #prepTimeMenu="matMenu">
       <mat-radio-group
         aria-labelledby="Max cook time group options"
-        [(ngModel)]="maxPrepTime"
+        [ngModel]="maxPrepTime()"
+        (ngModelChange)="update({ maxPrepTime: $event })"
       >
         <mat-radio-button [value]="0">0 minutes</mat-radio-button>
         <mat-radio-button [value]="5">5 minutes</mat-radio-button>
         <mat-radio-button [value]="10">10 minutes</mat-radio-button>
       </mat-radio-group>
-      <button matButton="outlined" (click)="maxPrepTime.set(undefined)">
+      <button matButton="outlined" (click)="update({ maxPrepTime: undefined })">
         Clear
       </button>
     </mat-menu>
@@ -48,7 +49,8 @@ import { Filter } from '../../data-access/recipes-store';
     <mat-menu #cookTimeMenu="matMenu">
       <mat-radio-group
         aria-labelledby="Max cook time group options"
-        [(ngModel)]="maxCookTime"
+        [ngModel]="maxCookTime()"
+        (ngModelChange)="update({ maxCookTime: $event })"
       >
         <mat-radio-button [value]="0">0 minutes</mat-radio-button>
         <mat-radio-button [value]="5">5 minutes</mat-radio-button>
@@ -56,7 +58,7 @@ import { Filter } from '../../data-access/recipes-store';
         <mat-radio-button [value]="15">15 minutes</mat-radio-button>
         <mat-radio-button [value]="20">20 minutes</mat-radio-button>
       </mat-radio-group>
-      <button matButton="outlined" (click)="maxCookTime.set(undefined)">
+      <button matButton="outlined" (click)="update({ maxCookTime: undefined })">
         Clear
       </button>
     </mat-menu>
@@ -70,7 +72,8 @@ import { Filter } from '../../data-access/recipes-store';
         matInput
         type="text"
         placeholder="Search by name or ingredient..."
-        [(ngModel)]="query"
+        [ngModel]="query()"
+        (ngModelChange)="update({ query: $event })"
       />
       <mat-icon matPrefix svgIcon="custom:search" />
     </mat-form-field>
@@ -91,25 +94,19 @@ import { Filter } from '../../data-access/recipes-store';
   `,
 })
 export class RecipesFilters {
-  maxPrepTime = model<number | undefined>();
-  maxCookTime = model<number | undefined>();
-  query = model<string>();
+  maxPrepTime = input<number>();
+  maxCookTime = input<number>();
+  query = input<string>();
 
   filterChanged = output<Filter>();
 
-  constructor() {
-    effect(() => {
-      console.log('Filters changed: \t', {
-        maxPrepTime: this.maxPrepTime(),
-        maxCookTime: this.maxCookTime(),
-        query: this.query(),
-      });
-
-      this.filterChanged.emit({
-        maxPrepTime: this.maxPrepTime(),
-        maxCookTime: this.maxCookTime(),
-        query: this.query(),
-      });
+  // Emits only on user changes; an explicit undefined in the patch clears that filter.
+  protected update(patch: Filter) {
+    this.filterChanged.emit({
+      maxPrepTime: this.maxPrepTime(),
+      maxCookTime: this.maxCookTime(),
+      query: this.query(),
+      ...patch,
     });
   }
 }
