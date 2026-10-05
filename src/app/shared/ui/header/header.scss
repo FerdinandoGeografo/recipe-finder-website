@@ -1,75 +1,155 @@
-
-@use '@angular/material' as mat;
+@use 'media';
 
 :host {
-  .header {
-    display: flex;
+  display: block;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  border-bottom: 1px solid var(--neutral-300);
+
+  &__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
-    padding: 2rem 6rem;
-    border-bottom: 1px solid var(--neutral-300);
+    gap: 1.2rem;
+    min-height: calc(7.2rem - 1px);
+    padding-inline: 1.6rem;
 
-    &__nav {
-      padding: 0;
-      display: flex;
-      align-items: center;
-      gap: 4rem;
-      --mat-ripple-color: transparent;
-
-      @include mat.list-overrides(
-        (
-          list-item-container-shape: 0,
-          active-indicator-shape: 0,
-          active-indicator-color: transparent,
-          list-item-container-color: transparent,
-          list-item-hover-state-layer-color: transparent,
-          list-item-focus-state-layer-color: transparent,
-          list-item-hover-label-text-color: var(--neutral-900),
-          list-item-focus-label-text-color: var(--neutral-900),
-          list-item-label-text-color: var(--neutral-900),
-          list-item-selected-container-color: transparent,
-          list-item-label-text-line-height: 2.7rem,
-          list-item-label-text-size: 1.8rem,
-          list-item-label-text-tracking: -0.3px,
-          list-item-label-text-weight: 600,
-          list-item-one-line-container-height: 2.7rem,
-        )
-      );
+    @include media.from(md) {
+      min-height: calc(9.2rem - 1px);
+      padding-inline: 3.2rem;
     }
 
-    &__nav-link {
-      width: auto;
+    @include media.from(lg) {
+      grid-template-columns: 26rem minmax(0, 1fr);
+      gap: 0;
+      max-width: 144rem;
+      margin-inline: auto;
+      padding-inline: 6rem;
+    }
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border: 0;
+    border-radius: 4px;
+    background: var(--neutral-300);
+    cursor: pointer;
+
+    .mat-icon {
+      width: 1.8rem;
+      height: 1.6rem;
+    }
+
+    @include media.from(lg) {
+      display: none;
+    }
+  }
+
+  &__nav {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 6.8rem;
+    inset-inline: 1.6rem;
+    padding: 7px;
+    border: 1px solid var(--neutral-300);
+    border-radius: 8px;
+    background: var(--neutral-0);
+    box-shadow: 0 12px 22px -12px rgb(57 88 82 / 30%);
+
+    &--open {
+      display: block;
+    }
+
+    @include media.from(md) {
+      top: 8.6rem;
+      inset-inline: 3.2rem;
+    }
+
+    @include media.from(lg) {
+      position: static;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 26rem;
+      align-items: center;
       padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  &__links {
+    @include media.from(lg) {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+    }
+  }
+
+  &__nav-link {
+    display: block;
+    padding: 1.2rem .8rem;
+    border-radius: 4px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -.3px;
+    color: var(--neutral-900);
+    text-decoration: none;
+
+    span {
       position: relative;
-      transition: all 0.3s;
-      border-radius: 4px;
-      overflow: visible;
 
       &::after {
         content: '';
         position: absolute;
-        left: 0;
+        inset-inline: 0;
         bottom: 0;
-        width: 100%;
         height: 3px;
-        background: var(--orange-500);
         border-radius: 4px;
+        background: var(--orange-500);
         transform: scaleX(0);
-        transition: transform 0.35s;
+        transition: transform var(--motion-fast) var(--motion-ease-out);
       }
+    }
 
-      &:hover,
-      &.active {
-        &::after {
-          transform: scaleX(1);
-        }
-      }
+    &:hover span::after,
+    &.active span::after {
+      transform: scaleX(1);
+    }
 
-      &:not(.active):focus {
-        box-shadow:
-          0 0 0 2px var(--neutral-100),
-          0 0 0 4px var(--neutral-900);
-      }
+    @include media.from(lg) {
+      padding: 0;
+    }
+  }
+
+  &__toggle:focus-visible,
+  &__nav-link:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 2px var(--neutral-100), 0 0 0 4px var(--neutral-900);
+  }
+
+  &__browse {
+    --mat-button-filled-container-height: 5.2rem;
+    --mat-button-filled-horizontal-padding: 1.6rem;
+    --mat-button-filled-label-text-size: 1.8rem;
+    width: 100%;
+    margin-top: 1rem;
+
+    @include media.from(lg) {
+      justify-self: end;
+      width: 16.7rem;
+      margin-top: 0;
     }
   }
 }

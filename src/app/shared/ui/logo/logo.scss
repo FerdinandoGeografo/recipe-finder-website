@@ -1,0 +1,18 @@
+@use 'media';
+
+:host {
+  display: flex;
+  align-items: center;
+  width: 20.8rem;
+  max-width: 100%;
+
+  @include media.from(md) {
+    width: 26rem;
+  }
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

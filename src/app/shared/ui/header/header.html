@@ -1,26 +1,43 @@
 <header class="header">
-  <app-logo />
-
-  <mat-nav-list class="header__nav">
-    @for (link of links; track link.path) {
-      <a
-        class="header__nav-link"
-        mat-list-item
-        [routerLink]="link.path"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ link.label }}
+  <div class="header__inner">
+    <app-logo />
+    <button
+      #menuButton
+      class="header__toggle"
+      type="button"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="primary-navigation"
+      [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+      (click)="toggleMenu()"
+    >
+      <mat-icon svgIcon="custom:hamburger" aria-hidden="true" />
+    </button>
+    <nav
+      #navigation
+      id="primary-navigation"
+      class="header__nav"
+      [class.header__nav--open]="menuOpen()"
+      aria-label="Primary"
+    >
+      <ul class="header__links">
+        @for (link of links; track link.path) {
+          <li>
+            <a
+              class="header__nav-link"
+              [routerLink]="link.path"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeMenu()"
+            >
+              <span>{{ link.label }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+      <a class="header__browse" matButton="filled" routerLink="/recipes" (click)="closeMenu()">
+        Browse recipes
       </a>
-    }
-  </mat-nav-list>
-
-  <a
-    [style.marginLeft.px]="93"
-    [style.--mat-button-filled-container-height.rem]="5.2"
-    [style.--mat-button-filled-horizontal-padding.rem]="1.6"
-    matButton="filled"
-    routerLink="/recipes"
-    >Browse recipes</a
-  >
+    </nav>
+  </div>
 </header>

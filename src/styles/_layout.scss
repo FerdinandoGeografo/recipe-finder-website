@@ -1,15 +1,17 @@
 @use 'media';
 
-:root {
-  --page-gutter: 1.6rem;
-  --content-max-width: 119.2rem;
+@mixin tokens {
+  :root {
+    --page-gutter: 1.6rem;
+    --content-max-width: 119.2rem;
 
-  @include media.from(md) {
-    --page-gutter: 3.2rem;
-  }
+    @include media.from(md) {
+      --page-gutter: 3.2rem;
+    }
 
-  @include media.from(lg) {
-    --page-gutter: clamp(3.2rem, 8.6vw, 12.4rem);
+    @include media.from(lg) {
+      --page-gutter: clamp(3.2rem, 8.6vw, 12.4rem);
+    }
   }
 }
 

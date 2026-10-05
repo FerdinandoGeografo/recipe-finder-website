@@ -33,20 +33,24 @@ html {
     outlined-label-text-color: var(--neutral-900),
   ));
 
-  .mdc-button--unelevated:focus {
+  .mdc-button--unelevated:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 4px;
     box-shadow: 0 0 0 3px var(--neutral-0), 0 0 0 5px var(--mat-button-filled-container-color);
   }
 
   .mat-mdc-outlined-button {
     background: var(--neutral-0);
-    transition: all .35s;
+    transition: box-shadow var(--motion-standard) var(--motion-ease-out);
 
     &:not(:disabled) {
       &:hover, &[aria-expanded=true] {
         --mat-button-outlined-outline-color: var(--neutral-900);
       }
 
-      &:focus:not([aria-expanded=true]) {
+      &:focus-visible {
+        outline: 2px solid transparent;
+        outline-offset: 4px;
         box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900);
       }
     }

@@ -30,12 +30,12 @@ html {
     border-radius: var(--mat-form-field-outlined-container-shape);
 
     .mdc-text-field--outlined {
-      transition: box-shadow .35s;
+      transition: box-shadow var(--motion-standard) var(--motion-ease-out);
       padding-right: 2.1rem;
       border-radius: var(--mat-form-field-outlined-container-shape);
 
       .mat-mdc-notch-piece {
-        transition: border-color .35s;
+        transition: border-color var(--motion-standard) var(--motion-ease-out);
       }
     }
 
@@ -46,6 +46,7 @@ html {
         .mat-icon {
           height: 2rem;
           width: 2rem;
+          box-sizing: content-box;
           padding: 0 8px 0 1.6rem;
         }
       }
@@ -59,7 +60,7 @@ html {
       }
     }
 
-    &.mat-focused .mdc-text-field--outlined {
+    &:has(input:focus-visible) .mdc-text-field--outlined {
       box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900)
     }
   }

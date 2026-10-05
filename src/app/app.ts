@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -13,6 +13,8 @@ import { focusHeadingOnPageChange } from './shared/route-focus';
   styleUrl: './app.scss',
 })
 export class App {
+  private readonly main = viewChild.required<ElementRef<HTMLElement>>('mainContent');
+
   constructor() {
     inject(MatIconRegistry).addSvgIconSetInNamespace(
       'custom',
@@ -20,5 +22,10 @@ export class App {
     );
 
     focusHeadingOnPageChange();
+  }
+
+  protected skipToMain(event: Event): void {
+    event.preventDefault();
+    this.main().nativeElement.focus();
   }
 }

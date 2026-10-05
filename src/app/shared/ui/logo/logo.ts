@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-logo',
+  styleUrl: './logo.scss',
   template: `
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +10,8 @@ import { Component } from '@angular/core';
       height="40"
       fill="none"
       viewBox="0 0 260 40"
+      role="img"
+      aria-label="Healthy Recipe Finder"
     >
       <path
         fill="var(--neutral-900)"

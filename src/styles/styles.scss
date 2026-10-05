@@ -15,6 +15,7 @@
 @use '@angular/cdk' as cdk;
 
 @include cdk.a11y-visually-hidden();
+@include layout.tokens;
 
 html {
   @include mat.theme((
