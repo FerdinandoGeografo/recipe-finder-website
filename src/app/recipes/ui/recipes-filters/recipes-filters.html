@@ -1,0 +1,61 @@
+<button matButton="outlined" [matMenuTriggerFor]="prepTimeMenu">
+  Max Prep Time
+  <mat-icon svgIcon="custom:chevron-down" />
+</button>
+
+<mat-menu #prepTimeMenu="matMenu">
+  <mat-radio-group
+    aria-labelledby="Max cook time group options"
+    [value]="filter().maxPrepTime"
+    (change)="filterChange.emit({ maxPrepTime: $event.value })"
+  >
+    @for (minutes of prepTimes; track minutes) {
+      <mat-radio-button [value]="minutes">{{ minutes }} minutes</mat-radio-button>
+    }
+  </mat-radio-group>
+  <button
+    matButton="outlined"
+    (click)="filterChange.emit({ maxPrepTime: undefined })"
+  >
+    Clear
+  </button>
+</mat-menu>
+
+<button matButton="outlined" [matMenuTriggerFor]="cookTimeMenu">
+  <mat-icon svgIcon="custom:chevron-down" />
+  Max Cook Time
+</button>
+
+<mat-menu #cookTimeMenu="matMenu">
+  <mat-radio-group
+    aria-labelledby="Max cook time group options"
+    [value]="filter().maxCookTime"
+    (change)="filterChange.emit({ maxCookTime: $event.value })"
+  >
+    @for (minutes of cookTimes; track minutes) {
+      <mat-radio-button [value]="minutes">{{ minutes }} minutes</mat-radio-button>
+    }
+  </mat-radio-group>
+  <button
+    matButton="outlined"
+    (click)="filterChange.emit({ maxCookTime: undefined })"
+  >
+    Clear
+  </button>
+</mat-menu>
+
+<mat-form-field
+  subscriptSizing="dynamic"
+  appearance="outline"
+  class="filters__search"
+>
+  <input
+    #search
+    matInput
+    type="text"
+    placeholder="Search by name or ingredient..."
+    [value]="filter().query"
+    (input)="filterChange.emit({ query: search.value })"
+  />
+  <mat-icon matPrefix svgIcon="custom:search" />
+</mat-form-field>

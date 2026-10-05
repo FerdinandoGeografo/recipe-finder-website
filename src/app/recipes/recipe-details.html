@@ -71,14 +71,14 @@
     <app-recipes-list [recipes]="moreRecipes()" />
   </section>
 } @else {
-  @switch (rs.status()) {
+  @switch (store.status()) {
     @case ('loading') {
       <p class="recipe__state heading heading--md">Loading recipe…</p>
     }
     @case ('error') {
       <section class="recipe__state" role="alert">
         <h1 class="heading heading--2xl">We couldn’t load this recipe</h1>
-        <button matButton="filled" type="button" (click)="rs.reload()">
+        <button matButton="filled" type="button" (click)="store.reload()">
           Try again
         </button>
       </section>

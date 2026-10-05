@@ -21,16 +21,17 @@ import { pageTitle } from '../shared/page-title';
   styleUrl: './recipe-details.scss',
 })
 export class RecipeDetails {
-  protected rs = inject(RecipesStore);
-  #title = inject(Title);
+  protected readonly store = inject(RecipesStore);
+  readonly #title = inject(Title);
 
-  slug = input.required<string>();
-  protected recipe = computed(() =>
-    this.rs.recipes().find((r) => r.slug === this.slug()),
+  readonly slug = input.required<string>();
+
+  protected readonly recipe = computed(() =>
+    this.store.recipes().find((r) => r.slug === this.slug()),
   );
   // The three recipes that follow the current one, wrapping around the list.
-  protected moreRecipes = computed(() => {
-    const recipes = this.rs.recipes();
+  protected readonly moreRecipes = computed(() => {
+    const recipes = this.store.recipes();
     const recipe = this.recipe();
     if (!recipe) return [];
 
@@ -42,11 +43,11 @@ export class RecipeDetails {
     );
   });
 
-  #pageName = computed(() => {
+  readonly #pageName = computed(() => {
     const recipe = this.recipe();
     if (recipe) return recipe.title;
 
-    switch (this.rs.status()) {
+    switch (this.store.status()) {
       case 'loading':
         return 'Recipe';
       case 'error':
@@ -57,6 +58,7 @@ export class RecipeDetails {
   });
 
   constructor() {
+    // Title is an imperative browser API, so an effect keeps it in sync.
     effect(() => this.#title.setTitle(pageTitle(this.#pageName())));
   }
 }
