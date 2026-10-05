@@ -14,6 +14,33 @@
     [query]="rs.filter().query"
     (filterChanged)="rs.setFilter($event)"
   />
-  <app-recipes-list [recipes]="rs.filteredRecipes()" />
+
+  @switch (rs.status()) {
+    @case ('loading') {
+      <p class="state heading heading--md">Loading recipes…</p>
+    }
+    @case ('error') {
+      <div class="state" role="alert">
+        <p class="heading heading--md">We couldn’t load the recipes.</p>
+        <button matButton="filled" type="button" (click)="rs.reload()">
+          Try again
+        </button>
+      </div>
+    }
+    @default {
+      @if (rs.filteredRecipes().length) {
+        <app-recipes-list [recipes]="rs.filteredRecipes()" />
+      } @else {
+        <div class="state">
+          <p class="heading heading--md">No recipes match your search.</p>
+          <button matButton="outlined" type="button" (click)="rs.setFilter({})">
+            Clear all filters
+          </button>
+        </div>
+      }
+    }
+  }
+
+  <p class="cdk-visually-hidden" role="status">{{ resultsMessage() }}</p>
 </section>
 <mat-divider />

@@ -10,6 +10,9 @@
 @use "components/radio";
 
 @use '@angular/material' as mat;
+@use '@angular/cdk' as cdk;
+
+@include cdk.a11y-visually-hidden();
 
 html {
   @include mat.theme((

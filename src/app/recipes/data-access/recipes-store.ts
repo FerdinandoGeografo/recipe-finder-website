@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, Subject, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class RecipesStore {
   #http = inject(HttpClient);
   #state = signal<RecipesState>(initialState);
 
-  loading = computed(() => this.#state().loading);
+  status = computed(() => this.#state().status);
   recipes = computed(() => this.#state().recipes);
   filter = computed(() => this.#state().filter);
 
@@ -24,17 +24,26 @@ export class RecipesStore {
     this.#loadRecipes$
       .pipe(
         takeUntilDestroyed(),
-        tap(() => this.#state.update((s) => ({ ...s, loading: true }))),
+        tap(() => this.#state.update((s) => ({ ...s, status: 'loading' }))),
         switchMap(() =>
           this.#http.get<IRecipe[]>('data/data.json').pipe(
             tap((recipes) =>
-              this.#state.update((s) => ({ ...s, recipes, loading: false }))
-            )
+              this.#state.update((s) => ({ ...s, recipes, status: 'success' }))
+            ),
+            // Caught per request so a failure does not end the stream and reload() still works.
+            catchError(() => {
+              this.#state.update((s) => ({ ...s, status: 'error' }));
+              return EMPTY;
+            })
           )
         )
       )
       .subscribe();
 
+    this.#loadRecipes$.next();
+  }
+
+  reload() {
     this.#loadRecipes$.next();
   }
 
@@ -46,8 +55,10 @@ export class RecipesStore {
   }
 }
 
+export type RecipesStatus = 'loading' | 'success' | 'error';
+
 interface RecipesState {
-  loading: boolean;
+  status: RecipesStatus;
   recipes: IRecipe[];
   filter: Filter;
 }
@@ -92,7 +103,7 @@ export function filterRecipes(
 }
 
 const initialState: RecipesState = {
-  loading: false,
+  status: 'loading',
   recipes: [],
   filter: {},
 };
