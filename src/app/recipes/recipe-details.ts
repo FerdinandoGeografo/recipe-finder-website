@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import { RecipesStore } from './data-access/recipes-store';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -8,7 +8,6 @@ import { RecipesList } from './ui/recipes-list/recipes-list';
   selector: 'app-recipe-details',
   imports: [MatIconModule, MatDividerModule, RecipesList],
   templateUrl: './recipe-details.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-details.scss',
 })
 export class RecipeDetails {

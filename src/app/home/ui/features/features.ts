@@ -1,11 +1,10 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-features',
   imports: [MatIconModule],
   templateUrl: './features.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './features.scss',
 })
 export class Features {

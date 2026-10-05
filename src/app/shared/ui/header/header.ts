@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Logo } from '../logo/logo';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -16,7 +16,6 @@ import { TitleCasePipe } from '@angular/common';
     TitleCasePipe,
   ],
   templateUrl: './header.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './header.scss',
 })
 export class Header {

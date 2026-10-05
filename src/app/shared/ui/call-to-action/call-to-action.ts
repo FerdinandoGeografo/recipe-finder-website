@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { MatButton } from '@angular/material/button';
@@ -7,7 +7,6 @@ import { MatButton } from '@angular/material/button';
   selector: 'app-call-to-action',
   imports: [RouterLink, MatButton],
   templateUrl: './call-to-action.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './call-to-action.scss',
 })
 export class CallToAction {}

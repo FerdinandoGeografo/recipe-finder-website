@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-logo',
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <svg
       xmlns="http://www.w3.org/2000/svg"

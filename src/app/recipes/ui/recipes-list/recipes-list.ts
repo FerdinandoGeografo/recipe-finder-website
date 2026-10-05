@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { IRecipe } from '../../data-access/recipes-store';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-recipes-list',
   imports: [MatCardModule, MatButtonModule, MatIconModule, RouterLink],
   templateUrl: './recipes-list.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipes-list.scss',
 })
 export class RecipesList {
