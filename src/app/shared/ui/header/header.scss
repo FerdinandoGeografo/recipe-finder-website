@@ -9,6 +9,13 @@
 .header {
   border-bottom: 1px solid var(--neutral-300);
 
+  &__logo-link,
+  &__toggle,
+  &__nav-link {
+    transition: box-shadow var(--motion-standard) var(--motion-ease-out),
+      background-color var(--motion-standard) var(--motion-ease-out);
+  }
+
   &__inner {
     position: relative;
     display: grid;

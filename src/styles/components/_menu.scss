@@ -8,6 +8,11 @@ html {
     container-elevation-shadow: 0 1.2rem 2.2rem -1.2rem var(--neutral-300),
   ));
 
+  .mat-mdc-menu-item {
+    transition: background-color var(--motion-standard) var(--motion-ease-out),
+      box-shadow var(--motion-standard) var(--motion-ease-out);
+  }
+
   .mat-mdc-menu-content {
     padding: 8px;
   }

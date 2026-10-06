@@ -1,6 +1,18 @@
 @use '@angular/material' as mat;
 
 html {
+  .mat-mdc-button-base {
+    transition: background-color var(--motion-standard) var(--motion-ease-out),
+      border-color var(--motion-standard) var(--motion-ease-out),
+      color var(--motion-standard) var(--motion-ease-out),
+      box-shadow var(--motion-standard) var(--motion-ease-out);
+
+    .mat-mdc-button-persistent-ripple::before {
+      transition: opacity var(--motion-standard) var(--motion-ease-out),
+        background-color var(--motion-standard) var(--motion-ease-out);
+    }
+  }
+
   @include mat.button-overrides((
     filled-container-shape: 1rem,
     filled-horizontal-padding: 3.2rem,
@@ -41,7 +53,6 @@ html {
 
   .mat-mdc-outlined-button {
     background: var(--neutral-0);
-    transition: box-shadow var(--motion-standard) var(--motion-ease-out);
 
     &:not(:disabled) {
       &:hover, &[aria-expanded=true] {
