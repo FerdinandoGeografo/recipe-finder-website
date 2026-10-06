@@ -3,6 +3,9 @@
 @use '../media';
 @use '../motion';
 
+// Full width of the page content, as the stacked controls below md.
+$content-width: calc(100vw - 2 * var(--page-gutter));
+
 html {
   @include mat.menu-overrides((
     container-shape: 8px,
@@ -38,7 +41,7 @@ html {
     item-focus-state-layer-color: transparent,
   ));
 
-  width: calc(100vw - 2 * var(--page-gutter));
+  width: $content-width;
   min-width: 0;
   max-width: none;
   padding: 7px;
@@ -112,9 +115,14 @@ html .header-menu.mat-mdc-menu-panel {
     item-focus-state-layer-color: transparent,
   ));
 
-  width: 24rem;
+  width: $content-width;
   min-width: 0;
-  max-width: calc(100vw - 3.2rem);
+  max-width: none;
+
+  @include media.from(md) {
+    width: 24rem;
+    max-width: calc(100vw - 3.2rem);
+  }
   margin-top: 6px;
 
   .mat-mdc-menu-content {
