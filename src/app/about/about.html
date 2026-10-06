@@ -18,22 +18,18 @@
     </div>
   </div>
 
-  <picture class="hero__picture" animate.enter="fade-enter">
-    <source
-      media="(min-width: 48em)"
-      srcset="/images/image-about-our-mission-large.webp"
-      width="1236"
-      height="1200"
-    />
-    <img
-      class="hero__img"
-      src="/images/image-about-our-mission-small.webp"
-      width="686"
-      height="667"
-      fetchpriority="high"
-      alt="A cook preparing fresh carrots in a home kitchen."
-    />
-  </picture>
+  <img
+    class="hero__img"
+    animate.enter="fade-enter"
+    ngSrc="/images/image-about-our-mission-small.webp"
+    srcset="/images/image-about-our-mission-small.webp 686w, /images/image-about-our-mission-large.webp 1236w"
+    sizes="(min-width: 64em) min(43vw, 38.6rem), 92vw"
+    disableOptimizedSrcset
+    width="686"
+    height="667"
+    priority
+    alt="A cook preparing fresh carrots in a home kitchen."
+  />
 </section>
 <mat-divider />
 <app-about-list class="why-list" heading="Why we exist" [items]="whyWeExist" />
@@ -56,23 +52,17 @@
         </ul>
       </div>
     </div>
-    <picture class="beyond__picture" appReveal>
-      <source
-        media="(min-width: 48em)"
-        srcset="/images/image-about-beyond-the-plate-large.webp"
-        width="1488"
-        height="800"
-      />
-      <img
-        class="beyond__img"
-        src="/images/image-about-beyond-the-plate-small.webp"
-        width="686"
-        height="369"
-        loading="lazy"
-        decoding="async"
-        alt="A family laughing together while preparing vegetables."
-      />
-    </picture>
+    <img
+      class="beyond__img"
+      appReveal
+      ngSrc="/images/image-about-beyond-the-plate-small.webp"
+      srcset="/images/image-about-beyond-the-plate-small.webp 686w, /images/image-about-beyond-the-plate-large.webp 1488w"
+      sizes="(min-width: 64em) min(52vw, 46.5rem), 92vw"
+      disableOptimizedSrcset
+      width="686"
+      height="369"
+      alt="A family laughing together while preparing vegetables."
+    />
   </div>
 
   <app-call-to-action />

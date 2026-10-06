@@ -96,16 +96,11 @@
     }
   }
 
+  // The image fills this box (NgOptimizedImage fill), cropped differently per breakpoint.
   &__picture {
+    position: relative;
     container-type: inline-size;
-  }
-
-  &__img {
-    width: 100%;
     height: 20rem;
-    object-fit: cover;
-    border-radius: calc(100cqw * 12 / 1192);
-    box-shadow: 0 0 0 calc(100cqw * 12 / 1192) var(--neutral-0);
 
     @include media.from(md) {
       height: 35rem;
@@ -115,5 +110,11 @@
       height: auto;
       aspect-ratio: 1192 / 530;
     }
+  }
+
+  &__img {
+    object-fit: cover;
+    border-radius: calc(100cqw * 12 / 1192);
+    box-shadow: 0 0 0 calc(100cqw * 12 / 1192) var(--neutral-0);
   }
 }

@@ -51,26 +51,23 @@
   }
 }
 
-.hero__picture,
-.beyond__picture {
-  container-type: inline-size;
-}
-
 .hero__img,
 .beyond__img {
   width: 100%;
+  min-width: 0;
   height: auto;
   object-fit: cover;
 }
 
+// 20px corners of the desktop frame, scaled with the image on both axes.
 .hero__img {
   aspect-ratio: 618 / 600;
-  border-radius: calc(100cqw * 20 / 618);
+  border-radius: calc(100% * 20 / 618) / calc(100% * 20 / 600);
 }
 
 .beyond__img {
   aspect-ratio: 744 / 400;
-  border-radius: calc(100cqw * 20 / 744);
+  border-radius: calc(100% * 20 / 744) / calc(100% * 20 / 400);
 }
 
 .beyond {

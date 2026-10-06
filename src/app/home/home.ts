@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { Reveal } from '../shared/directives/reveal';
@@ -7,7 +8,7 @@ import { Hero } from './ui/hero/hero';
 
 @Component({
   selector: 'app-home',
-  imports: [MatDivider, Reveal, CallToAction, Features, Hero],
+  imports: [NgOptimizedImage, MatDivider, Reveal, CallToAction, Features, Hero],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

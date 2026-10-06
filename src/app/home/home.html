@@ -14,22 +14,16 @@
       covered.
     </p>
   </div>
-  <picture class="real-life__picture" appReveal>
-    <source
-      media="(min-width: 48em)"
-      srcset="/images/image-home-real-life-large.webp"
-      width="1270"
-      height="900"
-    />
-    <img
-      class="real-life__img"
-      src="/images/image-home-real-life-small.webp"
-      width="686"
-      height="487"
-      loading="lazy"
-      decoding="async"
-      alt="A cook chopping fresh vegetables on a wooden board."
-    />
-  </picture>
+  <img
+    class="real-life__img"
+    appReveal
+    ngSrc="/images/image-home-real-life-small.webp"
+    srcset="/images/image-home-real-life-small.webp 686w, /images/image-home-real-life-large.webp 1270w"
+    sizes="(min-width: 64em) min(44vw, 39.7rem), 92vw"
+    disableOptimizedSrcset
+    width="686"
+    height="487"
+    alt="A cook chopping fresh vegetables on a wooden board."
+  />
 </section>
 <app-call-to-action />

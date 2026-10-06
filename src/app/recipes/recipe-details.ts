@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
@@ -16,7 +17,7 @@ import { RecipesList } from './ui/recipes-list/recipes-list';
 
 @Component({
   selector: 'app-recipe-details',
-  imports: [RouterLink, MatButton, MatDivider, MatIcon, PageHeading, Reveal, Skeleton, RecipeStats, RecipesList],
+  imports: [NgOptimizedImage, RouterLink, MatButton, MatDivider, MatIcon, PageHeading, Reveal, Skeleton, RecipeStats, RecipesList],
   templateUrl: './recipe-details.html',
   styleUrl: './recipe-details.scss',
 })

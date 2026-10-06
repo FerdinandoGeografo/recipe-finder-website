@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { PageHeading } from '../shared/directives/page-heading';
@@ -8,7 +9,7 @@ import { AboutList } from './ui/about-list/about-list';
 
 @Component({
   selector: 'app-about',
-  imports: [MatDivider, PageHeading, Reveal, CallToAction, AboutList],
+  imports: [NgOptimizedImage, MatDivider, PageHeading, Reveal, CallToAction, AboutList],
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })

@@ -83,6 +83,7 @@
 
   &__img {
     width: 100%;
+    min-width: 0;
     height: auto;
     aspect-ratio: 635 / 450;
     object-fit: cover;

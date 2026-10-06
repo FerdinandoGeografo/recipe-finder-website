@@ -2,23 +2,18 @@
   @for (recipe of recipes(); track recipe.id; let index = $index) {
     <li class="recipe" appReveal>
       <mat-card appearance="outlined" class="recipe__card">
-        <picture>
-          <source
-            media="(min-width: 48em)"
-            [srcset]="'/' + recipe.image.large"
-            width="1024"
-            height="1024"
-          />
+        <div class="recipe__media">
           <img
             class="recipe__img"
-            [src]="'/' + recipe.image.small"
-            width="500"
-            height="500"
-            [loading]="index < 3 ? 'eager' : 'lazy'"
-            decoding="async"
+            [ngSrc]="'/' + recipe.image.small"
+            [srcset]="'/' + recipe.image.small + ' 500w, /' + recipe.image.large + ' 1024w'"
+            sizes="(min-width: 64em) min(30vw, 22.5rem), 90vw"
+            disableOptimizedSrcset
+            fill
+            [priority]="prioritizeFirstRow() && index < 3"
             [alt]="recipe.title"
           />
-        </picture>
+        </div>
         <mat-card-content class="recipe__card-content">
           <div class="recipe__info">
             <div class="recipe__box">

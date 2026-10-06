@@ -25,18 +25,18 @@
     @if (loading) {
       <app-skeleton class="recipe__image-placeholder" height="auto" radius="1rem" />
     } @else if (currentRecipe) {
-      <picture animate.enter="fade-enter">
-        <source media="(min-width: 48em)" [srcset]="'/' + currentRecipe.image.large" width="1024" height="1024" />
-        <img
-          class="recipe__img"
-          [src]="'/' + currentRecipe.image.small"
-          width="500"
-          height="500"
-          loading="eager"
-          decoding="async"
-          [alt]="currentRecipe.title"
-        />
-      </picture>
+      <img
+        class="recipe__img"
+        animate.enter="fade-enter"
+        [ngSrc]="'/' + currentRecipe.image.small"
+        [srcset]="'/' + currentRecipe.image.small + ' 500w, /' + currentRecipe.image.large + ' 1024w'"
+        sizes="(min-width: 64em) min(42vw, 36.25rem), 92vw"
+        disableOptimizedSrcset
+        width="500"
+        height="500"
+        priority
+        [alt]="currentRecipe.title"
+      />
     }
 
     <div class="recipe__info">
@@ -98,7 +98,7 @@
   <mat-divider class="recipe__divider" />
   <section class="recipe__more" aria-labelledby="more-recipes-heading">
     <h2 appReveal id="more-recipes-heading" class="text-preset-3">More recipes</h2>
-    <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
+    <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" [prioritizeFirstRow]="false" />
   </section>
 }
 <p class="cdk-visually-hidden" role="status">{{ loading ? 'Loading recipe…' : '' }}</p>
