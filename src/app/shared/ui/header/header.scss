@@ -45,14 +45,17 @@
     display: block;
     justify-self: start;
     max-width: 100%;
-    border-radius: 4px;
+    margin: -.4rem -.8rem;
+    padding: .4rem .8rem;
+    border-radius: .8rem;
 
-    &:hover {
-      @include a11y.ring(var(--neutral-100), 4px, 1px);
+    &:hover,
+    &:focus-visible {
+      background: var(--neutral-200);
     }
 
     &:focus-visible {
-      @include a11y.focus-ring(var(--neutral-100), 4px, 1px);
+      @include a11y.focus-ring(var(--neutral-100));
     }
   }
 

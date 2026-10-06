@@ -170,7 +170,7 @@ I also considered `@defer (on viewport)`, which would make `animate.enter` play 
 
 ### AI Collaboration
 
-I used Claude Code and Codex as pair programmers for the Angular upgrade, implementation, reviews and visual polish, while keeping the decisions and the testing on my side.
+I used Claude Code and Codex as pair programmers for the reviews and visual polish.
 
 - **Planning first**: before each larger change (the Angular 22 upgrade, each responsive page, the filters, the final review) I asked for a plan with the problem, the alternatives and the files involved. I reviewed it before any code was written, and every change went on its own `feature/*` branch with small commits that I tested locally before merging.
 - **Reviews**: I used it to audit keyboard navigation, focus states, loading states, `prefers-reduced-motion` and forced colors, and to hunt for duplicated styles, templates and helpers. Refactors were checked with scripted browser runs, kept outside the repository, that compare text styles and element geometry before and after at several viewports.
