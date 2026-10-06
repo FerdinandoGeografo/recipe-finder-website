@@ -52,7 +52,8 @@ html {
       }
 
       .mat-mdc-form-field-infix {
-        width: 24.5rem;
+        width: auto;
+        min-width: 0;
 
         .mdc-text-field__input {
           height: 2.7rem;

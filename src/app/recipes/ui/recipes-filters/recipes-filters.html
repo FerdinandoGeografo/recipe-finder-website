@@ -1,48 +1,62 @@
-<button matButton="outlined" [matMenuTriggerFor]="prepTimeMenu">
-  Max Prep Time
-  <mat-icon svgIcon="custom:chevron-down" />
-</button>
-
-<mat-menu #prepTimeMenu="matMenu">
-  <mat-radio-group
-    aria-labelledby="Max cook time group options"
-    [value]="filter().maxPrepTime"
-    (change)="filterChange.emit({ maxPrepTime: $event.value })"
-  >
-    @for (minutes of prepTimes; track minutes) {
-      <mat-radio-button [value]="minutes">{{ minutes }} minutes</mat-radio-button>
-    }
-  </mat-radio-group>
+@for (definition of timeFilters; track definition.key) {
   <button
     matButton="outlined"
-    (click)="filterChange.emit({ maxPrepTime: undefined })"
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+    class="filters__trigger"
+    [class.filters__trigger--selected]="filter()[definition.key] !== undefined"
+    [attr.aria-expanded]="openFilter() === definition.key"
+    [attr.aria-controls]="openFilter() === definition.key ? 'filter-' + definition.key : null"
+    [attr.aria-label]="filter()[definition.key] === undefined ? definition.label : definition.label + ', ' + filter()[definition.key] + ' minutes'"
+    (click)="togglePanel(definition.key)"
   >
-    Clear
+    {{ definition.label }}
+    <mat-icon svgIcon="custom:chevron-down" aria-hidden="true" />
   </button>
-</mat-menu>
 
-<button matButton="outlined" [matMenuTriggerFor]="cookTimeMenu">
-  <mat-icon svgIcon="custom:chevron-down" />
-  Max Cook Time
-</button>
-
-<mat-menu #cookTimeMenu="matMenu">
-  <mat-radio-group
-    aria-labelledby="Max cook time group options"
-    [value]="filter().maxCookTime"
-    (change)="filterChange.emit({ maxCookTime: $event.value })"
+  <ng-template
+    cdkConnectedOverlay
+    #overlay="cdkConnectedOverlay"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="openFilter() === definition.key"
+    [cdkConnectedOverlayPositions]="positions"
+    cdkConnectedOverlayWidth="24rem"
+    cdkConnectedOverlayUsePopover="inline"
+    [cdkConnectedOverlayPush]="true"
+    [cdkConnectedOverlayViewportMargin]="16"
+    [cdkConnectedOverlayDisableClose]="true"
+    (attach)="focusPanel(overlay, definition.key)"
+    (detach)="onDetach(definition.key)"
+    (overlayKeydown)="onKeydown($event, origin)"
+    (overlayOutsideClick)="onOutsideClick($event, origin)"
   >
-    @for (minutes of cookTimes; track minutes) {
-      <mat-radio-button [value]="minutes">{{ minutes }} minutes</mat-radio-button>
-    }
-  </mat-radio-group>
-  <button
-    matButton="outlined"
-    (click)="filterChange.emit({ maxCookTime: undefined })"
-  >
-    Clear
-  </button>
-</mat-menu>
+    <div
+      class="filters__panel"
+      [id]="'filter-' + definition.key"
+      role="region"
+      [attr.aria-label]="definition.label + ' options'"
+      (focusout)="onFocusOut($event, origin)"
+    >
+      <mat-radio-group
+        [attr.aria-label]="definition.label"
+        [value]="filter()[definition.key]"
+        (change)="selectTime(definition.key, $event.value)"
+      >
+        @for (minutes of definition.options; track minutes) {
+          <mat-radio-button [value]="minutes">{{ minutes }} minutes</mat-radio-button>
+        }
+      </mat-radio-group>
+      <button
+        class="filters__clear"
+        type="button"
+        [attr.aria-label]="'Clear ' + definition.label"
+        (click)="selectTime(definition.key); closePanel(origin)"
+      >
+        Clear
+      </button>
+    </div>
+  </ng-template>
+}
 
 <mat-form-field
   subscriptSizing="dynamic"
@@ -52,10 +66,11 @@
   <input
     #search
     matInput
-    type="text"
-    placeholder="Search by name or ingredient..."
+    type="search"
+    aria-label="Search recipes by name or ingredient"
+    placeholder="Search by name or ingredient…"
     [value]="filter().query"
     (input)="filterChange.emit({ query: search.value })"
   />
-  <mat-icon matPrefix svgIcon="custom:search" />
+  <mat-icon matPrefix svgIcon="custom:search" aria-hidden="true" />
 </mat-form-field>

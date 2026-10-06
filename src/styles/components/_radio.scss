@@ -8,9 +8,11 @@ html {
     label-text-tracking: -.3px,
     label-text-weight: 600,
     state-layer-size: 1.6rem,
+    touch-target-size: 2.7rem,
+    label-text-font: var(--ff-base),
     unselected-icon-color: var(--neutral-400),
     unselected-pressed-icon-color: var(--neutral-200),
-    unselected-hover-icon-color: var(--neutral-200),
+    unselected-hover-icon-color: var(--neutral-400),
     unselected-focus-icon-color: var(--neutral-400),
     selected-icon-color: var(--neutral-900),
     selected-pressed-icon-color: var(--neutral-900),
@@ -26,8 +28,17 @@ html {
   }
 
   .mat-mdc-radio-button {
+    display: block;
     border-radius: 8px;
-    padding: 8px;
+    padding: .8rem;
+
+    .mat-internal-form-field {
+      width: 100%;
+    }
+
+    .mdc-radio {
+      padding: 0;
+    }
 
     .mdc-radio, .mdc-radio__background {
       width: 1.6rem;
@@ -46,7 +57,7 @@ html {
     .mdc-radio__outer-circle {
       border-width: 1px;
       box-shadow: 0 1px 2px 0 rgba(22, 58, 52, 12%);
-      transition: border-color .35s, border-width .35s;
+      transition: border-color var(--motion-fast) var(--motion-ease-out);
     }
 
     .mdc-radio__native-control:enabled:checked + .mdc-radio__background > .mdc-radio__outer-circle {
@@ -54,12 +65,19 @@ html {
       border-width: 2px;
     }
 
-    .mdc-radio__native-control:enabled:focus + .mdc-radio__background > .mdc-radio__outer-circle {
+    .mdc-radio__native-control:enabled:focus-visible + .mdc-radio__background > .mdc-radio__outer-circle {
       box-shadow: 0 0 0 4px var(--neutral-200);
     }
 
     .mdc-label {
       padding-left: 8px;
+    }
+
+    @media (forced-colors: active) {
+      .mdc-radio__native-control:focus-visible + .mdc-radio__background > .mdc-radio__outer-circle {
+        outline: 2px solid Highlight;
+        outline-offset: 4px;
+      }
     }
   }
 }
