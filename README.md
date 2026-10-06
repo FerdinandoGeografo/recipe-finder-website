@@ -1,64 +1,147 @@
-# Healthy Recipe Finder
+# Frontend Mentor - Recipe finder website solution
 
-An Angular implementation of the [Recipe finder website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/recipe-finder-website--Ui-TZTPxN), featuring eight recipes and responsive Home, About, Recipes and Recipe Details pages.
+This is a solution to the [Recipe finder website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/recipe-finder-website--Ui-TZTPxN). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Features
+## Table of contents
 
-- Search by recipe name or ingredient, ignoring case and surrounding whitespace.
-- Combine inclusive maximum prep and cook time filters, including zero minutes.
-- Keep filters in the URL (`q`, `maxPrep`, `maxCook`) for refresh, sharing and browser history.
-- Browse recipe ingredients, instructions and three more recipes.
-- Responsive navigation and filter menus built with Angular Material.
-- Loading skeletons, empty results, error/retry and recipe-not-found states.
-- Visible keyboard focus, page-heading focus after navigation, and reduced-motion support.
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Application behaviour](#application-behaviour)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Useful resources](#useful-resources)
+  - [AI Collaboration](#ai-collaboration)
+- [Author](#author)
 
-The app reads the supplied static dataset. Once loaded, the same data serves the list and details without additional requests. Entering a detail URL directly loads the dataset first. The Recipes breadcrumb opens the unfiltered list; browser Back restores the previous filtered URL.
+## Overview
 
-## Stack
+### The challenge
 
-Angular 22.2.1, Angular Material/CDK 22.2.1, TypeScript 6.0.3 and SCSS. Components are standalone, routes load lazily, and the app uses zoneless change detection. Remote data lives in a shared `httpResource` store; component state uses signal inputs, outputs and computed values.
+Users should be able to:
 
-## Run locally
+- View the Home, About, Recipes index and Recipe Details pages.
+- Search for recipes by name or ingredient.
+- Filter recipes by maximum prep or cook time.
+- View the optimal layout for their device's screen size.
+- See hover and focus states for interactive elements.
+- Navigate the menus and recipe links with the keyboard.
 
-Verified with Node.js 24.15.0 and npm 11.12.1.
+### Application behaviour
 
-```sh
-npm ci
-npm start
+- Search ignores case and surrounding whitespace. Prep and cook filters can be combined, and their limits are inclusive, including zero minutes.
+- Filters live in the URL as `q`, `maxPrep` and `maxCook`. Refresh and shared links restore them; changes replace the current history entry and preserve the scroll position.
+- The app reads eight recipes from the supplied static dataset. Once loaded, those recipes are shared between the index, details and related recipes without additional requests.
+- Opening a detail URL directly or refreshing it loads the dataset and shows a skeleton. Navigating from an already loaded list opens the detail immediately.
+- Each detail shows ingredients, instructions and three more recipes. The Recipes breadcrumb opens the unfiltered index; browser Back restores the previous filtered URL.
+- Empty results, request errors with retry, and unknown recipe slugs have dedicated states.
+- On smaller screens, navigation and filter controls use Angular Material menus. Arrow keys move between items, Enter selects, Escape closes and returns focus, and Tab exits the menu. The filter's Clear action is also a menu item.
+- Route changes focus the page heading. View Transitions respect reduced motion and skip filter-only URL changes.
+
+Recipe card titles stay complete, and search results follow the actual dataset rather than the illustrative results in the design.
+
+### Links
+
+- Solution URL: [GitHub Repository](https://github.com/FerdinandoGeografo/recipe-finder-website)
+
+## My process
+
+### Built with
+
+- Semantic HTML5 markup
+- CSS custom properties
+- SASS / SCSS and BEM
+- CSS Grid, Flexbox and container-relative units
+- Mobile-first responsive layouts
+- Self-hosted Nunito and Nunito Sans fonts
+- View Transitions API for route changes
+- [TypeScript](https://www.typescriptlang.org/) 6.0.3
+- [Angular](https://angular.dev/) 22.2.1, standalone components and zoneless change detection
+- [Angular Material & CDK](https://material.angular.dev/) 22.2.1
+- [RxJS](https://rxjs.dev/) for the cancellable development request delay
+
+### What I learned
+
+I kept a feature-based structure: `home`, `about` and `recipes` contain the routed pages and their `ui` components. Recipe models, filtering and remote state live in `recipes/data-access`, while the shell, focus handling and routing utilities live in `shared`.
+
+#### A shared resource store
+
+The dataset belongs to a single `RecipesStore`, declared with Angular 22's `@Service()` decorator. It uses `httpResource` for loading, success and error states, and `computed` for the values exposed to components. Resource values are only read behind `hasValue()`, because reading a failed resource can throw:
+
+```ts
+readonly recipes = computed(() =>
+  this.#recipes.hasValue() ? this.#recipes.value() : [],
+);
 ```
 
-Open [localhost:4200](http://localhost:4200). Available routes are `/home`, `/about`, `/recipes` and `/recipes/:slug`.
+Keeping the store shared also makes loading behaviour predictable: direct entry needs a request, while navigation between recipes reuses the data already in memory. Retry calls the resource's `reload()` method instead of maintaining a separate loading flag.
 
-Development requests include a configurable 1500 ms delay so loading states can be inspected. Change `delayMs` in [`recipes-api.config.ts`](src/app/recipes/data-access/recipes-api.config.ts), or set it to `0` to disable the delay. Cached navigation stays immediate. The delay is disabled in production.
+#### The URL as the filter state
 
-## Production build and hosting
+Router component input binding maps query parameters to signal inputs. Transforms normalise search text and parse minute limits; the filtered recipes are derived with `computed`, using a pure filtering function.
 
-```sh
-npm run build
+```ts
+readonly q = input('', { transform: parseQuery });
+readonly maxPrep = input<number | undefined, string | undefined>(undefined, {
+  transform: parseMinutes,
+});
+
+protected readonly recipes = computed(() =>
+  filterRecipes(this.store.recipes(), this.filter()),
+);
 ```
 
-Serve the contents of `dist/recipe-finder-website/browser` from the site's root. The production build has a 500 kB initial-bundle warning budget.
+There is no second filter state to synchronise with the router and no effect copying values between signals. Search, menu selection, refresh and browser history all use the same URL state.
 
-Configure the host to serve `index.html` for application routes such as `/recipes/mediterranean-chickpea-salad`, while serving existing asset files normally. This allows direct links and refresh to work. See [Angular's deployment guide](https://angular.dev/tools/cli/deployment#routed-apps-must-fall-back-to-indexhtml).
+#### Reusing Material components
 
-## Project structure
+The header and filters use `MatMenu` with native links or buttons as menu items. Material handles the menu's keyboard navigation, closing and focus restoration. The selection circles in the filter menu are decorative indicators, with the selected state included in the item's accessible name.
 
-```text
-src/app/home/                 Home page and presentation components
-src/app/about/                About page and presentation components
-src/app/recipes/data-access/  Dataset store, models, filters and delay configuration
-src/app/recipes/ui/           Recipe cards and filter controls
-src/app/shared/               Shell, page titles, focus, motion and HTTP utilities
-src/styles/                   Design tokens, responsive mixins and Material overrides
-public/                       Recipe data, fonts, icons and images
+I used the Material styling mixins for component tokens and scoped the remaining overrides to the header or filter panel. Signal inputs, outputs and view queries keep the surrounding Angular components small.
+
+#### Measuring the responsive design
+
+The shared SCSS partials live in `src/styles`, which is included in Angular's Sass search paths. Components reuse named breakpoints, layout gutters, typography and motion tokens.
+
+Some image masks scale with their container in the design. Container-relative units preserve those proportions between the reference widths:
+
+```scss
+.hero__picture {
+  container-type: inline-size;
+}
+
+.hero__img {
+  border-radius: calc(100cqw * 12 / 1192);
+}
 ```
 
-## Verification
+Text decorations use separate rounded pseudo-elements so their corner radius belongs to the coloured shape itself. Layout measurements also helped find small differences in line heights, grid columns and icon spacing.
 
-Production builds and Chrome browser checks cover navigation, URL filters, cached detail navigation, direct-entry loading, error/retry and unknown recipes. All four pages were checked at 375, 768, 1024, 1440 and 1920 px, including a 20 px browser default font. Additional checks cover reduced motion and keyboard focus in forced colors. The Karma target remains configured; this repository does not currently contain test suites.
+#### Loading and motion
 
-Before publishing, check all four pages at 375, 768, 1024, 1440 and 1920 px, keyboard menus and focus return, a 20 px browser default font, reduced motion and forced colors. Screen-reader and physical-device checks are still outstanding.
+A functional HTTP interceptor adds a configurable, cancellable delay during development. It delays only actual dataset requests, leaving cached navigation immediate. Production requests have no artificial delay.
 
-## Credits
+Page transitions use the router's View Transitions integration, with the initial transition and query-only transitions skipped. Reduced motion disables transitions and skeleton animation, including the View Transition pseudo-elements. Keyboard focus uses `:focus-visible`, with an outline fallback in forced colors.
 
-Implementation by [Ferdinando Geografo](https://github.com/FerdinandoGeografo). Design, recipe content and supplied assets by [Frontend Mentor](https://www.frontendmentor.io).
+### Useful resources
+
+- [Reactive data fetching with httpResource](https://angular.dev/guide/http/http-resource) - Resource state, guarded value reads and reactive HTTP requests.
+- [Common routing tasks](https://angular.dev/guide/routing/common-router-tasks) - Binding route and query parameters to component inputs.
+- [Angular Material menus](https://material.angular.dev/components/menu/overview) - Menu items, keyboard behaviour and focus management.
+- [Route transition animations](https://angular.dev/guide/routing/route-transition-animations) - The router's View Transitions integration.
+- [Angular deployment](https://angular.dev/tools/cli/deployment#routed-apps-must-fall-back-to-indexhtml) - Serving routed applications with an `index.html` fallback.
+
+### AI Collaboration
+
+I used Claude Code and Codex as pair programmers for the Angular upgrade, implementation, reviews and visual polish, while keeping the product decisions and final review on my side.
+
+- **Small checkpoints:** work progressed through feature branches with focused commits, builds and local review before merging.
+- **Explicit decisions:** state ownership, Material component reuse, fonts and loading behaviour were reviewed as the implementation developed.
+- **Browser checks:** temporary scripts checked rendered measurements, keyboard interactions, data states and motion without adding a test suite to the project.
+
+## Author
+
+- Frontend Mentor - [@FerdinandoGeografo](https://www.frontendmentor.io/profile/FerdinandoGeografo)
+- LinkedIn - [@FerdinandoGeografo](https://www.linkedin.com/in/ferdinandogeografo/)
+- GitHub - [@FerdinandoGeografo](https://github.com/FerdinandoGeografo/)
