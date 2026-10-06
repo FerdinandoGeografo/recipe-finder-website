@@ -46,6 +46,8 @@
   &__social {
     position: relative;
     display: flex;
+    justify-content: center;
+    width: 2.2rem;
     border-radius: 4px;
     transition: box-shadow var(--motion-standard) var(--motion-ease-out),
       opacity var(--motion-standard) var(--motion-ease-out);
@@ -68,19 +70,32 @@
     }
 
     .mat-icon {
+      flex-shrink: 0;
       height: 2.2rem;
+    }
+
+    &:has([svgIcon='custom:bluesky']) {
+      width: 2.490625rem;
+    }
+
+    &:has([svgIcon='custom:tiktok']) {
+      width: 1.925rem;
     }
 
     [svgIcon='custom:instagram'] {
       width: 2.3rem;
+      // Align the painted bounds while preserving the original SVG view boxes.
+      transform: translateX(-.0344rem);
     }
 
     [svgIcon='custom:bluesky'] {
       width: 2.6rem;
+      transform: translateX(-.0257rem);
     }
 
     [svgIcon='custom:tiktok'] {
       width: 2rem;
+      transform: translateX(-.0375rem);
     }
   }
 }
