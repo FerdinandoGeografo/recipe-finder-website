@@ -1,4 +1,6 @@
 @use '@angular/material' as mat;
+@use '../a11y';
+@use '../motion';
 
 html {
   @include mat.form-field-overrides((
@@ -30,12 +32,12 @@ html {
     border-radius: var(--mat-form-field-outlined-container-shape);
 
     .mdc-text-field--outlined {
-      transition: box-shadow var(--motion-standard) var(--motion-ease-out);
+      @include motion.transition(box-shadow);
       padding-right: 2.1rem;
       border-radius: var(--mat-form-field-outlined-container-shape);
 
       .mat-mdc-notch-piece {
-        transition: border-color var(--motion-standard) var(--motion-ease-out);
+        @include motion.transition(border-color);
       }
     }
 
@@ -62,7 +64,7 @@ html {
     }
 
     &:has(input:focus-visible) .mdc-text-field--outlined {
-      box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900)
+      @include a11y.ring;
     }
   }
 }

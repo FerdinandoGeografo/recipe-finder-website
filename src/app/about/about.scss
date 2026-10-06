@@ -30,15 +30,10 @@
 
   &__title {
     align-self: start;
-    font-size: 2rem;
-    line-height: 2.8rem;
-    letter-spacing: -.5px;
-    font-weight: 700;
+    min-width: 11.9rem;
     padding: .2rem .6rem;
     border-radius: .6rem;
     background: var(--orange-500);
-    color: var(--neutral-900);
-    min-width: 11.9rem;
   }
 
   &__descriptions {
@@ -58,8 +53,6 @@
 
 .hero__picture,
 .beyond__picture {
-  display: block;
-  min-width: 0;
   container-type: inline-size;
 }
 

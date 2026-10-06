@@ -1,5 +1,7 @@
+@use 'a11y';
 @use 'layout';
 @use 'media';
+@use 'motion';
 
 :host {
   display: block;
@@ -36,7 +38,7 @@
       color: var(--neutral-800);
       text-decoration: none;
       border-radius: 2px;
-      transition: box-shadow var(--motion-standard) var(--motion-ease-out);
+      @include motion.transition(box-shadow);
 
       &[aria-disabled=true] {
         opacity: .5;
@@ -49,9 +51,7 @@
       }
 
       &:focus-visible {
-        outline: 2px solid transparent;
-        outline-offset: 4px;
-        box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900);
+        @include a11y.focus-ring;
       }
     }
   }
@@ -93,11 +93,6 @@
         gap: 2.4rem;
       }
     }
-  }
-
-  &__picture {
-    display: block;
-    min-width: 0;
   }
 
   &__img {
@@ -153,13 +148,6 @@
 
   &__list-box {
     gap: 1.6rem;
-  }
-
-  &__list-title {
-    font-size: 2.4rem;
-    line-height: 3.1rem;
-    letter-spacing: -1px;
-    font-weight: 700;
   }
 
   &__list {

@@ -1,6 +1,6 @@
 @let currentRecipe = recipe();
 <section class="recipe__details" [attr.aria-busy]="store.status() === 'loading'">
-  <nav class="recipe__breadcrumbs heading heading--sm" aria-label="Breadcrumb">
+  <nav class="recipe__breadcrumbs text-preset-7" aria-label="Breadcrumb">
     <ol class="recipe__breadcrumb-list">
       <li><a
         role="link"
@@ -38,7 +38,7 @@
     }
 
     <div class="recipe__info">
-      <h1 #pageHeading tabindex="-1" class="heading heading--2xl recipe__title" [class.cdk-visually-hidden]="store.status() === 'loading'">
+      <h1 #pageHeading tabindex="-1" class="text-preset-2 recipe__title" [class.cdk-visually-hidden]="store.status() === 'loading'">
         {{ pageName() }}
       </h1>
       @if (store.status() === 'loading') {
@@ -58,48 +58,48 @@
           }
         </div>
       } @else if (currentRecipe) {
-        <p class="heading heading--md">{{ currentRecipe.overview }}</p>
+        <p class="text-preset-6">{{ currentRecipe.overview }}</p>
         <div class="recipe__stats">
           <div class="recipe__data">
             <mat-icon class="recipe__icon" svgIcon="custom:servings" aria-hidden="true" />
-            <span class="heading heading--sm">Servings: {{ currentRecipe.servings }}</span>
+            <span class="text-preset-7">Servings: {{ currentRecipe.servings }}</span>
           </div>
           <div class="recipe__data">
             <mat-icon class="recipe__icon" svgIcon="custom:prep-time" aria-hidden="true" />
-            <span class="heading heading--sm">Prep: {{ currentRecipe.prepMinutes }} mins</span>
+            <span class="text-preset-7">Prep: {{ currentRecipe.prepMinutes }} mins</span>
           </div>
           <div class="recipe__data">
             <mat-icon class="recipe__icon" svgIcon="custom:cook-time" aria-hidden="true" />
-            <span class="heading heading--sm">Cook: {{ currentRecipe.cookMinutes }} mins</span>
+            <span class="text-preset-7">Cook: {{ currentRecipe.cookMinutes }} mins</span>
           </div>
         </div>
         <section class="recipe__list-box" appReveal aria-labelledby="ingredients-heading">
-          <h2 id="ingredients-heading" class="recipe__list-title">Ingredients:</h2>
+          <h2 id="ingredients-heading" class="text-preset-4">Ingredients:</h2>
           <ul class="recipe__list" role="list">
             @for (ingredient of currentRecipe.ingredients; track $index) {
               <li class="recipe__item">
                 <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
-                <p class="heading heading--md">{{ ingredient }}</p>
+                <p class="text-preset-6">{{ ingredient }}</p>
               </li>
             }
           </ul>
         </section>
         <section class="recipe__list-box" appReveal aria-labelledby="instructions-heading">
-          <h2 id="instructions-heading" class="recipe__list-title">Instructions:</h2>
+          <h2 id="instructions-heading" class="text-preset-4">Instructions:</h2>
           <ol class="recipe__list" role="list">
             @for (instruction of currentRecipe.instructions; track $index) {
               <li class="recipe__item">
                 <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
-                <p class="heading heading--md">{{ instruction }}</p>
+                <p class="text-preset-6">{{ instruction }}</p>
               </li>
             }
           </ol>
         </section>
       } @else if (store.status() === 'error') {
-        <p class="heading heading--md" role="alert">We couldn’t load this recipe.</p>
+        <p class="text-preset-6" role="alert">We couldn’t load this recipe.</p>
         <button matButton="filled" type="button" (click)="retry()">Try again</button>
       } @else {
-        <p class="heading heading--md">This recipe doesn’t exist or may have moved.</p>
+        <p class="text-preset-6">This recipe doesn’t exist or may have moved.</p>
         <a matButton="filled" routerLink="/recipes">Browse recipes</a>
       }
     </div>
@@ -108,7 +108,7 @@
 @if (store.status() === 'success' && currentRecipe) {
   <mat-divider class="recipe__divider" />
   <section class="recipe__more" aria-labelledby="more-recipes-heading">
-    <h2 appReveal id="more-recipes-heading" class="heading heading--lg">More recipes</h2>
+    <h2 appReveal id="more-recipes-heading" class="text-preset-3">More recipes</h2>
     <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
   </section>
 }

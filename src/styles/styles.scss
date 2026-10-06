@@ -1,21 +1,20 @@
-@use "fonts";
-@use "variables";
-@use "base";
-@use "media" as *;
-@use "typography";
-@use "layout";
-@use "motion";
-@use "animations";
-
-@use "components/button";
-@use "components/form-field";
-@use "components/menu";
-
 @use '@angular/material' as mat;
 @use '@angular/cdk' as cdk;
+@use 'fonts';
+@use 'variables';
+@use 'base';
+@use 'typography';
+@use 'layout';
+@use 'motion';
+@use 'a11y';
+@use 'components/button';
+@use 'components/form-field';
+@use 'components/menu';
 
 @include cdk.a11y-visually-hidden();
 @include layout.tokens;
+@include motion.styles;
+@include a11y.styles;
 
 html {
   @include mat.theme((
@@ -32,11 +31,7 @@ html {
   ));
 }
 
+html,
 body {
-  color-scheme: light;
-  margin: 0;
-}
-
-html, body {
   height: 100%;
 }

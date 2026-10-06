@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
+@use '../a11y';
 @use '../media';
+@use '../motion';
 
 html {
   @include mat.menu-overrides((
@@ -9,8 +11,7 @@ html {
   ));
 
   .mat-mdc-menu-item {
-    transition: background-color var(--motion-standard) var(--motion-ease-out),
-      box-shadow var(--motion-standard) var(--motion-ease-out);
+    @include motion.transition(background-color, box-shadow);
   }
 
   .mat-mdc-menu-content {
@@ -61,9 +62,7 @@ html {
     border-radius: 4px;
 
     &:focus-visible {
-      outline: 2px solid transparent;
-      outline-offset: 2px;
-      box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900);
+      @include a11y.focus-ring($offset: 2px);
     }
   }
 

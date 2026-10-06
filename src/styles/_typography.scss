@@ -3,69 +3,85 @@
 body {
   font-family: var(--ff-base);
   font-weight: 400;
+  color: var(--neutral-900);
 }
 
-.heading {
-  &--3xl {
-    font-size: 5.2rem;
-    line-height: 5.7rem;
-    letter-spacing: -2px;
-    font-weight: 800;
-    color: var(--neutral-900);
+// Text presets from the design system; 8 and 10 are unused.
+.text-preset-1 {
+  font-size: 5.2rem;
+  line-height: 5.7rem;
+  letter-spacing: -2px;
+  font-weight: 800;
+  color: var(--neutral-900);
 
-    @include media.from(md) {
-      font-size: 6.4rem;
-      line-height: 7rem;
-    }
-
-    @include media.from(lg) {
-      font-size: 7.2rem;
-      line-height: 7.9rem;
-    }
+  @include media.from(md) {
+    font-size: 6.4rem;
+    line-height: 7rem;
   }
 
-  &--2xl {
-    font-size: 4rem;
-    line-height: 4.8rem;
-    letter-spacing: -2px;
-    font-weight: 800;
-    color: var(--neutral-900);
-
-    @include media.from(md) {
-      font-size: 4.8rem;
-      line-height: 5.8rem;
-    }
+  @include media.from(lg) {
+    font-size: 7.2rem;
+    line-height: 7.9rem;
   }
+}
 
-  &--lg {
-    font-size: 3.2rem;
-    line-height: 4.2rem;
-    letter-spacing: -1px;
-    font-weight: 700;
-    color: var(--neutral-900);
-  }
+.text-preset-2 {
+  font-size: 4rem;
+  line-height: 4.8rem;
+  letter-spacing: -2px;
+  font-weight: 800;
+  color: var(--neutral-900);
 
-  &--md {
-    font-family: var(--ff-sans);
-    font-size: 2rem;
-    line-height: 3rem;
-    letter-spacing: -.4px;
-    font-weight: 500;
-    color: var(--neutral-800);
+  @include media.from(md) {
+    font-size: 4.8rem;
+    line-height: 5.8rem;
   }
+}
 
-  &--sm {
-    font-size: 1.8rem;
-    line-height: 2.7rem;
-    letter-spacing: -.3px;
-    font-weight: 600;
-  }
+.text-preset-3 {
+  font-size: 3.2rem;
+  line-height: 4.2rem;
+  letter-spacing: -1px;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
 
-  &--xs {
-    font-family: var(--ff-sans);
-    font-size: 1.6rem;
-    line-height: 2.4rem;
-    letter-spacing: -.3px;
-    font-weight: 500;
-  }
+.text-preset-4 {
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+  letter-spacing: -1px;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+
+.text-preset-5 {
+  font-size: 2rem;
+  line-height: 2.8rem;
+  letter-spacing: -.5px;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+
+.text-preset-6 {
+  font-family: var(--ff-sans);
+  font-size: 2rem;
+  line-height: 3rem;
+  letter-spacing: -.4px;
+  font-weight: 500;
+  color: var(--neutral-800);
+}
+
+.text-preset-7 {
+  font-size: 1.8rem;
+  line-height: 2.7rem;
+  letter-spacing: -.3px;
+  font-weight: 600;
+}
+
+.text-preset-9 {
+  font-family: var(--ff-sans);
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: -.3px;
+  font-weight: 500;
 }

@@ -1,17 +1,13 @@
 <footer class="footer">
   <div class="footer__inner">
-    <p class="footer__text">Made with ❤️ and 🥑</p>
+    <p class="footer__text text-preset-9">Made with ❤️ and 🥑</p>
 
     <nav class="footer__socials" aria-label="Social media">
-      <a class="footer__social" href="https://www.instagram.com/" aria-label="Instagram">
-        <mat-icon svgIcon="custom:instagram" aria-hidden="true" />
-      </a>
-      <a class="footer__social" href="https://bsky.app/" aria-label="Bluesky">
-        <mat-icon svgIcon="custom:bluesky" aria-hidden="true" />
-      </a>
-      <a class="footer__social" href="https://www.tiktok.com/" aria-label="TikTok">
-        <mat-icon svgIcon="custom:tiktok" aria-hidden="true" />
-      </a>
+      @for (social of socialLinks; track social.name) {
+        <a class="footer__social footer__social--{{ social.name }}" [href]="social.url" [attr.aria-label]="social.label">
+          <mat-icon [svgIcon]="'custom:' + social.name" aria-hidden="true" />
+        </a>
+      }
     </nav>
   </div>
 </footer>

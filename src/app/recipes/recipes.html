@@ -1,6 +1,6 @@
 <section class="hero" animate.enter="page-enter">
-  <h1 #pageHeading tabindex="-1" class="heading heading--2xl">Explore our simple, healthy recipes</h1>
-  <p class="heading heading--md">
+  <h1 #pageHeading tabindex="-1" class="text-preset-2">Explore our simple, healthy recipes</h1>
+  <p class="text-preset-6">
     Discover eight quick, whole-food dishes that fit real-life schedules and
     taste amazing. Use the search bar to find a recipe by name or ingredient, or
     simply scroll the list and let something delicious catch your eye.
@@ -21,7 +21,7 @@
       }
       @case ('error') {
         <div class="state" animate.enter="fade-enter" role="alert">
-          <p class="heading heading--md">We couldn’t load the recipes.</p>
+          <p class="text-preset-6">We couldn’t load the recipes.</p>
           <button matButton="filled" type="button" (click)="retry()">
             Try again
           </button>
@@ -32,7 +32,7 @@
           <app-recipes-list [recipes]="recipes()" />
         } @else {
           <div class="state" animate.enter="fade-enter">
-            <p class="heading heading--md">No recipes match your search.</p>
+            <p class="text-preset-6">No recipes match your search.</p>
             <button matButton="outlined" type="button" (click)="clearFilters()">
               Clear all filters
             </button>

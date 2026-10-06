@@ -1,5 +1,7 @@
 @use 'layout';
+@use 'a11y';
 @use 'media';
+@use 'motion';
 
 :host {
   display: block;
@@ -23,11 +25,6 @@
 
   &__text {
     order: 1;
-    font-family: var(--ff-sans);
-    font-size: 1.6rem;
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: -.3px;
     text-align: center;
     color: var(--neutral-900);
 
@@ -49,8 +46,7 @@
     justify-content: center;
     width: 2.2rem;
     border-radius: 4px;
-    transition: box-shadow var(--motion-standard) var(--motion-ease-out),
-      opacity var(--motion-standard) var(--motion-ease-out);
+    @include motion.transition(box-shadow, opacity);
 
     // Enlarge the touch area without changing the Figma icon row.
     &::before {
@@ -64,9 +60,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid transparent;
-      outline-offset: 4px;
-      box-shadow: 0 0 0 2px var(--neutral-100), 0 0 0 4px var(--neutral-900);
+      @include a11y.focus-ring(var(--neutral-100));
     }
 
     .mat-icon {
@@ -74,28 +68,28 @@
       height: 2.2rem;
     }
 
-    &:has([svgIcon='custom:bluesky']) {
-      width: 2.490625rem;
-    }
-
-    &:has([svgIcon='custom:tiktok']) {
-      width: 1.925rem;
-    }
-
-    [svgIcon='custom:instagram'] {
+    // Box widths match the painted icons; offsets align them without editing the SVG view boxes.
+    &--instagram .mat-icon {
       width: 2.3rem;
-      // Align the painted bounds while preserving the original SVG view boxes.
       transform: translateX(-.0344rem);
     }
 
-    [svgIcon='custom:bluesky'] {
-      width: 2.6rem;
-      transform: translateX(-.0257rem);
+    &--bluesky {
+      width: 2.490625rem;
+
+      .mat-icon {
+        width: 2.6rem;
+        transform: translateX(-.0257rem);
+      }
     }
 
-    [svgIcon='custom:tiktok'] {
-      width: 2rem;
-      transform: translateX(-.0375rem);
+    &--tiktok {
+      width: 1.925rem;
+
+      .mat-icon {
+        width: 2rem;
+        transform: translateX(-.0375rem);
+      }
     }
   }
 }

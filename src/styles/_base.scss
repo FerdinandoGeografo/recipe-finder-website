@@ -21,6 +21,11 @@ img {
   display: block;
 }
 
+picture {
+  display: block;
+  min-width: 0;
+}
+
 ul {
   list-style-type: none;
 }
@@ -30,13 +35,6 @@ html {
   color-scheme: light;
   font-size: 62.5%;
   background: var(--neutral-100);
-}
-
-@media (forced-colors: active) {
-  :focus-visible {
-    outline: 2px solid Highlight !important;
-    outline-offset: 4px;
-  }
 }
 
 ::-webkit-scrollbar {

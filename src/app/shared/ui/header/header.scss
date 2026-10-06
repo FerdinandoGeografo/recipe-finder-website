@@ -1,4 +1,6 @@
+@use 'a11y';
 @use 'media';
+@use 'motion';
 
 :host {
   display: block;
@@ -12,8 +14,7 @@
   &__logo-link,
   &__toggle,
   &__nav-link {
-    transition: box-shadow var(--motion-standard) var(--motion-ease-out),
-      background-color var(--motion-standard) var(--motion-ease-out);
+    @include motion.transition(box-shadow, background-color);
   }
 
   &__inner {
@@ -46,14 +47,12 @@
     max-width: 100%;
     border-radius: 4px;
 
-    &:hover,
-    &:focus-visible {
-      box-shadow: 0 0 0 4px var(--neutral-100), 0 0 0 5px var(--neutral-900);
+    &:hover {
+      @include a11y.ring(var(--neutral-100), 4px, 1px);
     }
 
     &:focus-visible {
-      outline: 2px solid transparent;
-      outline-offset: 4px;
+      @include a11y.focus-ring(var(--neutral-100), 4px, 1px);
     }
   }
 
@@ -98,12 +97,7 @@
 
   &__nav-link {
     display: block;
-    padding: 0;
     border-radius: 4px;
-    font-size: 1.8rem;
-    font-weight: 600;
-    line-height: 1.5;
-    letter-spacing: -.3px;
     color: var(--neutral-900);
     text-decoration: none;
 
@@ -131,9 +125,7 @@
 
   &__toggle:focus-visible,
   &__nav-link:focus-visible {
-    outline: 2px solid transparent;
-    outline-offset: 4px;
-    box-shadow: 0 0 0 2px var(--neutral-100), 0 0 0 4px var(--neutral-900);
+    @include a11y.focus-ring(var(--neutral-100));
   }
 
   &__browse {

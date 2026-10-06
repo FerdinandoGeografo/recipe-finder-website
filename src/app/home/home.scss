@@ -42,7 +42,7 @@
     flex-direction: column;
     gap: 2rem;
 
-    .heading--2xl {
+    .text-preset-2 {
       @include media.from(lg) {
         line-height: 6.5rem;
       }
@@ -79,11 +79,6 @@
         }
       }
     }
-  }
-
-  &__picture {
-    display: block;
-    min-width: 0;
   }
 
   &__img {

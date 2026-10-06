@@ -1,37 +1,116 @@
+@use 'sass:list';
 @use 'media';
 
-:root {
-  --motion-fast: 120ms;
-  --motion-standard: 200ms;
-  --motion-page: 250ms;
-  --motion-ease-out: cubic-bezier(.2, 0, 0, 1);
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $property in $properties {
+    $transitions: list.append(
+      $transitions,
+      $property var(--motion-standard) var(--motion-ease-out),
+      $separator: comma
+    );
+  }
+  transition: $transitions;
 }
 
-::view-transition-group(*) {
-  animation-duration: var(--motion-page);
-  animation-timing-function: var(--motion-ease-out);
-}
-
-::view-transition-old(*),
-::view-transition-new(*) {
-  animation-duration: var(--motion-page);
-  animation-timing-function: var(--motion-ease-out);
-}
-
-@include media.reduced-motion {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
+// Global output, included once from styles.scss.
+@mixin styles {
+  :root {
+    --motion-fast: 120ms;
+    --motion-standard: 200ms;
+    --motion-page: 250ms;
+    --motion-reveal: 400ms;
+    --motion-ease-out: cubic-bezier(.2, 0, 0, 1);
   }
 
   ::view-transition-group(*),
-  ::view-transition-image-pair(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
-    animation: none !important;
-    transition: none !important;
+    animation-duration: var(--motion-page);
+    animation-timing-function: var(--motion-ease-out);
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.6rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes skeleton-pulse {
+    from { opacity: .55; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  .reveal-pending {
+    opacity: 0;
+  }
+
+  .reveal-visible {
+    animation: rise-in var(--motion-reveal) var(--motion-ease-out) var(--reveal-delay, 0ms) both;
+  }
+
+  .page-enter {
+    animation: rise-in var(--motion-reveal) var(--motion-ease-out) both;
+  }
+
+  .fade-enter {
+    animation: fade-in var(--motion-standard) var(--motion-ease-out) both;
+  }
+
+  // Leaving skeletons overlap incoming content without shifting the page layout.
+  .loading-leave {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    animation: fade-out var(--motion-fast) var(--motion-ease-out) both;
+  }
+
+  .page-enter:focus-within,
+  .fade-enter:focus-within {
+    animation: none;
+  }
+
+  @include media.reduced-motion {
+    *,
+    *::before,
+    *::after,
+    ::view-transition-group(*),
+    ::view-transition-image-pair(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+
+    .reveal-pending {
+      opacity: 1;
+    }
+  }
+
+  @media print {
+    .reveal-pending,
+    .reveal-visible,
+    .page-enter,
+    .fade-enter {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
   }
 }
