@@ -12,9 +12,8 @@ import { Logo } from '../logo/logo';
   templateUrl: './header.html',
   styleUrl: './header.scss',
   host: {
-    '(document:pointerdown)': 'onOutsidePointer($event)',
+    '(document:click)': 'onOutsideClick($event)',
     '(document:keydown.escape)': 'onEscape($event)',
-    '(focusout)': 'onFocusOut($event)',
     '(window:resize)': 'onResize()',
   },
 })
@@ -48,8 +47,10 @@ export class Header {
     if (restoreFocus) this.menuButton().nativeElement.focus({ preventScroll: true });
   }
 
-  protected onOutsidePointer(event: PointerEvent): void {
-    if (!this.element.nativeElement.contains(event.target as Node)) this.closeMenu();
+  protected onOutsideClick(event: MouseEvent): void {
+    if (!this.element.nativeElement.contains(event.target as Node)) {
+      this.closeMenu(!event.defaultPrevented);
+    }
   }
 
   protected onEscape(event: Event): void {
@@ -58,17 +59,14 @@ export class Header {
     this.closeMenu();
   }
 
-  protected onFocusOut(event: FocusEvent): void {
-    if (!this.element.nativeElement.contains(event.relatedTarget as Node | null)) {
-      this.closeMenu(false);
-    }
-  }
-
   protected onResize(): void {
     const button = this.menuButton().nativeElement;
     if (button.getClientRects().length) return;
+    const restoreFocus = this.document.activeElement === button || (
+      this.menuOpen() && this.document.activeElement === this.document.body
+    );
     this.closeMenu(false);
-    if (this.document.activeElement === button) {
+    if (restoreFocus) {
       this.navigation().nativeElement.querySelector<HTMLAnchorElement>('a')?.focus();
     }
   }
