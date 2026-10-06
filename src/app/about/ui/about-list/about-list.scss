@@ -5,6 +5,12 @@
   display: block;
 }
 
+:host(.why-list) .about-list {
+  @include media.from(lg) {
+    grid-template-columns: minmax(0, 372fr) minmax(0, 756fr);
+  }
+}
+
 .about-list {
   @include layout.container;
   display: grid;
@@ -49,6 +55,7 @@
   }
 
   &__text {
+    flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
