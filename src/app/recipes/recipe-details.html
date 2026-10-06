@@ -1,97 +1,91 @@
-@if (recipe(); as recipe) {
-  <section class="recipe__details">
-    <div class="recipe__breadcrumbs">
-      <span class="heading heading--sm">Recipes</span>
-      <span class="heading heading--sm">/</span>
-      <span class="heading heading--sm">{{ recipe.title }}</span>
-    </div>
+@let currentRecipe = recipe();
+<section class="recipe__details" [attr.aria-busy]="store.status() === 'loading'">
+  <nav class="recipe__breadcrumbs heading heading--sm" aria-label="Breadcrumb">
+    <ol class="recipe__breadcrumb-list">
+      <li><a routerLink="/recipes">Recipes</a></li>
+      <li class="recipe__current" aria-current="page">
+        <span aria-hidden="true">/</span>
+        <span>{{ pageName() }}</span>
+      </li>
+    </ol>
+  </nav>
 
-    <div class="recipe__content">
-      <img class="recipe__img" [src]="recipe.image.large" [alt]="recipe.title" />
+  <div class="recipe__content" [class.recipe__content--state]="store.status() !== 'loading' && !currentRecipe">
+    @if (store.status() !== 'loading' && currentRecipe) {
+      <picture class="recipe__picture">
+        <source media="(min-width: 48em)" [srcset]="'/' + currentRecipe.image.large" width="1024" height="1024" />
+        <img
+          class="recipe__img"
+          [src]="'/' + currentRecipe.image.small"
+          width="500"
+          height="500"
+          loading="eager"
+          decoding="async"
+          [alt]="currentRecipe.title"
+        />
+      </picture>
+    }
 
-      <div class="recipe__info">
-        <h1 class="heading heading--2xl">{{ recipe.title }}</h1>
-        <p class="heading heading--md">{{ recipe.overview }}</p>
+    <div class="recipe__info">
+      <h1 #pageHeading tabindex="-1" class="heading heading--2xl recipe__title" [class.cdk-visually-hidden]="store.status() === 'loading'">
+        {{ pageName() }}
+      </h1>
+      @if (store.status() === 'loading') {
+        <p class="heading heading--md">Loading recipe…</p>
+      } @else if (currentRecipe) {
+        <p class="heading heading--md">{{ currentRecipe.overview }}</p>
         <div class="recipe__stats">
           <div class="recipe__data">
-            <mat-icon class="recipe__icon" svgIcon="custom:servings" />
-            <span class="heading heading--sm recipe__value">
-              Servings: {{ recipe.servings }}
-            </span>
+            <mat-icon class="recipe__icon" svgIcon="custom:servings" aria-hidden="true" />
+            <span class="heading heading--sm">Servings: {{ currentRecipe.servings }}</span>
           </div>
           <div class="recipe__data">
-            <mat-icon class="recipe__icon" svgIcon="custom:prep-time" />
-            <span class="heading heading--sm recipe__value">
-              Prep: {{ recipe.prepMinutes }} mins
-            </span>
+            <mat-icon class="recipe__icon" svgIcon="custom:prep-time" aria-hidden="true" />
+            <span class="heading heading--sm">Prep: {{ currentRecipe.prepMinutes }} mins</span>
           </div>
           <div class="recipe__data">
-            <mat-icon class="recipe__icon" svgIcon="custom:cook-time" />
-            <span class="heading heading--sm recipe__value">
-              Cook: {{ recipe.cookMinutes }} mins
-            </span>
+            <mat-icon class="recipe__icon" svgIcon="custom:cook-time" aria-hidden="true" />
+            <span class="heading heading--sm">Cook: {{ currentRecipe.cookMinutes }} mins</span>
           </div>
         </div>
-        <div class="recipe__list-box">
-          <h2 class="recipe__list-title">Ingredients</h2>
-          <ul class="recipe__list">
-            @for (ingredient of recipe.ingredients; track $index) {
+        <section class="recipe__list-box" aria-labelledby="ingredients-heading">
+          <h2 id="ingredients-heading" class="recipe__list-title">Ingredients:</h2>
+          <ul class="recipe__list" role="list">
+            @for (ingredient of currentRecipe.ingredients; track $index) {
               <li class="recipe__item">
-                <mat-icon
-                  class="recipe__list-icon"
-                  svgIcon="custom:bullet-point"
-                />
-                <p class="recipe__text">{{ ingredient }}</p>
+                <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
+                <p class="heading heading--md">{{ ingredient }}</p>
               </li>
             }
           </ul>
-        </div>
-        <div class="recipe__list-box">
-          <h2 class="recipe__list-title">Instructions</h2>
-          <ul class="recipe__list">
-            @for (instruction of recipe.instructions; track $index) {
+        </section>
+        <section class="recipe__list-box" aria-labelledby="instructions-heading">
+          <h2 id="instructions-heading" class="recipe__list-title">Instructions:</h2>
+          <ol class="recipe__list" role="list">
+            @for (instruction of currentRecipe.instructions; track $index) {
               <li class="recipe__item">
-                <mat-icon
-                  class="recipe__list-icon"
-                  svgIcon="custom:bullet-point"
-                />
-                <p class="recipe__text">
-                  {{ instruction }}
-                </p>
+                <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
+                <p class="heading heading--md">{{ instruction }}</p>
               </li>
             }
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  <mat-divider />
-  <section class="recipe__more">
-    <h2 class="heading heading--lg">More recipes</h2>
-    <app-recipes-list [recipes]="moreRecipes()" />
-  </section>
-} @else {
-  @switch (store.status()) {
-    @case ('loading') {
-      <p class="recipe__state heading heading--md">Loading recipe…</p>
-    }
-    @case ('error') {
-      <section class="recipe__state" role="alert">
-        <h1 class="heading heading--2xl">We couldn’t load this recipe</h1>
-        <button matButton="filled" type="button" (click)="store.reload()">
-          Try again
-        </button>
-      </section>
-    }
-    @default {
-      <section class="recipe__state">
-        <h1 class="heading heading--2xl">Recipe not found</h1>
-        <p class="heading heading--md">
-          This recipe doesn’t exist or may have moved.
-        </p>
+          </ol>
+        </section>
+      } @else if (store.status() === 'error') {
+        <p class="heading heading--md" role="alert">We couldn’t load this recipe.</p>
+        <button matButton="filled" type="button" (click)="retry()">Try again</button>
+      } @else {
+        <p class="heading heading--md">This recipe doesn’t exist or may have moved.</p>
         <a matButton="filled" routerLink="/recipes">Browse recipes</a>
-      </section>
-    }
-  }
+      }
+    </div>
+  </div>
+</section>
+@if (store.status() === 'success' && currentRecipe) {
+  <mat-divider class="recipe__divider" />
+  <section class="recipe__more" aria-labelledby="more-recipes-heading">
+    <h2 id="more-recipes-heading" class="heading heading--lg">More recipes</h2>
+    <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
+  </section>
 }
+<p class="cdk-visually-hidden" role="status">{{ store.status() === 'loading' ? 'Loading recipe…' : '' }}</p>
 <mat-divider />

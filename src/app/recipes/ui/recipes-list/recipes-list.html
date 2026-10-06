@@ -41,7 +41,11 @@
           <mat-card-content class="recipe__card-content">
             <div class="recipe__info">
               <div class="recipe__box">
-                <h2 class="recipe__title">{{ recipe.title }}</h2>
+                @if (headingLevel() === 3) {
+                  <h3 class="recipe__title">{{ recipe.title }}</h3>
+                } @else {
+                  <h2 class="recipe__title">{{ recipe.title }}</h2>
+                }
                 <p class="recipe__description heading heading--xs">
                   {{ recipe.overview }}
                 </p>

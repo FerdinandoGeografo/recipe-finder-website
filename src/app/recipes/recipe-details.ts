@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { RecipesStore } from './data-access/recipes-store';
@@ -21,6 +21,7 @@ import { pageTitle } from '../shared/page-title';
   styleUrl: './recipe-details.scss',
 })
 export class RecipeDetails {
+  private readonly pageHeading = viewChild.required<ElementRef<HTMLHeadingElement>>('pageHeading');
   protected readonly store = inject(RecipesStore);
   readonly #title = inject(Title);
 
@@ -43,7 +44,7 @@ export class RecipeDetails {
     );
   });
 
-  readonly #pageName = computed(() => {
+  protected readonly pageName = computed(() => {
     const recipe = this.recipe();
     if (recipe) return recipe.title;
 
@@ -59,6 +60,11 @@ export class RecipeDetails {
 
   constructor() {
     // Title is an imperative browser API, so an effect keeps it in sync.
-    effect(() => this.#title.setTitle(pageTitle(this.#pageName())));
+    effect(() => this.#title.setTitle(pageTitle(this.pageName())));
+  }
+
+  protected retry(): void {
+    this.store.reload();
+    this.pageHeading().nativeElement.focus({ preventScroll: true });
   }
 }
