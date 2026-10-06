@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, viewChild } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -17,7 +17,6 @@ import { filterRecipes, parseMinutes, parseQuery, toQueryParams } from './utils/
   styleUrl: './recipes.scss',
 })
 export class Recipes {
-  private readonly filters = viewChild.required(RecipesFilters);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly focusPageHeading = injectFocusPageHeading();
@@ -54,7 +53,7 @@ export class Recipes {
 
   protected clearFilters(): void {
     this.navigate({});
-    this.filters().focusSearch();
+    this.focusPageHeading();
   }
 
   protected retry(): void {
