@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { MatIconRegistry } from '@angular/material/icon';
 import { routes } from './app.routes';
+import { PageFocus } from './shared/data-access/page-focus';
 import { skipQueryOnlyTransitions } from './shared/utils/view-transitions';
 
 export const appConfig: ApplicationConfig = {
@@ -27,6 +28,9 @@ export const appConfig: ApplicationConfig = {
         'custom',
         inject(DomSanitizer).bypassSecurityTrustResourceUrl('icons/icons.svg'),
       );
+    }),
+    provideAppInitializer(() => {
+      inject(PageFocus);
     }),
   ],
 };

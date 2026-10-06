@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
+import { PageFocus } from '../shared/data-access/page-focus';
+import { PageHeading } from '../shared/directives/page-heading';
 import { Reveal } from '../shared/directives/reveal';
 import { Skeleton } from '../shared/ui/skeleton/skeleton';
 import { pageTitle } from '../shared/utils/page-title';
-import { injectFocusPageHeading } from '../shared/utils/route-focus';
 import { skeletonSections } from './constants/detail-skeleton';
 import { RecipesStore } from './data-access/recipes-store';
 import { RecipeStats } from './ui/recipe-stats/recipe-stats';
@@ -15,13 +16,13 @@ import { RecipesList } from './ui/recipes-list/recipes-list';
 
 @Component({
   selector: 'app-recipe-details',
-  imports: [RouterLink, MatButton, MatDivider, MatIcon, Reveal, Skeleton, RecipeStats, RecipesList],
+  imports: [RouterLink, MatButton, MatDivider, MatIcon, PageHeading, Reveal, Skeleton, RecipeStats, RecipesList],
   templateUrl: './recipe-details.html',
   styleUrl: './recipe-details.scss',
 })
 export class RecipeDetails {
   private readonly title = inject(Title);
-  private readonly focusPageHeading = injectFocusPageHeading();
+  private readonly pageFocus = inject(PageFocus);
   protected readonly store = inject(RecipesStore);
 
   readonly slug = input.required<string>();
@@ -64,6 +65,6 @@ export class RecipeDetails {
 
   protected retry(): void {
     this.store.reload();
-    this.focusPageHeading();
+    this.pageFocus.focusHeading();
   }
 }

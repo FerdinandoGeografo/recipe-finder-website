@@ -40,7 +40,7 @@
     }
 
     <div class="recipe__info">
-      <h1 class="text-preset-2 recipe__title" [class.cdk-visually-hidden]="loading">
+      <h1 appPageHeading class="text-preset-2 recipe__title" [class.cdk-visually-hidden]="loading">
         {{ pageName() }}
       </h1>
       @if (loading) {

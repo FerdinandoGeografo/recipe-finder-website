@@ -2,7 +2,8 @@ import { Component, computed, inject, input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
-import { injectFocusPageHeading } from '../shared/utils/route-focus';
+import { PageFocus } from '../shared/data-access/page-focus';
+import { PageHeading } from '../shared/directives/page-heading';
 import { RecipesStore } from './data-access/recipes-store';
 import { RecipeFilter } from './types/recipe-filter.model';
 import { RecipesFilters } from './ui/recipes-filters/recipes-filters';
@@ -12,14 +13,14 @@ import { filterRecipes, parseMinutes, parseQuery, toQueryParams } from './utils/
 
 @Component({
   selector: 'app-recipes',
-  imports: [MatButton, MatDivider, RecipesFilters, RecipesList, RecipesListSkeleton],
+  imports: [MatButton, MatDivider, PageHeading, RecipesFilters, RecipesList, RecipesListSkeleton],
   templateUrl: './recipes.html',
   styleUrl: './recipes.scss',
 })
 export class Recipes {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly focusPageHeading = injectFocusPageHeading();
+  private readonly pageFocus = inject(PageFocus);
   protected readonly store = inject(RecipesStore);
 
   // Query params bound by withComponentInputBinding: the URL is the only filter state.
@@ -53,12 +54,12 @@ export class Recipes {
 
   protected clearFilters(): void {
     this.navigate({});
-    this.focusPageHeading();
+    this.pageFocus.focusHeading();
   }
 
   protected retry(): void {
     this.store.reload();
-    this.focusPageHeading();
+    this.pageFocus.focusHeading();
   }
 
   // Filter changes replace the history entry and keep the scroll position.
