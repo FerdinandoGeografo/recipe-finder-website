@@ -135,25 +135,40 @@ A functional HTTP interceptor adds a configurable, cancellable delay during deve
 
 #### Revealing content in the viewport
 
-Page transitions use the router's View Transitions integration, and `animate.enter` / `animate.leave` handle content that is created or removed, such as the skeleton-to-content hand-off. Sections that are already in the DOM but below the fold need a different trigger, so an `appReveal` directive registers them with a single shared `IntersectionObserver`:
+Page transitions use the router's View Transitions integration, and `animate.enter` / `animate.leave` handle content that is created or removed, such as the skeleton-to-content hand-off. Sections that are already in the DOM but below the fold need a different trigger. An `appReveal` directive asks a shared `RevealObserver` for a single-shot stream: one `IntersectionObserver` feeds a `Subject` of entries, merged with focus and reduced-motion events, and the first event wins.
 
 ```ts
-private readonly observer = new IntersectionObserver((entries) => this.onIntersect(entries), {
-  rootMargin: '0px 0px -10% 0px',
+return new Observable<RevealState>((subscriber) => {
+  const subscription = merge(
+    this.entries$.pipe(
+      filter((entry) => entry.target === element),
+      map(toRevealState),
+      filter((state) => state !== undefined),
+    ),
+    fromEvent(element, 'focusin').pipe(map(() => 'visible' as const)),
+    this.reducedMotion$.pipe(map(() => 'visible' as const)),
+  )
+    .pipe(take(1))
+    .subscribe(subscriber);
+
+  observer.observe(element);
+  return () => {
+    subscription.unsubscribe();
+    observer.unobserve(element);
+  };
 });
-
-private onIntersect(entries: IntersectionObserverEntry[]): void {
-  for (const { target, isIntersecting, boundingClientRect, rootBounds } of entries) {
-    const passed = boundingClientRect.bottom <= (rootBounds?.top ?? 0);
-    if (!isIntersecting && !passed) continue;
-
-    this.callbacks.get(target)?.(isIntersecting);
-    this.unobserve(target);
-  }
-}
 ```
 
-The directive starts in a `pending` state from the first render, so content in view never flashes visible and then hidden. Elements that were already scrolled past, as after browser Back, appear without motion. Recipe cards in the same desktop row are staggered with a CSS custom property read by `animation-delay`.
+The directive only reads that stream with `toSignal`, so unsubscribing when it is destroyed also stops observing the element:
+
+```ts
+protected readonly state = toSignal(
+  inject(RevealObserver).reveal(inject<ElementRef<HTMLElement>>(ElementRef).nativeElement),
+  { initialValue: 'pending' },
+);
+```
+
+The `pending` state applies from the first render, so content in view never flashes visible and then hidden. Elements that were already scrolled past, as after browser Back, appear without motion. Recipe cards in the same desktop row are staggered with a CSS custom property read by `animation-delay`.
 
 I also considered `@defer (on viewport)`, which would make `animate.enter` play when a block is created. I did not use it here: deferred content is not in the DOM until it is reached, so Tab would skip the links inside it, find-in-page could not match its text, and the placeholders would need the exact height at every breakpoint to avoid layout shifts and wrong scroll restoration. `@defer` is designed to delay loading costs, which this small static site does not have. With the directive, the content stays in the DOM: keyboard focus shows it at once, and reduced motion or a missing `IntersectionObserver` leaves everything visible.
 
