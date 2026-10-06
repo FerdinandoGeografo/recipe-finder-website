@@ -1,11 +1,6 @@
+import { RecipeFilter } from '../types/recipe-filter.model';
 import { Params } from '@angular/router';
-import { Recipe } from './recipe.model';
-
-export interface RecipeFilter {
-  query: string;
-  maxPrepTime?: number;
-  maxCookTime?: number;
-}
+import { Recipe } from '../types/recipe.model';
 
 // Max times are inclusive and 0 is a real limit; only undefined means "any".
 export function filterRecipes(

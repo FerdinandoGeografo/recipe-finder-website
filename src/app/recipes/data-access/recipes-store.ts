@@ -1,10 +1,10 @@
+import { RecipesStatus } from '../types/recipes-status';
 import { HttpContext, httpResource } from '@angular/common/http';
 import { computed, isDevMode, Service } from '@angular/core';
-import { REQUEST_DELAY_MS } from '../../shared/request-delay';
-import { recipesApiConfig } from './recipes-api.config';
-import { Recipe } from './recipe.model';
+import { REQUEST_DELAY_MS } from '../../shared/constants/request-delay';
+import { recipesApiConfig } from '../constants/recipes-api.config';
+import { Recipe } from '../types/recipe.model';
 
-export type RecipesStatus = 'loading' | 'success' | 'error';
 
 @Service()
 export class RecipesStore {

@@ -1,21 +1,21 @@
+import { RecipeFilter } from './types/recipe-filter.model';
 import { Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
 import { RecipesStore } from './data-access/recipes-store';
 import {
   filterRecipes,
   parseMinutes,
   parseQuery,
-  RecipeFilter,
   toQueryParams,
-} from './data-access/recipe-filter';
+} from './utils/recipe-filter';
 import { RecipesFilters } from './ui/recipes-filters/recipes-filters';
 import { RecipesList } from './ui/recipes-list/recipes-list';
 
 @Component({
   selector: 'app-recipes',
-  imports: [RecipesFilters, RecipesList, MatButtonModule, MatDividerModule],
+  imports: [RecipesFilters, RecipesList, MatButton, MatDivider],
   templateUrl: './recipes.html',
   styleUrl: './recipes.scss',
 })

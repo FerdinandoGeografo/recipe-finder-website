@@ -4,7 +4,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Header } from './shared/ui/header/header';
 import { Footer } from './shared/ui/footer/footer';
-import { focusHeadingOnPageChange } from './shared/route-focus';
+import { focusHeadingOnPageChange } from './shared/utils/route-focus';
 
 @Component({
   selector: 'app-root',

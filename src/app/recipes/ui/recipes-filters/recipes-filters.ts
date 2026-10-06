@@ -1,16 +1,15 @@
+import { timeFilters } from '../../constants/time-filters';
 import { Component, ElementRef, input, output, viewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInput, MatInputModule } from '@angular/material/input';
-import { MatMenuModule } from '@angular/material/menu';
-import { RecipeFilter } from '../../data-access/recipe-filter';
-
-type TimeFilterKey = 'maxPrepTime' | 'maxCookTime';
+import { MatButton } from '@angular/material/button';
+import { MatFormField, MatPrefix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { RecipeFilter, TimeFilterKey } from '../../types/recipe-filter.model';
 
 @Component({
   selector: 'app-recipes-filters',
-  imports: [MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule],
+  imports: [MatButton, MatFormField, MatPrefix, MatIcon, MatInput, MatMenu, MatMenuItem, MatMenuTrigger],
   templateUrl: './recipes-filters.html',
   styleUrl: './recipes-filters.scss',
 })
@@ -22,10 +21,7 @@ export class RecipesFilters {
   readonly filter = input.required<RecipeFilter>();
   readonly filterChange = output<Partial<RecipeFilter>>();
 
-  protected readonly timeFilters = [
-    { key: 'maxPrepTime', label: 'Max Prep Time', options: [0, 5, 10] },
-    { key: 'maxCookTime', label: 'Max Cook Time', options: [0, 5, 10, 15, 20] },
-  ] as const;
+  protected readonly timeFilters = timeFilters;
 
   focusSearch(): void {
     this.search().nativeElement.focus();

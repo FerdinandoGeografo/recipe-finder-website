@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use '../media';
 
 html {
   @include mat.menu-overrides((
@@ -16,4 +17,174 @@ html {
     min-width: 24rem;
     border: 1px solid var(--neutral-300);
   }
+}
+
+@mixin header-menu {
+  @include mat.menu-overrides((
+    container-elevation-shadow: 0 12px 22px -12px rgb(57 88 82 / 16%),
+    item-label-text-color: var(--neutral-900),
+    item-label-text-font: var(--ff-base),
+    item-label-text-size: 1.8rem,
+    item-label-text-line-height: 2.7rem,
+    item-label-text-tracking: -.3px,
+    item-label-text-weight: 600,
+    item-hover-state-layer-color: transparent,
+    item-focus-state-layer-color: transparent,
+  ));
+
+  width: calc(100vw - 2 * var(--page-gutter));
+  min-width: 0;
+  max-width: none;
+  padding: 7px;
+  // Align the panel to y=68/86 in the mobile/tablet frames, below the 40px trigger.
+  margin-top: 1.2rem;
+
+  @include media.from(md) {
+    margin-top: 2rem;
+    @include mat.menu-overrides((
+      container-elevation-shadow: 0 12px 22px -12px rgb(57 88 82 / 30%),
+    ));
+  }
+
+  .mat-mdc-menu-content {
+    padding: 0;
+  }
+
+  .mat-mdc-menu-item {
+    min-height: 5.1rem;
+    padding: 1.2rem .8rem;
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900);
+    }
+  }
+
+  .header-menu__link {
+    .header-menu__label {
+      text-decoration-color: var(--orange-500);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 3px;
+    }
+
+    &:hover .header-menu__label,
+    &.active .header-menu__label {
+      text-decoration-line: underline;
+    }
+  }
+
+  .header-menu__browse {
+    --mat-menu-item-label-text-color: var(--neutral-0);
+    --mat-menu-item-label-text-weight: 700;
+    min-height: 5.2rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    background: var(--neutral-900);
+    text-align: center;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--neutral-800);
+    }
+  }
+}
+
+html .header-menu.mat-mdc-menu-panel {
+  @include header-menu;
+}
+
+@mixin recipe-filter-menu {
+  @include mat.menu-overrides((
+    container-elevation-shadow: 0 12px 22px -12px var(--neutral-300),
+    item-label-text-color: var(--neutral-900),
+    item-label-text-font: var(--ff-base),
+    item-label-text-size: 1.8rem,
+    item-label-text-line-height: 2.7rem,
+    item-label-text-tracking: -.3px,
+    item-label-text-weight: 600,
+    item-hover-state-layer-color: var(--neutral-200),
+    item-focus-state-layer-color: transparent,
+  ));
+
+  width: 24rem;
+  min-width: 0;
+  max-width: calc(100vw - 3.2rem);
+  margin-top: 6px;
+
+  .mat-mdc-menu-content {
+    padding: 7px;
+  }
+
+  .mat-mdc-menu-item {
+    min-height: 4.3rem;
+    padding: .8rem;
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: 2px solid var(--neutral-900);
+      outline-offset: -2px;
+    }
+  }
+
+  .recipe-filter-menu__indicator {
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-inline-end: .8rem;
+    border: 1px solid var(--neutral-400);
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgb(22 58 52 / 12%);
+    vertical-align: -.1rem;
+  }
+
+  .recipe-filter-menu__option--selected .recipe-filter-menu__indicator {
+    border: 2px solid var(--neutral-900);
+    box-shadow: none;
+
+    &::after {
+      content: '';
+      display: block;
+      width: .8rem;
+      height: .8rem;
+      margin: 2px;
+      border-radius: 50%;
+      background: var(--neutral-900);
+    }
+  }
+
+  .recipe-filter-menu__option:focus-visible {
+    outline-color: transparent;
+
+    .recipe-filter-menu__indicator {
+      box-shadow: 0 0 0 4px var(--neutral-200);
+    }
+  }
+
+  .recipe-filter-menu__clear {
+    @include mat.menu-overrides((
+      item-label-text-font: var(--ff-sans),
+      item-label-text-size: 1.6rem,
+      item-label-text-line-height: 2.4rem,
+      item-label-text-weight: 500,
+    ));
+    min-height: 2.8rem;
+    padding-block: .2rem;
+  }
+
+  @media (forced-colors: active) {
+    .mat-mdc-menu-item:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .recipe-filter-menu__option--selected .recipe-filter-menu__indicator::after {
+      background: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}
+
+html .recipe-filter-menu.mat-mdc-menu-panel {
+  @include recipe-filter-menu;
 }

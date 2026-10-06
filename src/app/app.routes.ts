@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { pageTitle } from './shared/page-title';
+import { pageTitle } from './shared/utils/page-title';
 
 export const routes: Routes = [
   {

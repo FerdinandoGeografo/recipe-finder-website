@@ -1,20 +1,21 @@
+import { skeletonSections } from './constants/detail-skeleton';
 import { Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { RecipesStore } from './data-access/recipes-store';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
 import { RecipesList } from './ui/recipes-list/recipes-list';
-import { pageTitle } from '../shared/page-title';
+import { pageTitle } from '../shared/utils/page-title';
 
 @Component({
   selector: 'app-recipe-details',
   imports: [
     RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
+    MatButton,
+    MatIcon,
+    MatDivider,
     RecipesList,
   ],
   templateUrl: './recipe-details.html',
@@ -26,10 +27,7 @@ export class RecipeDetails {
   readonly #title = inject(Title);
 
   readonly slug = input.required<string>();
-  protected readonly skeletonSections = [
-    { key: 'ingredients', lines: [0, 1, 2, 3, 4, 5, 6, 7, 8] },
-    { key: 'instructions', lines: [0, 1, 2, 3] },
-  ] as const;
+  protected readonly skeletonSections = skeletonSections;
 
   protected readonly recipe = computed(() =>
     this.store.recipes().find((r) => r.slug === this.slug()),

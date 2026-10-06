@@ -1,15 +1,16 @@
+import { links } from '../../constants/navigation';
 import { Component, DOCUMENT, ElementRef, inject, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { filter } from 'rxjs';
 import { Logo } from '../logo/logo';
 
 @Component({
   selector: 'app-header',
-  imports: [Logo, MatButtonModule, MatIconModule, MatMenuModule, RouterLink, RouterLinkActive],
+  imports: [Logo, MatButton, MatIcon, MatMenu, MatMenuItem, MatMenuTrigger, RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   host: {
@@ -22,11 +23,7 @@ export class Header {
   private readonly menuButton = viewChild.required<ElementRef<HTMLButtonElement>>('menuButton');
   private readonly navigation = viewChild.required<ElementRef<HTMLElement>>('navigation');
 
-  protected readonly links = [
-    { path: '/home', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/recipes', label: 'Recipes' },
-  ] as const;
+  protected readonly links = links;
 
   constructor() {
     inject(Router).events.pipe(
