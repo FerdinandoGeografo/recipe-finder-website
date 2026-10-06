@@ -63,7 +63,7 @@ Recipe card titles stay complete, and search results follow the actual dataset r
 
 ### What I learned
 
-I kept a feature-based structure: `home`, `about` and `recipes` contain the routed pages and their `ui` components. Recipe models, filtering and remote state live in `recipes/data-access`, while the shell, focus handling and routing utilities live in `shared`.
+I kept a feature-based structure: `home`, `about` and `recipes` contain the routed pages and their `ui` components. Remote state lives in `recipes/data-access`; models, static definitions and pure helpers live in each feature’s `types`, `constants` and `utils` folders. Shared directives, shell components and routing utilities follow the same structure in `shared`.
 
 #### A shared resource store
 
@@ -96,9 +96,9 @@ There is no second filter state to synchronise with the router and no effect cop
 
 #### Reusing Material components
 
-The header and filters use `MatMenu` with native links or buttons as menu items. Material handles the menu's keyboard navigation, closing and focus restoration. The selection circles in the filter menu are decorative indicators, with the selected state included in the item's accessible name.
+Components import only the Material directives and components they use, such as `MatIcon`, `MatButton` and `MatMenu`. The header and filters use `MatMenu` with native links or buttons as menu items. Material handles the menu's keyboard navigation, closing and focus restoration. The selection circles in the filter menu are decorative indicators, with the selected state included in the item's accessible name.
 
-I used the Material styling mixins for component tokens and scoped the remaining overrides to the header or filter panel. Signal inputs, outputs and view queries keep the surrounding Angular components small.
+I used the Material styling mixins for component tokens, with header and filter variants together in `_menu.scss`. Signal inputs, outputs and view queries keep the surrounding Angular components small.
 
 #### Measuring the responsive design
 
@@ -120,9 +120,9 @@ Text decorations use separate rounded pseudo-elements so their corner radius bel
 
 #### Loading and motion
 
-A functional HTTP interceptor adds a configurable, cancellable delay during development. It delays only actual dataset requests, leaving cached navigation immediate. Production requests have no artificial delay.
+A functional HTTP interceptor adds a configurable, cancellable delay during development. It delays only actual dataset requests, leaving cached navigation immediate. Production requests have no artificial delay. While loading, the index disables its filter controls and search input, and the detail disables its breadcrumb link. The site navigation remains available.
 
-Page transitions use the router's View Transitions integration, with the initial transition and query-only transitions skipped. Reduced motion disables transitions and skeleton animation, including the View Transition pseudo-elements. Keyboard focus uses `:focus-visible`, with an outline fallback in forced colors.
+Page transitions use the router's View Transitions integration, with the initial transition and query-only transitions skipped. The `_animations.scss` partial provides native CSS animations for `animate.enter` and `animate.leave`, including the skeleton-to-content transition. A shared `appReveal` directive uses `IntersectionObserver` to reveal sections and recipe cards once as they enter the viewport; keyboard focus reveals them immediately. Material button backgrounds and focus rings transition over 200 ms. Reduced motion disables these animations and transitions, including the View Transition pseudo-elements, and keeps all content visible. Keyboard focus uses `:focus-visible`, with an outline fallback in forced colors.
 
 ### Useful resources
 
