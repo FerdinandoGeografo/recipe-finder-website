@@ -2,7 +2,8 @@
   <div class="hero__text">
     <p class="hero__title">Our mission</p>
     <h1 class="heading heading--2xl">
-      Help more people cook nourishing meals, more often.
+      Help more people cook nourishing meals,<br class="hero__line-break" />
+      more often.
     </h1>
     <div class="hero__descriptions heading heading--md">
       <p>
@@ -17,11 +18,22 @@
     </div>
   </div>
 
-  <img
-    class="hero__img"
-    src="images/image-about-our-mission-large.webp"
-    alt="Our mission image"
-  />
+  <picture class="hero__picture">
+    <source
+      media="(min-width: 48em)"
+      srcset="/images/image-about-our-mission-large.webp"
+      width="1236"
+      height="1200"
+    />
+    <img
+      class="hero__img"
+      src="/images/image-about-our-mission-small.webp"
+      width="686"
+      height="667"
+      fetchpriority="high"
+      alt="A cook preparing fresh carrots in a home kitchen."
+    />
+  </picture>
 </section>
 <mat-divider />
 <app-about-list heading="Why we exist" [items]="whyWeExist" />
@@ -44,11 +56,23 @@
         </ul>
       </div>
     </div>
-    <img
-      class="beyond__img"
-      src="images/image-about-beyond-the-plate-large.webp"
-      alt="Beyond the plate image"
-    />
+    <picture class="beyond__picture">
+      <source
+        media="(min-width: 48em)"
+        srcset="/images/image-about-beyond-the-plate-large.webp"
+        width="1488"
+        height="800"
+      />
+      <img
+        class="beyond__img"
+        src="/images/image-about-beyond-the-plate-small.webp"
+        width="686"
+        height="369"
+        loading="lazy"
+        decoding="async"
+        alt="A family laughing together while preparing vegetables."
+      />
+    </picture>
   </div>
 
   <app-call-to-action />
