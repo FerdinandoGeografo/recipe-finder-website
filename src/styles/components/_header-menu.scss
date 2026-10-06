@@ -1,0 +1,71 @@
+@use '@angular/material' as mat;
+@use '../media';
+
+html .header-menu.mat-mdc-menu-panel {
+  @include mat.menu-overrides((
+    container-elevation-shadow: 0 12px 22px -12px rgb(57 88 82 / 30%),
+    item-label-text-color: var(--neutral-900),
+    item-label-text-font: var(--ff-base),
+    item-label-text-size: 1.8rem,
+    item-label-text-line-height: 2.7rem,
+    item-label-text-tracking: -.3px,
+    item-label-text-weight: 600,
+    item-hover-state-layer-color: transparent,
+    item-focus-state-layer-color: transparent,
+  ));
+
+  width: calc(100vw - 2 * var(--page-gutter));
+  min-width: 0;
+  max-width: none;
+  padding: 7px;
+  // Align the panel to y=68/86 in the mobile/tablet frames, below the 40px trigger.
+  margin-top: calc(1.2rem + .5px);
+
+  @include media.from(md) {
+    margin-top: calc(2rem + .5px);
+  }
+
+  .mat-mdc-menu-content {
+    padding: 0;
+  }
+
+  .mat-mdc-menu-item {
+    min-height: 5.1rem;
+    padding: 1.2rem .8rem;
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px var(--neutral-0), 0 0 0 4px var(--neutral-900);
+    }
+  }
+
+  .header-menu__link {
+    .header-menu__label {
+      text-decoration-color: var(--orange-500);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 3px;
+    }
+
+    &:hover .header-menu__label,
+    &.active .header-menu__label {
+      text-decoration-line: underline;
+    }
+  }
+
+  .header-menu__browse {
+    --mat-menu-item-label-text-color: var(--neutral-0);
+    --mat-menu-item-label-text-weight: 700;
+    min-height: 5.2rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    background: var(--neutral-900);
+    text-align: center;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--neutral-800);
+    }
+  }
+}

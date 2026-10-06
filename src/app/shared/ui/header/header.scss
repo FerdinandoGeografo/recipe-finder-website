@@ -72,35 +72,11 @@
 
   &__nav {
     display: none;
-    position: absolute;
-    z-index: 1;
-    top: 6.8rem;
-    inset-inline: 1.6rem;
-    padding: 7px;
-    border: 1px solid var(--neutral-300);
-    border-radius: 8px;
-    background: var(--neutral-0);
-    box-shadow: 0 12px 22px -12px rgb(57 88 82 / 30%);
-
-    &--open {
-      display: block;
-    }
-
-    @include media.from(md) {
-      top: 8.6rem;
-      inset-inline: 3.2rem;
-    }
 
     @include media.from(lg) {
-      position: static;
       display: grid;
       grid-template-columns: minmax(0, 1fr) 26rem;
       align-items: center;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
     }
   }
 
@@ -114,7 +90,7 @@
 
   &__nav-link {
     display: block;
-    padding: 1.2rem .8rem;
+    padding: 0;
     border-radius: 4px;
     font-size: 1.8rem;
     font-weight: 600;
@@ -143,10 +119,6 @@
     &.active span::after {
       transform: scaleX(1);
     }
-
-    @include media.from(lg) {
-      padding: 0;
-    }
   }
 
   &__toggle:focus-visible,
@@ -160,13 +132,7 @@
     --mat-button-filled-container-height: 5.2rem;
     --mat-button-filled-horizontal-padding: 1.6rem;
     --mat-button-filled-label-text-size: 1.8rem;
-    width: 100%;
-    margin-top: 1rem;
-
-    @include media.from(lg) {
-      justify-self: end;
-      width: 16.7rem;
-      margin-top: 0;
-    }
+    justify-self: end;
+    width: 16.7rem;
   }
 }
