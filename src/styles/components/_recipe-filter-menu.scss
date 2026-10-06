@@ -1,0 +1,83 @@
+@use '@angular/material' as mat;
+
+html .recipe-filter-menu.mat-mdc-menu-panel {
+  @include mat.menu-overrides((
+    container-elevation-shadow: 0 12px 22px -12px var(--neutral-300),
+    item-label-text-color: var(--neutral-900),
+    item-label-text-font: var(--ff-base),
+    item-label-text-size: 1.8rem,
+    item-label-text-line-height: 2.7rem,
+    item-label-text-tracking: -.3px,
+    item-label-text-weight: 600,
+    item-hover-state-layer-color: var(--neutral-200),
+    item-focus-state-layer-color: transparent,
+  ));
+
+  width: 24rem;
+  min-width: 0;
+  max-width: calc(100vw - 3.2rem);
+  margin-top: 6px;
+
+  .mat-mdc-menu-content {
+    padding: 7px;
+  }
+
+  .mat-mdc-menu-item {
+    min-height: 4.3rem;
+    padding: .8rem;
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: 2px solid var(--neutral-900);
+      outline-offset: -2px;
+    }
+  }
+
+  .recipe-filter-menu__indicator {
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-inline-end: .8rem;
+    border: 1px solid var(--neutral-400);
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgb(22 58 52 / 12%);
+    vertical-align: -.1rem;
+  }
+
+  .recipe-filter-menu__option--selected .recipe-filter-menu__indicator {
+    border: 2px solid var(--neutral-900);
+    box-shadow: none;
+
+    &::after {
+      content: '';
+      display: block;
+      width: .8rem;
+      height: .8rem;
+      margin: 2px;
+      border-radius: 50%;
+      background: var(--neutral-900);
+    }
+  }
+
+  .recipe-filter-menu__clear {
+    @include mat.menu-overrides((
+      item-label-text-font: var(--ff-sans),
+      item-label-text-size: 1.6rem,
+      item-label-text-line-height: 2.4rem,
+      item-label-text-weight: 500,
+    ));
+    min-height: 2.8rem;
+    padding-block: .2rem;
+  }
+
+  @media (forced-colors: active) {
+    .mat-mdc-menu-item:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .recipe-filter-menu__option--selected .recipe-filter-menu__indicator::after {
+      background: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}

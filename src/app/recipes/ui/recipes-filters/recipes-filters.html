@@ -1,61 +1,46 @@
 @for (definition of timeFilters; track definition.key) {
+  @let selected = filter()[definition.key];
   <button
     matButton="outlined"
-    cdkOverlayOrigin
-    #origin="cdkOverlayOrigin"
+    type="button"
     class="filters__trigger"
-    [class.filters__trigger--selected]="filter()[definition.key] !== undefined"
-    [attr.aria-expanded]="openFilter() === definition.key"
-    [attr.aria-controls]="openFilter() === definition.key ? 'filter-' + definition.key : null"
-    [attr.aria-label]="filter()[definition.key] === undefined ? definition.label : definition.label + ', ' + filter()[definition.key] + ' minutes'"
-    (click)="togglePanel(definition.key)"
+    [class.filters__trigger--selected]="selected !== undefined"
+    [matMenuTriggerFor]="menu"
+    [attr.aria-label]="selected === undefined ? definition.label : definition.label + ', ' + selected + ' minutes'"
   >
     {{ definition.label }}
     <mat-icon svgIcon="custom:chevron-down" aria-hidden="true" />
   </button>
 
-  <ng-template
-    cdkConnectedOverlay
-    #overlay="cdkConnectedOverlay"
-    [cdkConnectedOverlayOrigin]="origin"
-    [cdkConnectedOverlayOpen]="openFilter() === definition.key"
-    [cdkConnectedOverlayPositions]="positions"
-    cdkConnectedOverlayWidth="24rem"
-    cdkConnectedOverlayUsePopover="inline"
-    [cdkConnectedOverlayPush]="true"
-    [cdkConnectedOverlayViewportMargin]="16"
-    [cdkConnectedOverlayDisableClose]="true"
-    (attach)="focusPanel(overlay, definition.key)"
-    (detach)="onDetach(definition.key)"
-    (overlayKeydown)="onKeydown($event, origin)"
-    (overlayOutsideClick)="onOutsideClick($event, origin)"
+  <mat-menu
+    #menu="matMenu"
+    class="recipe-filter-menu"
+    [overlapTrigger]="false"
+    [aria-label]="definition.label + ' options'"
   >
-    <div
-      class="filters__panel"
-      [id]="'filter-' + definition.key"
-      role="region"
-      [attr.aria-label]="definition.label + ' options'"
-      (focusout)="onFocusOut($event, origin)"
-    >
-      <mat-radio-group
-        [attr.aria-label]="definition.label"
-        [value]="filter()[definition.key]"
-        (change)="selectTime(definition.key, $event.value)"
-      >
-        @for (minutes of definition.options; track minutes) {
-          <mat-radio-button [value]="minutes">{{ minutes }} minutes</mat-radio-button>
-        }
-      </mat-radio-group>
+    @for (minutes of definition.options; track minutes) {
       <button
-        class="filters__clear"
+        mat-menu-item
         type="button"
-        [attr.aria-label]="'Clear ' + definition.label"
-        (click)="selectTime(definition.key); closePanel(origin)"
+        class="recipe-filter-menu__option"
+        [class.recipe-filter-menu__option--selected]="selected === minutes"
+        [attr.aria-label]="minutes + ' minutes' + (selected === minutes ? ', selected' : '')"
+        (click)="selectTime(definition.key, minutes)"
       >
-        Clear
+        <span class="recipe-filter-menu__indicator" aria-hidden="true"></span>
+        {{ minutes }} minutes
       </button>
-    </div>
-  </ng-template>
+    }
+    <button
+      mat-menu-item
+      type="button"
+      class="recipe-filter-menu__clear"
+      [attr.aria-label]="'Clear ' + definition.label"
+      (click)="selectTime(definition.key)"
+    >
+      Clear
+    </button>
+  </mat-menu>
 }
 
 <mat-form-field
@@ -64,13 +49,12 @@
   class="filters__search"
 >
   <input
-    #search
     matInput
     type="search"
     aria-label="Search recipes by name or ingredient"
     placeholder="Search by name or ingredient…"
     [value]="filter().query"
-    (input)="filterChange.emit({ query: search.value })"
+    (input)="searchRecipes($event)"
   />
   <mat-icon matPrefix svgIcon="custom:search" aria-hidden="true" />
 </mat-form-field>

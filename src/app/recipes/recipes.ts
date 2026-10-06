@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,6 +20,8 @@ import { RecipesList } from './ui/recipes-list/recipes-list';
   styleUrl: './recipes.scss',
 })
 export class Recipes {
+  private readonly filters = viewChild.required(RecipesFilters);
+  private readonly pageHeading = viewChild.required<ElementRef<HTMLHeadingElement>>('pageHeading');
   protected readonly store = inject(RecipesStore);
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
@@ -57,6 +59,12 @@ export class Recipes {
 
   protected clearFilters(): void {
     this.#navigate({});
+    this.filters().focusSearch();
+  }
+
+  protected retry(): void {
+    this.store.reload();
+    this.pageHeading().nativeElement.focus();
   }
 
   // Filter changes replace the history entry and keep the scroll position.

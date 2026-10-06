@@ -9,7 +9,6 @@
 
 <section class="list">
   <app-recipes-filters
-    #filters
     [filter]="filter()"
     (filterChange)="updateFilter($event)"
   />
@@ -22,7 +21,7 @@
       @case ('error') {
         <div class="state" role="alert">
           <p class="heading heading--md">We couldn’t load the recipes.</p>
-          <button matButton="filled" type="button" (click)="store.reload(); pageHeading.focus()">
+          <button matButton="filled" type="button" (click)="retry()">
             Try again
           </button>
         </div>
@@ -33,7 +32,7 @@
         } @else {
           <div class="state">
             <p class="heading heading--md">No recipes match your search.</p>
-            <button matButton="outlined" type="button" (click)="clearFilters(); filters.focusSearch()">
+            <button matButton="outlined" type="button" (click)="clearFilters()">
               Clear all filters
             </button>
           </div>

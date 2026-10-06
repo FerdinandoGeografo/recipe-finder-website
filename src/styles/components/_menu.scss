@@ -9,22 +9,6 @@ html {
 
   .mat-mdc-menu-content {
     padding: 8px;
-
-    .mat-mdc-outlined-button {
-      width: 100%;
-      justify-content: start;
-
-      @include mat.button-overrides((
-        outlined-container-shape: 4px,
-        outlined-horizontal-padding: 8px,
-        outlined-container-height: 2.8rem,
-        outlined-label-text-size: 1.6rem,
-        outlined-label-text-weight: 500,
-        outlined-label-text-tracking: -.3px,
-        outlined-outline-color: transparent,
-        outlined-touch-target-size: 2.8rem,
-      ));
-    }
   }
 
   .mat-mdc-menu-panel {
