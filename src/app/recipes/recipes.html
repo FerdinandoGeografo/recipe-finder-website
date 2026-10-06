@@ -10,6 +10,7 @@
 <section class="list">
   <app-recipes-filters
     [filter]="filter()"
+    [disabled]="store.status() === 'loading'"
     (filterChange)="updateFilter($event)"
   />
 

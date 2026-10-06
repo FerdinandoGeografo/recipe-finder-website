@@ -2,7 +2,12 @@
 <section class="recipe__details" [attr.aria-busy]="store.status() === 'loading'">
   <nav class="recipe__breadcrumbs heading heading--sm" aria-label="Breadcrumb">
     <ol class="recipe__breadcrumb-list">
-      <li><a routerLink="/recipes">Recipes</a></li>
+      <li><a
+        role="link"
+        [routerLink]="store.status() === 'loading' ? null : '/recipes'"
+        [attr.aria-disabled]="store.status() === 'loading' ? true : null"
+        [attr.tabindex]="store.status() === 'loading' ? -1 : null"
+      >Recipes</a></li>
       <li class="recipe__current" aria-current="page">
         <span aria-hidden="true">/</span>
         <span>{{ pageName() }}</span>

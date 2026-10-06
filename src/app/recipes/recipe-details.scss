@@ -37,6 +37,11 @@
       text-decoration: none;
       border-radius: 2px;
 
+      &[aria-disabled=true] {
+        opacity: .5;
+        pointer-events: none;
+      }
+
       &:hover {
         text-decoration: underline;
         text-underline-offset: 3px;
