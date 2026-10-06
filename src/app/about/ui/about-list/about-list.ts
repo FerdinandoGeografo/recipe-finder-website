@@ -1,11 +1,11 @@
-import { Reveal } from '../../../shared/directives/reveal';
-import { AboutItem } from '../../types/about-item.model';
 import { Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { Reveal } from '../../../shared/directives/reveal';
+import { AboutItem } from '../../types/about-item.model';
 
 @Component({
   selector: 'app-about-list',
-  imports: [Reveal, MatIcon],
+  imports: [MatIcon, Reveal],
   templateUrl: './about-list.html',
   styleUrl: './about-list.scss',
 })

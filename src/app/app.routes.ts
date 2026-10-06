@@ -19,7 +19,7 @@ export const routes: Routes = [
   },
   {
     path: 'recipes',
-    loadChildren: () => [
+    children: [
       {
         path: '',
         loadComponent: () => import('./recipes/recipes').then((c) => c.Recipes),

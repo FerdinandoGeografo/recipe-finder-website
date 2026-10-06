@@ -1,4 +1,4 @@
 export const skeletonSections = [
-    { key: 'ingredients', lines: [0, 1, 2, 3, 4, 5, 6, 7, 8] },
-    { key: 'instructions', lines: [0, 1, 2, 3] },
-  ] as const;
+  { key: 'ingredients', lines: [0, 1, 2, 3, 4, 5, 6, 7, 8] },
+  { key: 'instructions', lines: [0, 1, 2, 3] },
+] as const;

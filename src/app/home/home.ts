@@ -1,13 +1,13 @@
-import { Reveal } from '../shared/directives/reveal';
 import { Component } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
-import { Hero } from './ui/hero/hero';
-import { Features } from './ui/features/features';
+import { Reveal } from '../shared/directives/reveal';
 import { CallToAction } from '../shared/ui/call-to-action/call-to-action';
+import { Features } from './ui/features/features';
+import { Hero } from './ui/hero/hero';
 
 @Component({
   selector: 'app-home',
-  imports: [Reveal, MatDivider, Hero, Features, CallToAction],
+  imports: [MatDivider, Reveal, CallToAction, Features, Hero],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
