@@ -1,5 +1,5 @@
 <section class="hero">
-  <h1 class="heading heading--2xl">Explore our simple, healthy recipes</h1>
+  <h1 #pageHeading tabindex="-1" class="heading heading--2xl">Explore our simple, healthy recipes</h1>
   <p class="heading heading--md">
     Discover eight quick, whole-food dishes that fit real-life schedules and
     taste amazing. Use the search bar to find a recipe by name or ingredient, or
@@ -9,36 +9,39 @@
 
 <section class="list">
   <app-recipes-filters
+    #filters
     [filter]="filter()"
     (filterChange)="updateFilter($event)"
   />
 
-  @switch (store.status()) {
-    @case ('loading') {
-      <p class="state heading heading--md">Loading recipes…</p>
-    }
-    @case ('error') {
-      <div class="state" role="alert">
-        <p class="heading heading--md">We couldn’t load the recipes.</p>
-        <button matButton="filled" type="button" (click)="store.reload()">
-          Try again
-        </button>
-      </div>
-    }
-    @default {
-      @if (recipes().length) {
-        <app-recipes-list [recipes]="recipes()" />
-      } @else {
-        <div class="state">
-          <p class="heading heading--md">No recipes match your search.</p>
-          <button matButton="outlined" type="button" (click)="clearFilters()">
-            Clear all filters
+  <div class="results" [attr.aria-busy]="store.status() === 'loading'">
+    @switch (store.status()) {
+      @case ('loading') {
+        <app-recipes-list [recipes]="[]" [loading]="true" />
+      }
+      @case ('error') {
+        <div class="state" role="alert">
+          <p class="heading heading--md">We couldn’t load the recipes.</p>
+          <button matButton="filled" type="button" (click)="store.reload(); pageHeading.focus()">
+            Try again
           </button>
         </div>
       }
+      @default {
+        @if (recipes().length) {
+          <app-recipes-list [recipes]="recipes()" />
+        } @else {
+          <div class="state">
+            <p class="heading heading--md">No recipes match your search.</p>
+            <button matButton="outlined" type="button" (click)="clearFilters(); filters.focusSearch()">
+              Clear all filters
+            </button>
+          </div>
+        }
+      }
     }
-  }
+  </div>
 
   <p class="cdk-visually-hidden" role="status">{{ resultsMessage() }}</p>
 </section>
-<mat-divider />
+<mat-divider class="section-divider" />

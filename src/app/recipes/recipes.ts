@@ -44,6 +44,7 @@ export class Recipes {
   );
 
   protected readonly resultsMessage = computed(() => {
+    if (this.store.status() === 'loading') return 'Loading recipes…';
     if (this.store.status() !== 'success') return '';
 
     const count = this.recipes().length;

@@ -13,4 +13,7 @@ import { Recipe } from '../../data-access/recipe.model';
 })
 export class RecipesList {
   readonly recipes = input.required<readonly Recipe[]>();
+  readonly loading = input(false);
+
+  protected readonly skeletons = [0, 1, 2, 3, 4, 5] as const;
 }

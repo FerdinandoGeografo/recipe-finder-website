@@ -1,49 +1,80 @@
-<ul class="recipes__list">
-  @for (recipe of recipes(); track recipe.id) {
-    <li class="recipe">
-      <mat-card appearance="outlined" class="recipe__card">
-        <img
-          class="recipe__img"
-          mat-card-image
-          [src]="recipe.image.large"
-          [alt]="recipe.title"
-        />
-        <mat-card-content class="recipe__card-content">
-          <div class="recipe__info">
-            <div class="recipe__box">
-              <h2 class="recipe__title">{{ recipe.title }}</h2>
-              <p class="recipe__description heading heading--xs">
-                {{ recipe.overview }}
-              </p>
-            </div>
-            <div class="recipe__details">
-              <div class="recipe__detail">
-                <mat-icon class="recipe__icon" svgIcon="custom:servings" />
-                <span class="recipe__value heading heading--xs">
-                  Servings: {{ recipe.servings }}
-                </span>
+<ul class="recipes__list" [attr.aria-hidden]="loading() ? true : null">
+  @if (loading()) {
+    @for (skeleton of skeletons; track skeleton) {
+      <li class="recipe">
+        <div class="recipe__card recipe__skeleton">
+          <div class="recipe__img recipe__placeholder"></div>
+          <div class="recipe__card-content">
+            <div class="recipe__info">
+              <div class="recipe__box">
+                <div class="recipe__title-line recipe__placeholder"></div>
+                <div class="recipe__description-lines recipe__placeholder"></div>
               </div>
-              <div class="recipe__detail">
-                <mat-icon class="recipe__icon" svgIcon="custom:prep-time" />
-                <span class="recipe__value heading heading--xs">
-                  Prep: {{ recipe.prepMinutes }} mins
-                </span>
-              </div>
-              <div class="recipe__detail">
-                <mat-icon class="recipe__icon" svgIcon="custom:cook-time" />
-                <span class="recipe__value heading heading--xs">
-                  Cook: {{ recipe.cookMinutes }} mins
-                </span>
-              </div>
+              <div class="recipe__stat-lines recipe__placeholder"></div>
             </div>
           </div>
-        </mat-card-content>
-        <mat-card-actions class="recipe__actions">
-          <a matButton="filled" [routerLink]="['/recipes', recipe.slug]">
-            View Recipe
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    </li>
+          <div class="recipe__button-placeholder recipe__placeholder"></div>
+        </div>
+      </li>
+    }
+  } @else {
+    @for (recipe of recipes(); track recipe.id; let index = $index) {
+      <li class="recipe">
+        <mat-card appearance="outlined" class="recipe__card">
+          <picture class="recipe__picture">
+            <source
+              media="(min-width: 48em)"
+              [srcset]="'/' + recipe.image.large"
+              width="1024"
+              height="1024"
+            />
+            <img
+              class="recipe__img"
+              [src]="'/' + recipe.image.small"
+              width="500"
+              height="500"
+              [loading]="index < 3 ? 'eager' : 'lazy'"
+              decoding="async"
+              [alt]="recipe.title"
+            />
+          </picture>
+          <mat-card-content class="recipe__card-content">
+            <div class="recipe__info">
+              <div class="recipe__box">
+                <h2 class="recipe__title">{{ recipe.title }}</h2>
+                <p class="recipe__description heading heading--xs">
+                  {{ recipe.overview }}
+                </p>
+              </div>
+              <div class="recipe__details">
+                <div class="recipe__detail">
+                  <mat-icon class="recipe__icon" svgIcon="custom:servings" aria-hidden="true" />
+                  <span class="recipe__value heading heading--xs">
+                    Servings: {{ recipe.servings }}
+                  </span>
+                </div>
+                <div class="recipe__detail">
+                  <mat-icon class="recipe__icon" svgIcon="custom:prep-time" aria-hidden="true" />
+                  <span class="recipe__value heading heading--xs">
+                    Prep: {{ recipe.prepMinutes }} mins
+                  </span>
+                </div>
+                <div class="recipe__detail">
+                  <mat-icon class="recipe__icon" svgIcon="custom:cook-time" aria-hidden="true" />
+                  <span class="recipe__value heading heading--xs">
+                    Cook: {{ recipe.cookMinutes }} mins
+                  </span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="recipe__actions">
+            <a matButton="filled" [attr.aria-label]="'View recipe: ' + recipe.title" [routerLink]="['/recipes', recipe.slug]">
+              View Recipe
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </li>
+    }
   }
 </ul>
