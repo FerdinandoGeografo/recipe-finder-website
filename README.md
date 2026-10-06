@@ -38,7 +38,7 @@ Users should be able to:
 - Each detail shows ingredients, instructions and three more recipes. The Recipes breadcrumb opens the unfiltered index; browser Back restores the previous filtered URL.
 - Empty results, request errors with retry, and unknown recipe slugs have dedicated states. Clearing all filters and retrying move focus to the page heading, and a live region announces the number of results.
 - On smaller screens, navigation and filter controls use Angular Material menus. Arrow keys move between items, Enter selects, Escape closes and returns focus, and Tab exits the menu. The filter's Clear action is also a menu item.
-- Route changes focus the page heading. View Transitions respect reduced motion and skip filter-only URL changes.
+- Route changes focus the page heading, as a page load would. View Transitions respect reduced motion and skip filter-only URL changes.
 - Sections and recipe cards fade up once as they reach the viewport. Keyboard focus shows them at once, and content already scrolled past (for example after browser Back) is shown without motion.
 
 Recipe card titles stay complete, and search results follow the actual dataset rather than the illustrative results in the design.
@@ -104,6 +104,18 @@ protected readonly recipes = computed(() =>
 ```
 
 There is no second filter state to synchronise with the router and no effect copying values between signals. Search, menu selection, refresh and browser history all use the same URL state.
+
+#### Moving focus after navigation
+
+A single-page app does not reload the document, so the browser neither resets focus nor announces the new page. Focus would stay on the activated link, or fall back to `<body>` when that link belonged to the page that was just removed. After every path change, the page heading receives focus instead: screen readers read the new title and the next Tab starts from the page content. Query-only changes, such as filtering, keep focus in place.
+
+Each page declares its heading in the template, rather than the app searching the DOM for it:
+
+```html
+<h1 appPageHeading class="text-preset-2">Explore our simple, healthy recipes</h1>
+```
+
+The `PageHeading` directive adds `tabindex="-1"` and registers the element with a `PageFocus` service, which focuses it after navigation and when retrying or clearing all filters. Programmatically focused headings show no outline, because they are not interactive controls.
 
 #### Reusing Material components
 
