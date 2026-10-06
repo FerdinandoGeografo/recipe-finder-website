@@ -11,7 +11,9 @@
   </nav>
 
   <div class="recipe__content" [class.recipe__content--state]="store.status() !== 'loading' && !currentRecipe">
-    @if (store.status() !== 'loading' && currentRecipe) {
+    @if (store.status() === 'loading') {
+      <div class="recipe__img recipe__placeholder" aria-hidden="true"></div>
+    } @else if (currentRecipe) {
       <picture class="recipe__picture">
         <source media="(min-width: 48em)" [srcset]="'/' + currentRecipe.image.large" width="1024" height="1024" />
         <img
@@ -31,7 +33,21 @@
         {{ pageName() }}
       </h1>
       @if (store.status() === 'loading') {
-        <p class="heading heading--md">Loading recipe…</p>
+        <div class="recipe__skeleton" aria-hidden="true">
+          <div class="recipe__title-placeholder recipe__placeholder"></div>
+          <div class="recipe__description-placeholder recipe__placeholder"></div>
+          <div class="recipe__stats-placeholder recipe__placeholder"></div>
+          @for (section of skeletonSections; track section.key) {
+            <div class="recipe__list-box">
+              <div class="recipe__heading-placeholder recipe__placeholder"></div>
+              <div class="recipe__list">
+                @for (line of section.lines; track line) {
+                  <div class="recipe__line-placeholder recipe__placeholder"></div>
+                }
+              </div>
+            </div>
+          }
+        </div>
       } @else if (currentRecipe) {
         <p class="heading heading--md">{{ currentRecipe.overview }}</p>
         <div class="recipe__stats">

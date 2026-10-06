@@ -174,4 +174,71 @@
       padding-block: 6.4rem 9.6rem;
     }
   }
+
+  &__skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__placeholder {
+    background: var(--neutral-200);
+    border-radius: .6rem;
+    animation: detail-pulse 1.2s ease-in-out infinite alternate;
+
+    @include media.reduced-motion {
+      animation: none;
+    }
+  }
+
+  &__title-placeholder {
+    height: 9.6rem;
+
+    @include media.from(md) {
+      height: 4.8rem;
+    }
+
+    @include media.from(lg) {
+      height: 11.52rem;
+    }
+  }
+
+  &__description-placeholder {
+    height: 6rem;
+
+    @include media.from(md) {
+      height: 3rem;
+    }
+
+    @include media.from(lg) {
+      height: 6rem;
+    }
+  }
+
+  &__stats-placeholder {
+    width: 75%;
+    height: 6.2rem;
+
+    @include media.from(md) {
+      height: 2.7rem;
+    }
+  }
+
+  &__heading-placeholder {
+    width: 40%;
+    height: 3.1rem;
+  }
+
+  &__line-placeholder {
+    height: 3rem;
+
+    &:last-child {
+      width: 75%;
+    }
+  }
+}
+
+@keyframes detail-pulse {
+  from { opacity: .55; }
+  to { opacity: 1; }
 }
