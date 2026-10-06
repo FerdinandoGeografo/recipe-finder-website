@@ -9,8 +9,8 @@ import {
 } from '@angular/router';
 import { App } from './app/app';
 import { routes } from './app/app.routes';
-import { skipQueryOnlyTransitions } from './app/shared/view-transitions';
-import { requestDelayInterceptor } from './app/shared/request-delay';
+import { skipQueryOnlyTransitions } from './app/shared/utils/view-transitions';
+import { requestDelayInterceptor } from './app/shared/utils/request-delay';
 
 // Zoneless and fetch are defaults; HttpClient is configured here for the delay interceptor.
 bootstrapApplication(App, {
