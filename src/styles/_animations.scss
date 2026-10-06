@@ -1,0 +1,74 @@
+@use 'media';
+
+:root {
+  --motion-reveal: 400ms;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes skeleton-pulse {
+  from { opacity: .55; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.reveal-pending {
+  opacity: 0;
+}
+
+.reveal-visible,
+.page-enter {
+  animation: rise-in var(--motion-reveal) var(--motion-ease-out) both;
+}
+
+.fade-enter {
+  animation: fade-in var(--motion-standard) var(--motion-ease-out) both;
+}
+
+// Leaving skeletons overlap incoming content without shifting the page layout.
+.loading-leave {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: fade-out var(--motion-fast) var(--motion-ease-out) both;
+}
+
+.page-enter:focus-within,
+.fade-enter:focus-within {
+  animation: none;
+}
+
+@include media.reduced-motion {
+  .reveal-pending {
+    opacity: 1;
+  }
+}
+
+@media print {
+  .reveal-pending,
+  .reveal-visible,
+  .page-enter,
+  .fade-enter {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

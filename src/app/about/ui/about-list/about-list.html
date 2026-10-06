@@ -1,9 +1,9 @@
 <section class="about-list">
-  <h2 class="about-list__title heading heading--2xl">{{ heading() }}</h2>
+  <h2 appReveal class="about-list__title heading heading--2xl">{{ heading() }}</h2>
 
   <ul class="about-list__list">
     @for (item of items(); track item.heading) {
-      <li class="about-list__item">
+      <li class="about-list__item" appReveal>
         <mat-icon class="about-list__icon" svgIcon="custom:bullet-point" aria-hidden="true" />
 
         <div class="about-list__text">

@@ -19,7 +19,7 @@
     }
   } @else {
     @for (recipe of recipes(); track recipe.id; let index = $index) {
-      <li class="recipe">
+      <li class="recipe" appReveal>
         <mat-card appearance="outlined" class="recipe__card">
           <picture class="recipe__picture">
             <source

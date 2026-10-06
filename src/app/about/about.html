@@ -1,5 +1,5 @@
 <section class="hero">
-  <div class="hero__text">
+  <div class="hero__text" animate.enter="page-enter">
     <p class="hero__title">Our mission</p>
     <h1 class="heading heading--2xl">
       Help more people cook nourishing meals,<br class="hero__line-break" />
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <picture class="hero__picture">
+  <picture class="hero__picture" animate.enter="fade-enter">
     <source
       media="(min-width: 48em)"
       srcset="/images/image-about-our-mission-large.webp"
@@ -42,7 +42,7 @@
 <mat-divider />
 <div class="beyond">
   <div class="beyond__box">
-    <div class="beyond__text">
+    <div class="beyond__text" appReveal>
       <h2 class="heading heading--2xl">Beyond the plate</h2>
       <div class="beyond__description">
         <p class="heading heading--md">
@@ -56,7 +56,7 @@
         </ul>
       </div>
     </div>
-    <picture class="beyond__picture">
+    <picture class="beyond__picture" appReveal>
       <source
         media="(min-width: 48em)"
         srcset="/images/image-about-beyond-the-plate-large.webp"

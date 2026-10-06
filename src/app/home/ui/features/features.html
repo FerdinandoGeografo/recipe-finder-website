@@ -1,9 +1,9 @@
 <section class="features" aria-labelledby="features-heading">
-  <h2 id="features-heading" class="heading heading--2xl">What you’ll get</h2>
+  <h2 appReveal id="features-heading" class="heading heading--2xl">What you’ll get</h2>
 
   <ul class="features__list">
     @for (feature of features; track feature.title) {
-      <li class="feature">
+      <li class="feature" appReveal>
         <div class="feature__icon-box">
           <mat-icon
             class="feature__icon feature__icon--{{ feature.icon }}"

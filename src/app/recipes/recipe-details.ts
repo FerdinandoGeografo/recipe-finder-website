@@ -1,3 +1,4 @@
+import { Reveal } from '../shared/directives/reveal';
 import { skeletonSections } from './constants/detail-skeleton';
 import { Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -12,6 +13,7 @@ import { pageTitle } from '../shared/utils/page-title';
 @Component({
   selector: 'app-recipe-details',
   imports: [
+    Reveal,
     RouterLink,
     MatButton,
     MatIcon,

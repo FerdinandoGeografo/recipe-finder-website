@@ -19,7 +19,7 @@
     @if (store.status() === 'loading') {
       <div class="recipe__img recipe__placeholder" aria-hidden="true"></div>
     } @else if (currentRecipe) {
-      <picture class="recipe__picture">
+      <picture class="recipe__picture" animate.enter="fade-enter">
         <source media="(min-width: 48em)" [srcset]="'/' + currentRecipe.image.large" width="1024" height="1024" />
         <img
           class="recipe__img"
@@ -38,7 +38,7 @@
         {{ pageName() }}
       </h1>
       @if (store.status() === 'loading') {
-        <div class="recipe__skeleton" aria-hidden="true">
+        <div class="recipe__skeleton" animate.enter="fade-enter" animate.leave="loading-leave" aria-hidden="true">
           <div class="recipe__title-placeholder recipe__placeholder"></div>
           <div class="recipe__description-placeholder recipe__placeholder"></div>
           <div class="recipe__stats-placeholder recipe__placeholder"></div>
@@ -69,7 +69,7 @@
             <span class="heading heading--sm">Cook: {{ currentRecipe.cookMinutes }} mins</span>
           </div>
         </div>
-        <section class="recipe__list-box" aria-labelledby="ingredients-heading">
+        <section class="recipe__list-box" appReveal aria-labelledby="ingredients-heading">
           <h2 id="ingredients-heading" class="recipe__list-title">Ingredients:</h2>
           <ul class="recipe__list" role="list">
             @for (ingredient of currentRecipe.ingredients; track $index) {
@@ -80,7 +80,7 @@
             }
           </ul>
         </section>
-        <section class="recipe__list-box" aria-labelledby="instructions-heading">
+        <section class="recipe__list-box" appReveal aria-labelledby="instructions-heading">
           <h2 id="instructions-heading" class="recipe__list-title">Instructions:</h2>
           <ol class="recipe__list" role="list">
             @for (instruction of currentRecipe.instructions; track $index) {
@@ -104,7 +104,7 @@
 @if (store.status() === 'success' && currentRecipe) {
   <mat-divider class="recipe__divider" />
   <section class="recipe__more" aria-labelledby="more-recipes-heading">
-    <h2 id="more-recipes-heading" class="heading heading--lg">More recipes</h2>
+    <h2 appReveal id="more-recipes-heading" class="heading heading--lg">More recipes</h2>
     <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
   </section>
 }
