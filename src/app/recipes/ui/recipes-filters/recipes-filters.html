@@ -5,7 +5,7 @@
     type="button"
     class="filters__trigger"
     [class.filters__trigger--selected]="selected !== undefined"
-    [matMenuTriggerFor]="disabled() ? null : menu"
+    [matMenuTriggerFor]="menu"
     [disabled]="disabled()"
     [attr.aria-label]="selected === undefined ? definition.label : definition.label + ', ' + selected + ' minutes'"
   >
@@ -22,7 +22,6 @@
     @for (minutes of definition.options; track minutes) {
       <button
         mat-menu-item
-        [disabled]="disabled()"
         type="button"
         class="recipe-filter-menu__option"
         [class.recipe-filter-menu__option--selected]="selected === minutes"
@@ -35,7 +34,6 @@
     }
     <button
       mat-menu-item
-      [disabled]="disabled()"
       type="button"
       class="recipe-filter-menu__clear"
       [attr.aria-label]="'Clear ' + definition.label"

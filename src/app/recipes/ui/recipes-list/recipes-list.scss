@@ -77,30 +77,6 @@
     color: var(--neutral-800);
   }
 
-  &__details {
-    display: flex;
-    align-items: center;
-    column-gap: 1.6rem;
-    row-gap: .8rem;
-    flex-wrap: wrap;
-  }
-
-  &__detail {
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-  }
-
-  &__icon {
-    flex: 0 0 auto;
-    width: 2rem;
-    height: 2rem;
-  }
-
-  &__value {
-    color: var(--neutral-900);
-  }
-
   &__actions {
     min-height: auto;
     padding: 0;

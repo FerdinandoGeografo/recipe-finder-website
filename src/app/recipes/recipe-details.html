@@ -1,16 +1,18 @@
 @let currentRecipe = recipe();
-<section class="recipe__details" [attr.aria-busy]="store.status() === 'loading'">
+@let loading = store.isLoading();
+<section class="recipe__details" [attr.aria-busy]="loading">
   <nav class="recipe__breadcrumbs text-preset-7" aria-label="Breadcrumb">
     <ol class="recipe__breadcrumb-list">
-      <li><a
-        role="link"
-        [routerLink]="store.status() === 'loading' ? null : '/recipes'"
-        [attr.aria-disabled]="store.status() === 'loading' ? true : null"
-        [attr.tabindex]="store.status() === 'loading' ? -1 : null"
-      >Recipes</a></li>
+      <li>
+        @if (loading) {
+          <span class="recipe__crumb recipe__crumb--disabled">Recipes</span>
+        } @else {
+          <a class="recipe__crumb" routerLink="/recipes">Recipes</a>
+        }
+      </li>
       <li class="recipe__current" aria-current="page">
         <span class="recipe__separator" aria-hidden="true">/</span>
-        @if (store.status() === 'loading') {
+        @if (loading) {
           <app-skeleton class="recipe__breadcrumb-placeholder" width="20rem" height="1.8rem" radius=".4rem" />
         } @else {
           <span class="recipe__name">{{ pageName() }}</span>
@@ -19,11 +21,11 @@
     </ol>
   </nav>
 
-  <div class="recipe__content" [class.recipe__content--state]="store.status() !== 'loading' && !currentRecipe">
-    @if (store.status() === 'loading') {
+  <div class="recipe__content" [class.recipe__content--state]="!loading && !currentRecipe">
+    @if (loading) {
       <app-skeleton class="recipe__image-placeholder" height="auto" radius="1rem" />
     } @else if (currentRecipe) {
-      <picture class="recipe__picture" animate.enter="fade-enter">
+      <picture animate.enter="fade-enter">
         <source media="(min-width: 48em)" [srcset]="'/' + currentRecipe.image.large" width="1024" height="1024" />
         <img
           class="recipe__img"
@@ -38,10 +40,10 @@
     }
 
     <div class="recipe__info">
-      <h1 #pageHeading tabindex="-1" class="text-preset-2 recipe__title" [class.cdk-visually-hidden]="store.status() === 'loading'">
+      <h1 class="text-preset-2 recipe__title" [class.cdk-visually-hidden]="loading">
         {{ pageName() }}
       </h1>
-      @if (store.status() === 'loading') {
+      @if (loading) {
         <div class="recipe__skeleton" animate.enter="fade-enter" animate.leave="loading-leave" aria-hidden="true">
           <app-skeleton class="recipe__title-placeholder" />
           <app-skeleton class="recipe__description-placeholder" />
@@ -59,20 +61,7 @@
         </div>
       } @else if (currentRecipe) {
         <p class="text-preset-6">{{ currentRecipe.overview }}</p>
-        <div class="recipe__stats">
-          <div class="recipe__data">
-            <mat-icon class="recipe__icon" svgIcon="custom:servings" aria-hidden="true" />
-            <span class="text-preset-7">Servings: {{ currentRecipe.servings }}</span>
-          </div>
-          <div class="recipe__data">
-            <mat-icon class="recipe__icon" svgIcon="custom:prep-time" aria-hidden="true" />
-            <span class="text-preset-7">Prep: {{ currentRecipe.prepMinutes }} mins</span>
-          </div>
-          <div class="recipe__data">
-            <mat-icon class="recipe__icon" svgIcon="custom:cook-time" aria-hidden="true" />
-            <span class="text-preset-7">Cook: {{ currentRecipe.cookMinutes }} mins</span>
-          </div>
-        </div>
+        <app-recipe-stats [recipe]="currentRecipe" />
         <section class="recipe__list-box" appReveal aria-labelledby="ingredients-heading">
           <h2 id="ingredients-heading" class="text-preset-4">Ingredients:</h2>
           <ul class="recipe__list" role="list">
@@ -105,12 +94,12 @@
     </div>
   </div>
 </section>
-@if (store.status() === 'success' && currentRecipe) {
+@if (currentRecipe && !loading) {
   <mat-divider class="recipe__divider" />
   <section class="recipe__more" aria-labelledby="more-recipes-heading">
     <h2 appReveal id="more-recipes-heading" class="text-preset-3">More recipes</h2>
     <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
   </section>
 }
-<p class="cdk-visually-hidden" role="status">{{ store.status() === 'loading' ? 'Loading recipe…' : '' }}</p>
+<p class="cdk-visually-hidden" role="status">{{ loading ? 'Loading recipe…' : '' }}</p>
 <mat-divider />

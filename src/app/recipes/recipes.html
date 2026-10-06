@@ -1,5 +1,5 @@
 <section class="hero" animate.enter="page-enter">
-  <h1 #pageHeading tabindex="-1" class="text-preset-2">Explore our simple, healthy recipes</h1>
+  <h1 class="text-preset-2">Explore our simple, healthy recipes</h1>
   <p class="text-preset-6">
     Discover eight quick, whole-food dishes that fit real-life schedules and
     taste amazing. Use the search bar to find a recipe by name or ingredient, or
@@ -10,14 +10,14 @@
 <section class="list">
   <app-recipes-filters
     [filter]="filter()"
-    [disabled]="store.status() === 'loading'"
+    [disabled]="store.isLoading()"
     (filterChange)="updateFilter($event)"
   />
 
-  <div class="results" [attr.aria-busy]="store.status() === 'loading'">
+  <div class="results" [attr.aria-busy]="store.isLoading()">
     @switch (store.status()) {
       @case ('loading') {
-        <app-recipes-list [recipes]="[]" [loading]="true" animate.enter="fade-enter" animate.leave="loading-leave" />
+        <app-recipes-list-skeleton animate.enter="fade-enter" animate.leave="loading-leave" />
       }
       @case ('error') {
         <div class="state" animate.enter="fade-enter" role="alert">

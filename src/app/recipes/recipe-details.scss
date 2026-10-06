@@ -33,26 +33,25 @@
     > li:first-child {
       flex: 0 0 6.2rem;
     }
+  }
 
-    a {
-      color: var(--neutral-800);
-      text-decoration: none;
-      border-radius: 2px;
-      @include motion.transition(box-shadow);
+  &__crumb {
+    color: var(--neutral-800);
+    text-decoration: none;
+    border-radius: 2px;
+    @include motion.transition(box-shadow);
 
-      &[aria-disabled=true] {
-        opacity: .5;
-        pointer-events: none;
-      }
+    &--disabled {
+      opacity: .5;
+    }
 
-      &:hover {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
+    &:any-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
 
-      &:focus-visible {
-        @include a11y.focus-ring;
-      }
+    &:focus-visible {
+      @include a11y.focus-ring;
     }
   }
 
@@ -119,26 +118,6 @@
       font-size: 4.8rem;
       line-height: 5.8rem;
     }
-  }
-
-  &__stats {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    column-gap: 1.6rem;
-    row-gap: .8rem;
-  }
-
-  &__data {
-    display: flex;
-    align-items: center;
-    gap: .8rem;
-  }
-
-  &__icon {
-    flex: 0 0 auto;
-    width: 2rem;
-    height: 2rem;
   }
 
   &__list-box, &__list {

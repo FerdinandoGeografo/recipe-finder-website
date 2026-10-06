@@ -1,84 +1,43 @@
-<ul class="recipes__list" [attr.aria-hidden]="loading() ? true : null">
-  @if (loading()) {
-    @for (skeleton of skeletons; track skeleton) {
-      <li class="recipe">
-        <div class="recipe__card recipe__skeleton">
-          <app-skeleton height="var(--recipe-image-height)" radius="1rem" />
-          <div class="recipe__card-content">
-            <div class="recipe__info">
-              <div class="recipe__box">
-                <app-skeleton width="80%" height="2.8rem" />
-                <app-skeleton height="4.8rem" />
-              </div>
-              <app-skeleton height="var(--recipe-stats-height)" />
+<ul class="recipes__list">
+  @for (recipe of recipes(); track recipe.id; let index = $index) {
+    <li class="recipe" appReveal>
+      <mat-card appearance="outlined" class="recipe__card">
+        <picture>
+          <source
+            media="(min-width: 48em)"
+            [srcset]="'/' + recipe.image.large"
+            width="1024"
+            height="1024"
+          />
+          <img
+            class="recipe__img"
+            [src]="'/' + recipe.image.small"
+            width="500"
+            height="500"
+            [loading]="index < 3 ? 'eager' : 'lazy'"
+            decoding="async"
+            [alt]="recipe.title"
+          />
+        </picture>
+        <mat-card-content class="recipe__card-content">
+          <div class="recipe__info">
+            <div class="recipe__box">
+              @if (headingLevel() === 3) {
+                <h3 class="text-preset-5">{{ recipe.title }}</h3>
+              } @else {
+                <h2 class="text-preset-5">{{ recipe.title }}</h2>
+              }
+              <p class="recipe__description text-preset-9">{{ recipe.overview }}</p>
             </div>
+            <app-recipe-stats [recipe]="recipe" size="compact" />
           </div>
-          <app-skeleton height="4.8rem" radius="999px" />
-        </div>
-      </li>
-    }
-  } @else {
-    @for (recipe of recipes(); track recipe.id; let index = $index) {
-      <li class="recipe" appReveal>
-        <mat-card appearance="outlined" class="recipe__card">
-          <picture class="recipe__picture">
-            <source
-              media="(min-width: 48em)"
-              [srcset]="'/' + recipe.image.large"
-              width="1024"
-              height="1024"
-            />
-            <img
-              class="recipe__img"
-              [src]="'/' + recipe.image.small"
-              width="500"
-              height="500"
-              [loading]="index < 3 ? 'eager' : 'lazy'"
-              decoding="async"
-              [alt]="recipe.title"
-            />
-          </picture>
-          <mat-card-content class="recipe__card-content">
-            <div class="recipe__info">
-              <div class="recipe__box">
-                @if (headingLevel() === 3) {
-                  <h3 class="text-preset-5">{{ recipe.title }}</h3>
-                } @else {
-                  <h2 class="text-preset-5">{{ recipe.title }}</h2>
-                }
-                <p class="recipe__description text-preset-9">
-                  {{ recipe.overview }}
-                </p>
-              </div>
-              <div class="recipe__details">
-                <div class="recipe__detail">
-                  <mat-icon class="recipe__icon" svgIcon="custom:servings" aria-hidden="true" />
-                  <span class="recipe__value text-preset-9">
-                    Servings: {{ recipe.servings }}
-                  </span>
-                </div>
-                <div class="recipe__detail">
-                  <mat-icon class="recipe__icon" svgIcon="custom:prep-time" aria-hidden="true" />
-                  <span class="recipe__value text-preset-9">
-                    Prep: {{ recipe.prepMinutes }} mins
-                  </span>
-                </div>
-                <div class="recipe__detail">
-                  <mat-icon class="recipe__icon" svgIcon="custom:cook-time" aria-hidden="true" />
-                  <span class="recipe__value text-preset-9">
-                    Cook: {{ recipe.cookMinutes }} mins
-                  </span>
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-          <mat-card-actions class="recipe__actions">
-            <a matButton="filled" [attr.aria-label]="'View recipe: ' + recipe.title" [routerLink]="['/recipes', recipe.slug]">
-              View Recipe
-            </a>
-          </mat-card-actions>
-        </mat-card>
-      </li>
-    }
+        </mat-card-content>
+        <mat-card-actions class="recipe__actions">
+          <a matButton="filled" [attr.aria-label]="'View recipe: ' + recipe.title" [routerLink]="['/recipes', recipe.slug]">
+            View Recipe
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </li>
   }
 </ul>

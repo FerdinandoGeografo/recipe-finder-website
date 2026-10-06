@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 1.6rem;
+  row-gap: .8rem;
+}
+
+.recipe-stats {
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+
+    :host(.recipe-stats--compact) & {
+      gap: .6rem;
+    }
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+  }
+}
