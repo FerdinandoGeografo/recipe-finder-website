@@ -1,6 +1,13 @@
 <header class="header">
   <div class="header__inner">
-    <app-logo />
+    <a
+      class="header__logo-link"
+      routerLink="/home"
+      aria-label="Healthy Recipe Finder — Home"
+      (click)="closeMenu(false)"
+    >
+      <app-logo aria-hidden="true" />
+    </a>
     <button
       #menuButton
       class="header__toggle"
