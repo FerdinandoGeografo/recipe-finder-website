@@ -27,6 +27,15 @@
   @include media.from(lg) {
     --recipe-image-height: 30rem;
     --recipe-stats-height: 5.6rem;
+
+    // Cards of the same row reveal column by column.
+    &:nth-child(3n + 2) {
+      --reveal-delay: 80ms;
+    }
+
+    &:nth-child(3n) {
+      --reveal-delay: 160ms;
+    }
   }
 
   &__card {

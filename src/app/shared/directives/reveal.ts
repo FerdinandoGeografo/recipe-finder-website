@@ -1,64 +1,32 @@
-import {
-  afterNextRender,
-  DestroyRef,
-  Directive,
-  ElementRef,
-  inject,
-  signal,
-} from '@angular/core';
+import { afterNextRender, DestroyRef, Directive, ElementRef, inject, signal } from '@angular/core';
+import { RevealObserver } from '../data-access/reveal-observer';
 import { RevealState } from '../types/reveal-state';
-import { reducedMotionQuery } from '../constants/motion';
 
+// Hidden from the first render until the element enters the viewport; focus shows it at once.
 @Directive({
   selector: '[appReveal]',
   host: {
     '[class.reveal-pending]': "state() === 'pending'",
     '[class.reveal-visible]': "state() === 'revealed'",
-    '(focusin)': 'showImmediately()',
+    '(focusin)': 'show()',
   },
 })
 export class Reveal {
-  private readonly element =
-    inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
-  private readonly destroyRef = inject(DestroyRef);
-  private observer?: IntersectionObserver;
-  protected readonly state = signal<RevealState>('visible');
+  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly observer = inject(RevealObserver);
+  protected readonly state = signal<RevealState>(this.observer.enabled ? 'pending' : 'visible');
 
   constructor() {
-    afterNextRender(() => {
-      const view = this.element.ownerDocument.defaultView;
-      if (!view || !('IntersectionObserver' in view)) return;
-      const motion = view.matchMedia(reducedMotionQuery);
-      if (
-        motion.matches ||
-        this.element.contains(this.element.ownerDocument.activeElement)
-      )
-        return;
+    if (this.state() !== 'pending') return;
 
-      const onMotionChange = () => {
-        if (motion.matches) this.showImmediately();
-      };
-      motion.addEventListener('change', onMotionChange);
-      this.observer = new IntersectionObserver((entries) => {
-        if (
-          this.state() !== 'pending' ||
-          !entries.some((entry) => entry.isIntersecting)
-        )
-          return;
-        this.state.set('revealed');
-        this.observer?.disconnect();
-      });
-      this.state.set('pending');
-      this.observer.observe(this.element);
-      this.destroyRef.onDestroy(() => {
-        this.observer?.disconnect();
-        motion.removeEventListener('change', onMotionChange);
-      });
-    });
+    afterNextRender(() =>
+      this.observer.observe(this.element, (animate) => this.state.set(animate ? 'revealed' : 'visible')),
+    );
+    inject(DestroyRef).onDestroy(() => this.observer.unobserve(this.element));
   }
 
-  protected showImmediately(): void {
-    this.observer?.disconnect();
+  protected show(): void {
+    this.observer.unobserve(this.element);
     this.state.set('visible');
   }
 }
