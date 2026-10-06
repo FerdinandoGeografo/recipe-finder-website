@@ -68,27 +68,24 @@
       height: 2.2rem;
     }
 
-    // Box widths match the painted icons; offsets align them without editing the SVG view boxes.
+    // Box widths follow the painted icons, narrower than their SVG view boxes.
     &--instagram .mat-icon {
       width: 2.3rem;
-      transform: translateX(-.0344rem);
     }
 
     &--bluesky {
-      width: 2.490625rem;
+      width: 2.5rem;
 
       .mat-icon {
         width: 2.6rem;
-        transform: translateX(-.0257rem);
       }
     }
 
     &--tiktok {
-      width: 1.925rem;
+      width: 1.9rem;
 
       .mat-icon {
         width: 2rem;
-        transform: translateX(-.0375rem);
       }
     }
   }

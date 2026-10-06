@@ -87,10 +87,10 @@
     aspect-ratio: 635 / 450;
     object-fit: cover;
     // The mobile and tablet instances override the master image's radius.
-    border-radius: .9783rem;
+    border-radius: 1rem;
 
     @include media.from(md) {
-      border-radius: 1.7628rem;
+      border-radius: 1.8rem;
     }
 
     @include media.from(lg) {
