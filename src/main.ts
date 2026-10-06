@@ -1,5 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -9,11 +10,13 @@ import {
 import { App } from './app/app';
 import { routes } from './app/app.routes';
 import { skipQueryOnlyTransitions } from './app/shared/view-transitions';
+import { requestDelayInterceptor } from './app/shared/request-delay';
 
-// Zoneless change detection and HttpClient (fetch) are Angular defaults since v21.
+// Zoneless and fetch are defaults; HttpClient is configured here for the delay interceptor.
 bootstrapApplication(App, {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptors([requestDelayInterceptor])),
     provideRouter(
       routes,
       withComponentInputBinding(),

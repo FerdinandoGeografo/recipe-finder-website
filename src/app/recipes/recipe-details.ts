@@ -1,7 +1,9 @@
-import { Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input, isDevMode, viewChild } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RecipesStore } from './data-access/recipes-store';
+import { RECIPE_REQUEST_KEY } from './data-access/recipes-api.config';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -19,6 +21,16 @@ import { pageTitle } from '../shared/page-title';
   ],
   templateUrl: './recipe-details.html',
   styleUrl: './recipe-details.scss',
+  providers: isDevMode() ? [
+    RecipesStore,
+    {
+      provide: RECIPE_REQUEST_KEY,
+      useFactory: () => {
+        const paramMap = toSignal(inject(ActivatedRoute).paramMap, { requireSync: true });
+        return () => paramMap().get('slug');
+      },
+    },
+  ] : [],
 })
 export class RecipeDetails {
   private readonly pageHeading = viewChild.required<ElementRef<HTMLHeadingElement>>('pageHeading');
