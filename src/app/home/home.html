@@ -1,9 +1,9 @@
 <app-hero />
 <app-features />
-<mat-divider />
-<section class="real-life">
+<mat-divider class="section-divider" />
+<section class="real-life" aria-labelledby="real-life-heading">
   <div class="real-life__text">
-    <h2 class="heading heading--2xl">Built for real life</h2>
+    <h2 id="real-life-heading" class="heading heading--2xl">Built for real life</h2>
     <p class="heading heading--md">
       Cooking shouldn’t be complicated. These recipes come in under
       <span>30 minutes</span>
@@ -14,10 +14,22 @@
       covered.
     </p>
   </div>
-  <img
-    class="real-life__img"
-    src="images/image-home-real-life-large.webp"
-    alt="Real life image"
-  />
+  <picture class="real-life__picture">
+    <source
+      media="(min-width: 48em)"
+      srcset="/images/image-home-real-life-large.webp"
+      width="1270"
+      height="900"
+    />
+    <img
+      class="real-life__img"
+      src="/images/image-home-real-life-small.webp"
+      width="686"
+      height="487"
+      loading="lazy"
+      decoding="async"
+      alt="A cook chopping fresh vegetables on a wooden board."
+    />
+  </picture>
 </section>
 <app-call-to-action />

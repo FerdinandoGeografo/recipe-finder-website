@@ -1,21 +1,22 @@
-<section class="features">
-  <p class="heading heading--2xl">What you’ll get</p>
+<section class="features" aria-labelledby="features-heading">
+  <h2 id="features-heading" class="heading heading--2xl">What you’ll get</h2>
 
-  <div class="features__list">
+  <ul class="features__list">
     @for (feature of features; track feature.title) {
-      <div class="feature">
+      <li class="feature">
         <div class="feature__icon-box">
           <mat-icon
-            class="feature__icon"
+            class="feature__icon feature__icon--{{ feature.icon }}"
+            aria-hidden="true"
             [svgIcon]="'custom:' + feature.icon"
           />
         </div>
 
         <div class="feature__text">
-          <p class="heading heading--lg">{{ feature.title }}</p>
+          <h3 class="heading heading--lg">{{ feature.title }}</h3>
           <p class="heading heading--md">{{ feature.description }}</p>
         </div>
-      </div>
+      </li>
     }
-  </div>
+  </ul>
 </section>

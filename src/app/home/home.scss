@@ -1,49 +1,74 @@
-:host {
-  display: block;
-  padding: 0 12.4rem;
+@use 'layout';
+@use 'media';
 
-  .real-life {
-    padding: 9.6rem 0;
-    display: flex;
+:host {
+  @include layout.container;
+  display: block;
+}
+
+.section-divider {
+  display: none;
+
+  @include media.from(md) {
+    display: block;
+    margin-inline: calc(-1 * var(--page-gutter));
+  }
+
+  @include media.from(lg) {
+    margin-inline: 0;
+  }
+}
+
+.real-life {
+  display: grid;
+  gap: 3.2rem;
+  padding-block: 6.4rem;
+
+  @include media.from(md) {
+    gap: 4rem;
+    padding-block: 8rem;
+  }
+
+  @include media.from(lg) {
+    // The desktop frame splits 1144px of content into 509px text and 635px imagery.
+    grid-template-columns: minmax(0, 509fr) minmax(0, 635fr);
     align-items: center;
     gap: 4.8rem;
+    padding-block: 9.6rem;
+  }
 
-    &__text {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
-      .heading--2xl {
+    .heading--2xl {
+      @include media.from(lg) {
         line-height: 6.5rem;
       }
+    }
 
-      .heading--md {
-        span {
-          font-family: var(--ff-base);
-          letter-spacing: -0.5px;
-          font-weight: 700;
-          position: relative;
+    span {
+      font-family: var(--ff-base);
+      letter-spacing: -.5px;
+      font-weight: 700;
+      white-space: nowrap;
 
-          &::after {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            left: 0;
-            top: 0;
-            transform: translateY(100%);
-            height: 1.2rem;
-            width: 100%;
-            background: var(--orange-500);
-            border-radius: 3px;
-          }
-        }
+      @include media.from(md) {
+        background: linear-gradient(transparent 55%, var(--orange-500) 55% 90%, transparent 90%);
+        border-radius: 3px;
       }
     }
+  }
 
-    &__img {
-      max-width: 63.5rem;
-      max-height: 45rem;
-      border-radius: 1.6rem;
-    }
+  &__picture {
+    display: block;
+    min-width: 0;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    border-radius: 1.6rem;
   }
 }

@@ -1,18 +1,31 @@
-<section class="hero">
-  <img class="hero__illustration" src="images/pattern-squiggle-1.svg" alt="" />
+<section class="hero" aria-labelledby="home-heading">
+  <div class="hero__decoration" aria-hidden="true">
+    <img src="/images/pattern-squiggle-1.svg" width="1440" height="616" alt="" />
+  </div>
   <div class="hero__text">
-    <h1 class="hero__title heading heading--3xl">Healthy meals, zero fuss</h1>
+    <h1 id="home-heading" class="hero__title heading heading--3xl">
+      <span class="hero__highlight">Healthy</span> meals, zero fuss
+    </h1>
     <p class="hero__subtitle heading heading--md">
       Discover eight quick, whole-food recipes that you can cook tonight—no
       processed junk, no guesswork.
     </p>
-    <a matButton="filled" routerLink="/about"> Start exploring </a>
+    <a matButton="filled" routerLink="/recipes">Start exploring</a>
   </div>
-  <div class="hero__img-box">
+  <picture class="hero__picture">
+    <source
+      media="(min-width: 48em)"
+      srcset="/images/image-home-hero-large.webp"
+      width="2384"
+      height="1060"
+    />
     <img
       class="hero__img"
-      src="images/image-home-hero-large.webp"
-      alt="Hero image"
+      src="/images/image-home-hero-small.webp"
+      width="686"
+      height="400"
+      fetchpriority="high"
+      alt="A woman holding a board of sliced cucumber while preparing a salad."
     />
-  </div>
+  </picture>
 </section>
