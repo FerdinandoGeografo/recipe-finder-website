@@ -44,7 +44,7 @@
         {{ pageName() }}
       </h1>
       @if (loading) {
-        <div class="recipe__skeleton" animate.enter="fade-enter" animate.leave="loading-leave" aria-hidden="true">
+        <div class="recipe__skeleton" animate.leave="loading-leave" aria-hidden="true">
           <app-skeleton class="recipe__title-placeholder" />
           <app-skeleton class="recipe__description-placeholder" />
           <app-skeleton class="recipe__stats-placeholder" width="75%" />

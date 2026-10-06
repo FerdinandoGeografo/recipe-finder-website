@@ -17,7 +17,7 @@
   <div class="results" [attr.aria-busy]="store.isLoading()">
     @switch (store.status()) {
       @case ('loading') {
-        <app-recipes-list-skeleton animate.enter="fade-enter" animate.leave="loading-leave" />
+        <app-recipes-list-skeleton animate.leave="loading-leave" />
       }
       @case ('error') {
         <div class="state" animate.enter="fade-enter" role="alert">

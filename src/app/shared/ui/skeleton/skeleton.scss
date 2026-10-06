@@ -1,5 +1,4 @@
-@use 'media';
-
+// Fades in after a short delay, so fast responses never flash a placeholder.
 :host {
   display: block;
   flex-shrink: 0;
@@ -8,10 +7,8 @@
   height: var(--skeleton-height, 1em);
   border-radius: var(--skeleton-radius, .6rem);
   background: var(--neutral-200);
-  animation: skeleton-pulse 1.2s ease-in-out infinite alternate;
+  animation:
+    fade-in var(--motion-standard) var(--motion-ease-out) var(--motion-loading-delay) both,
+    skeleton-pulse 1.2s ease-in-out infinite alternate;
   pointer-events: none;
-
-  @include media.reduced-motion {
-    animation: none;
-  }
 }
