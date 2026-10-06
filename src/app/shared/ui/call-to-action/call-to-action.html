@@ -1,6 +1,8 @@
-<section class="cta" aria-label="Browse healthy recipes">
+<section class="cta" aria-labelledby="cta-heading">
   <svg
     class="cta__illustration"
+    aria-hidden="true"
+    focusable="false"
     width="315"
     height="391"
     fill="none"
@@ -16,14 +18,13 @@
     />
   </svg>
   <div class="cta__text">
-    <p class="cta__title">Ready to cook smarter?</p>
+    <h2 id="cta-heading" class="cta__title heading heading--2xl">Ready to cook smarter?</h2>
     <p class="heading heading--md">
       Hit the button, pick a recipe, and get dinner on the table—fast.
     </p>
   </div>
   <a
-    [style.--mat-button-filled-container-height.rem]="5.7"
-    [style.--mat-button-filled-horizontal-padding.rem]="2.4"
+    class="cta__button"
     matButton="filled"
     routerLink="/recipes"
   >
@@ -31,6 +32,8 @@
   </a>
   <svg
     class="cta__illustration"
+    aria-hidden="true"
+    focusable="false"
     width="339"
     height="339"
     fill="none"
