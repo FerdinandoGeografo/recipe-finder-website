@@ -2,6 +2,7 @@
   <div class="header__inner">
     <a
       class="header__logo-link"
+      animate.enter="drop-enter"
       routerLink="/home"
       aria-label="Healthy Recipe Finder — Home"
     >
@@ -10,6 +11,7 @@
     <button
       #menuTrigger="matMenuTrigger"
       class="header__toggle"
+      animate.enter="drop-enter"
       type="button"
       [matMenuTriggerFor]="mobileMenu"
       [attr.aria-label]="menuTrigger.menuOpen ? 'Close menu' : 'Open menu'"
@@ -32,7 +34,7 @@
           </li>
         }
       </ul>
-      <a class="header__browse" matButton="filled" routerLink="/recipes">
+      <a class="header__browse" animate.enter="drop-enter" matButton="filled" routerLink="/recipes">
         Browse recipes
       </a>
     </nav>

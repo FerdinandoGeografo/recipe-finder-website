@@ -42,6 +42,17 @@
     }
   }
 
+  @keyframes drop-in {
+    from {
+      opacity: 0;
+      transform: translateY(-.8rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   @keyframes skeleton-pulse {
     from { background-color: color-mix(in srgb, var(--neutral-200) 55%, transparent); }
     to { background-color: var(--neutral-200); }
@@ -67,6 +78,10 @@
 
   .page-enter {
     animation: rise-in var(--motion-reveal) var(--motion-ease-out) both;
+  }
+
+  .drop-enter {
+    animation: drop-in var(--motion-reveal) var(--motion-ease-out) var(--enter-delay, 0ms) both;
   }
 
   .fade-enter {
@@ -108,6 +123,7 @@
     .reveal-pending,
     .reveal-visible,
     .page-enter,
+    .drop-enter,
     .fade-enter {
       opacity: 1;
       transform: none;

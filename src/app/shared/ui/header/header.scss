@@ -17,6 +17,11 @@
     @include motion.transition(box-shadow, background-color);
   }
 
+  &__toggle,
+  &__browse {
+    --enter-delay: 80ms;
+  }
+
   &__inner {
     position: relative;
     display: grid;
