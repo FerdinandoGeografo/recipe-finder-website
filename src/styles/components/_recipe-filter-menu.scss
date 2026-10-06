@@ -59,6 +59,14 @@ html .recipe-filter-menu.mat-mdc-menu-panel {
     }
   }
 
+  .recipe-filter-menu__option:focus-visible {
+    outline-color: transparent;
+
+    .recipe-filter-menu__indicator {
+      box-shadow: 0 0 0 4px var(--neutral-200);
+    }
+  }
+
   .recipe-filter-menu__clear {
     @include mat.menu-overrides((
       item-label-text-font: var(--ff-sans),
