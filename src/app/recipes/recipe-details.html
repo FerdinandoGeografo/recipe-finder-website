@@ -9,15 +9,19 @@
         [attr.tabindex]="store.status() === 'loading' ? -1 : null"
       >Recipes</a></li>
       <li class="recipe__current" aria-current="page">
-        <span aria-hidden="true">/</span>
-        <span>{{ pageName() }}</span>
+        <span class="recipe__separator" aria-hidden="true">/</span>
+        @if (store.status() === 'loading') {
+          <app-skeleton class="recipe__breadcrumb-placeholder" width="20rem" height="1.8rem" radius=".4rem" />
+        } @else {
+          <span class="recipe__name">{{ pageName() }}</span>
+        }
       </li>
     </ol>
   </nav>
 
   <div class="recipe__content" [class.recipe__content--state]="store.status() !== 'loading' && !currentRecipe">
     @if (store.status() === 'loading') {
-      <div class="recipe__img recipe__placeholder" aria-hidden="true"></div>
+      <app-skeleton class="recipe__image-placeholder" height="auto" radius="1rem" />
     } @else if (currentRecipe) {
       <picture class="recipe__picture" animate.enter="fade-enter">
         <source media="(min-width: 48em)" [srcset]="'/' + currentRecipe.image.large" width="1024" height="1024" />
@@ -39,15 +43,15 @@
       </h1>
       @if (store.status() === 'loading') {
         <div class="recipe__skeleton" animate.enter="fade-enter" animate.leave="loading-leave" aria-hidden="true">
-          <div class="recipe__title-placeholder recipe__placeholder"></div>
-          <div class="recipe__description-placeholder recipe__placeholder"></div>
-          <div class="recipe__stats-placeholder recipe__placeholder"></div>
+          <app-skeleton class="recipe__title-placeholder" />
+          <app-skeleton class="recipe__description-placeholder" />
+          <app-skeleton class="recipe__stats-placeholder" width="75%" />
           @for (section of skeletonSections; track section.key) {
             <div class="recipe__list-box">
-              <div class="recipe__heading-placeholder recipe__placeholder"></div>
+              <app-skeleton width="40%" height="3.1rem" />
               <div class="recipe__list">
-                @for (line of section.lines; track line) {
-                  <div class="recipe__line-placeholder recipe__placeholder"></div>
+                @for (line of section.lines; track line; let last = $last) {
+                  <app-skeleton height="3rem" [width]="last ? '75%' : '100%'" />
                 }
               </div>
             </div>

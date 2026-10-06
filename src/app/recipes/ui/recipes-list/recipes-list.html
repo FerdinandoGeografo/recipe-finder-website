@@ -3,17 +3,17 @@
     @for (skeleton of skeletons; track skeleton) {
       <li class="recipe">
         <div class="recipe__card recipe__skeleton">
-          <div class="recipe__img recipe__placeholder"></div>
+          <app-skeleton height="var(--recipe-image-height)" radius="1rem" />
           <div class="recipe__card-content">
             <div class="recipe__info">
               <div class="recipe__box">
-                <div class="recipe__title-line recipe__placeholder"></div>
-                <div class="recipe__description-lines recipe__placeholder"></div>
+                <app-skeleton width="80%" height="2.8rem" />
+                <app-skeleton height="4.8rem" />
               </div>
-              <div class="recipe__stat-lines recipe__placeholder"></div>
+              <app-skeleton height="var(--recipe-stats-height)" />
             </div>
           </div>
-          <div class="recipe__button-placeholder recipe__placeholder"></div>
+          <app-skeleton height="4.8rem" radius="999px" />
         </div>
       </li>
     }

@@ -1,3 +1,4 @@
+import { Skeleton } from '../../../shared/ui/skeleton/skeleton';
 import { Reveal } from '../../../shared/directives/reveal';
 import { skeletons } from '../../constants/list-skeleton';
 import { Component, input } from '@angular/core';
@@ -9,7 +10,7 @@ import { Recipe } from '../../types/recipe.model';
 
 @Component({
   selector: 'app-recipes-list',
-  imports: [Reveal, MatCard, MatCardContent, MatCardActions, MatButton, MatIcon, RouterLink],
+  imports: [Skeleton, Reveal, MatCard, MatCardContent, MatCardActions, MatButton, MatIcon, RouterLink],
   templateUrl: './recipes-list.html',
   styleUrl: './recipes-list.scss',
 })

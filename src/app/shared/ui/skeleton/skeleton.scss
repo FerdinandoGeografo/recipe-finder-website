@@ -1,0 +1,17 @@
+@use 'media';
+
+:host {
+  display: block;
+  flex-shrink: 0;
+  width: var(--skeleton-width, 100%);
+  max-width: 100%;
+  height: var(--skeleton-height, 1em);
+  border-radius: var(--skeleton-radius, .6rem);
+  background: var(--neutral-200);
+  animation: skeleton-pulse 1.2s ease-in-out infinite alternate;
+  pointer-events: none;
+
+  @include media.reduced-motion {
+    animation: none;
+  }
+}

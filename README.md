@@ -120,7 +120,7 @@ Text decorations use separate rounded pseudo-elements so their corner radius bel
 
 #### Loading and motion
 
-A functional HTTP interceptor adds a configurable, cancellable delay during development. It delays only actual dataset requests, leaving cached navigation immediate. Production requests have no artificial delay. While loading, the index disables its filter controls and search input, and the detail disables its breadcrumb link. The site navigation remains available.
+A functional HTTP interceptor adds a configurable, cancellable delay during development. It delays only actual dataset requests, leaving cached navigation immediate. Production requests have no artificial delay. While loading, the index disables its filter controls and search input, and the detail disables its breadcrumb link. The site navigation remains available. A shared `Skeleton` component accepts signal inputs for width, height and radius; recipe cards, details and the loading breadcrumb reuse its appearance and reduced-motion behaviour.
 
 Page transitions use the router's View Transitions integration, with the initial transition and query-only transitions skipped. The `_animations.scss` partial provides native CSS animations for `animate.enter` and `animate.leave`, including the skeleton-to-content transition. A shared `appReveal` directive uses `IntersectionObserver` to reveal sections and recipe cards once as they enter the viewport; keyboard focus reveals them immediately. Material button backgrounds and focus rings transition over 200 ms. Reduced motion disables these animations and transitions, including the View Transition pseudo-elements, and keeps all content visible. Keyboard focus uses `:focus-visible`, with an outline fallback in forced colors.
 
