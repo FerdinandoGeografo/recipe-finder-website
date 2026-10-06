@@ -33,10 +33,10 @@ Users should be able to:
 
 - Search ignores case and surrounding whitespace. Prep and cook filters can be combined, and their limits are inclusive, including zero minutes.
 - Filters live in the URL as `q`, `maxPrep` and `maxCook`. Refresh and shared links restore them; changes replace the current history entry and preserve the scroll position.
-- The app reads eight recipes from the supplied static dataset. Once loaded, those recipes are shared between the index, details and related recipes without additional requests.
-- Opening a detail URL directly or refreshing it loads the dataset and shows a skeleton. Navigating from an already loaded list opens the detail immediately.
+- The app reads eight recipes from the supplied static dataset, treated as a recipes API. Once loaded, those recipes are shared between the index, details and related recipes without additional requests.
+- Opening a detail URL directly or refreshing it loads the dataset; if the response takes longer than 200 ms, a skeleton shows the shape of the page. Navigating from an already loaded list opens the detail immediately.
 - Each detail shows ingredients, instructions and three more recipes. The Recipes breadcrumb opens the unfiltered index; browser Back restores the previous filtered URL.
-- Empty results, request errors with retry, and unknown recipe slugs have dedicated states.
+- Empty results, request errors with retry, and unknown recipe slugs have dedicated states. Clearing all filters and retrying move focus to the page heading, and a live region announces the number of results.
 - On smaller screens, navigation and filter controls use Angular Material menus. Arrow keys move between items, Enter selects, Escape closes and returns focus, and Tab exits the menu. The filter's Clear action is also a menu item.
 - Route changes focus the page heading. View Transitions respect reduced motion and skip filter-only URL changes.
 - Sections and recipe cards fade up once as they reach the viewport. Keyboard focus shows them at once, and content already scrolled past (for example after browser Back) is shown without motion.
@@ -71,7 +71,7 @@ Recipe card titles stay complete, and search results follow the actual dataset r
 - [TypeScript](https://www.typescriptlang.org/) - JS superset
 - [Angular (v22)](https://angular.dev/) - Frontend Typescript Framework
 - [Angular Material & CDK](https://material.angular.dev/) - UI Components libraries
-- [RxJS](https://rxjs.dev/) - For the cancellable development request delay
+- [RxJS](https://rxjs.dev/) - For the viewport reveal stream and router events
 
 ### What I learned
 
@@ -109,7 +109,7 @@ There is no second filter state to synchronise with the router and no effect cop
 
 Components import only the Material directives and components they use, such as `MatIcon`, `MatButton` and `MatMenu`. The header and filters use `MatMenu` with native links or buttons as menu items. Material handles the menu's keyboard navigation, closing and focus restoration. The selection circles in the filter menu are decorative indicators, with the selected state included in the item's accessible name.
 
-I used the Material styling mixins for component tokens, with header and filter variants together in `_menu.scss`. Signal inputs, outputs and view queries keep the surrounding Angular components small.
+I used the Material styling mixins for component tokens, with header and filter variants together in `_menu.scss`. Presentational components such as the filters, recipe list and recipe stats only receive inputs and emit outputs; the routed pages own the state and react to those outputs, without querying their children.
 
 #### Measuring the responsive design
 
@@ -131,7 +131,17 @@ Text decorations use separate rounded pseudo-elements so their corner radius bel
 
 #### Loading states
 
-A functional HTTP interceptor adds a configurable, cancellable delay during development. It delays only actual dataset requests, leaving cached navigation immediate; production requests have no artificial delay. While loading, the index disables its filter trigger buttons and search input, and the detail renders its breadcrumb as plain text. The site navigation remains available. A shared `Skeleton` component takes width, height and radius inputs; the card skeleton reuses the real card stylesheet, so placeholders keep the final geometry.
+The static dataset stands in for a real recipes API, so a request is always part of the flow and can be slow on a poor connection. Skeletons show the shape of the upcoming content instead of an empty page. They fade in only after 200 ms, so fast responses never flash a placeholder:
+
+```scss
+:host {
+  animation:
+    fade-in var(--motion-standard) var(--motion-ease-out) var(--motion-loading-delay) both,
+    skeleton-pulse 1.2s ease-in-out infinite alternate;
+}
+```
+
+The pulse animates the background colour, leaving opacity free for the delayed entrance. A shared `Skeleton` component takes width, height and radius inputs, and the card skeleton reuses the real card stylesheet, so placeholders keep the final geometry. While loading, the index disables its filter triggers and search input, and the detail renders its breadcrumb as plain text; the site navigation remains available.
 
 #### Revealing content in the viewport
 
