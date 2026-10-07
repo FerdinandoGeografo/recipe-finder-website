@@ -35,7 +35,9 @@ Users should be able to:
 - Filters live in the URL (`q`, `maxPrep`, `maxCook`), so refresh, shared links and browser Back restore them.
 - The static dataset is treated as a recipes API: it loads once and is shared by the index, the details and the related recipes. Responses slower than 200 ms show skeletons.
 - Empty results, request errors with retry and unknown recipes have dedicated states.
-- Menus, filters and links work with the keyboard. Page changes, retry and "Clear all filters" move focus to the page heading.
+- Menus, filters and links work with the keyboard. Page changes, retry and "Clear all filters" move focus to the page heading; browser Back returns it to the link you left from.
+- Below desktop the navigation is a disclosure: the same `<nav>` landmark opens as a panel, Escape closes it and returns focus to the toggle.
+- The results count is announced once typing pauses, while the list itself filters on every keystroke.
 - The header stays pinned to the top while scrolling, so the navigation is always within reach; keyboard focus scrolls content into view below it.
 - The header logo and action settle in on load, and sections fade up once as they reach the viewport; reduced motion turns every animation off.
 - A Netlify `_redirects` rule serves the app for deep links and refreshes.
@@ -108,6 +110,15 @@ A single-page app does not reload the document, so focus would stay on the click
 </h1>
 ```
 
+Going Back is different: the user expects to resume where they were. The service listens to the router's `Scroll` event, which arrives after scroll restoration, and on a back step focuses the link that led away from the page, such as the recipe card, falling back to the heading:
+
+```ts
+const returnLink = isBackNavigation
+  ? this.document.querySelector<HTMLElement>(`main a[href="${CSS.escape(fromPath)}"]`)
+  : null;
+return returnLink ?? this.heading;
+```
+
 #### Responsive layout and images
 
 Components share Sass partials for breakpoints, gutters, the design's text presets and focus-ring mixins. Image masks that scale in the design use container-relative units, such as `border-radius: calc(100cqw * 12 / 1192)`.
@@ -142,6 +153,7 @@ I considered `@defer (on viewport)` too, but deferred content is not in the DOM 
 - [Reactive data fetching with httpResource](https://angular.dev/guide/http/http-resource) - Resource state, guarded value reads and reactive HTTP requests.
 - [Common routing tasks](https://angular.dev/guide/routing/common-router-tasks) - Binding route and query parameters to component inputs.
 - [Angular Material menus](https://material.angular.dev/components/menu/overview) - Menu items, keyboard behaviour and focus management.
+- [ARIA APG: disclosure navigation](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/) - Why site navigation is a disclosure, not a menu.
 - [Route transition animations](https://angular.dev/guide/routing/route-transition-animations) - The router's View Transitions integration.
 - [Enter and Leave animations](https://angular.dev/guide/animations) - Native CSS animations with `animate.enter` / `animate.leave`.
 - [Deferrable views](https://angular.dev/guide/templates/defer) - The `on viewport` trigger I compared with the reveal directive.
