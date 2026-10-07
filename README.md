@@ -51,7 +51,7 @@ Recipe card titles stay complete, and search results follow the actual dataset r
 ### Links
 
 - Solution URL: [GitHub Repository](https://github.com/FerdinandoGeografo/recipe-finder-website)
-- Live Site URL: [Recipe Finder](#)
+- Live Site URL: [Recipe Finder](https://healthy-recipe-finder-fg.netlify.app/)
 
 ## My process
 
