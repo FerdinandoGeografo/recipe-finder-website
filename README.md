@@ -43,11 +43,10 @@ Recipe card titles stay complete, and search results follow the actual dataset r
 
 ### Screenshot
 
-<!-- Add the final screenshots, for example:
 ![Home | Desktop](./screenshots/home-desktop.png)
+![About | Desktop](./screenshots/about-desktop.png)
 ![Recipes | Tablet](./screenshots/recipes-tablet.png)
 ![Recipe details | Mobile](./screenshots/details-mobile.png)
--->
 
 ### Links
 
