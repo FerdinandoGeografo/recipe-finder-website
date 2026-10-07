@@ -4,7 +4,6 @@
   display: block;
 }
 
-// Beyond the plate and the shared call to action share one container.
 .beyond {
   @include layout.container;
 }
