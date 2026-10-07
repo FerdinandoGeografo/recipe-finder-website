@@ -4,7 +4,7 @@
       class="recipe__img"
       [ngSrc]="'/' + recipe().image.small"
       [srcset]="'/' + recipe().image.small + ' 500w, /' + recipe().image.large + ' 1024w'"
-      sizes="(min-width: 64em) min(30vw, 22.5rem), 90vw"
+      sizes="(min-width: 64em) min(30vw, 22.5rem), (min-width: 48em) calc(100vw - 5rem), calc(100vw - 3rem)"
       disableOptimizedSrcset
       fill
       [priority]="priority()"
