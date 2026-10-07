@@ -26,12 +26,11 @@
     @for (minutes of definition.options; track minutes) {
       <button
         mat-menu-item
+        role="menuitemradio"
         type="button"
         class="recipe-filter-menu__option"
         [class.recipe-filter-menu__option--selected]="selected === minutes"
-        [attr.aria-label]="
-          minutes + ' minutes' + (selected === minutes ? ', selected' : '')
-        "
+        [attr.aria-checked]="selected === minutes"
         (click)="selectTime(definition.key, minutes)"
       >
         <span class="recipe-filter-menu__indicator" aria-hidden="true"></span>
