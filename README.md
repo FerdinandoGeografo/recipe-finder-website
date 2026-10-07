@@ -67,6 +67,7 @@ Recipe card titles stay complete, and search results follow the actual dataset r
 - View Transitions API for route changes
 - Intersection Observer API for the viewport reveal
 - Responsive images with `NgOptimizedImage`, `srcset` and `sizes`
+- Self-hosted variable fonts, subset to Latin and served as `woff2`
 - [TypeScript](https://www.typescriptlang.org/) - JS superset
 - [Angular (v22)](https://angular.dev/) - Frontend Typescript Framework
 - [Angular Material & CDK](https://material.angular.dev/) - UI Components libraries
@@ -106,7 +107,7 @@ A single-page app does not reload the document, so focus would stay on the click
 
 Components share Sass partials for breakpoints, gutters, the design's text presets and focus-ring mixins. Image masks that scale in the design use container-relative units, such as `border-radius: calc(100cqw * 12 / 1192)`.
 
-Images whose small and large files share the same crop use `srcset` and `sizes` through `NgOptimizedImage`, so the browser picks a file by rendered width and pixel density. On a 1440px screen at 1x, the recipe list now downloads about 250 kB of images instead of 870 kB. Cropped images use `fill`, the largest images above the fold get `priority`, and the rest load lazily.
+Images whose small and large files share the same crop use `srcset` and `sizes` through `NgOptimizedImage`, so the browser picks a file by rendered width and pixel density. On a 1440px screen at 1x, the recipe list now downloads about 250 kB of images instead of 870 kB. Cropped images use `fill`, the largest images above the fold get `priority`, and the rest load lazily. Fonts are variable `woff2` files limited to the weights in use and subset to Latin, so the two families went from about 965 kB of TTF to 75 kB, and both are preloaded.
 
 #### Loading and motion
 
