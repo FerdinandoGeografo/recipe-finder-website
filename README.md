@@ -36,7 +36,7 @@ Users should be able to:
 - The static dataset is treated as a recipes API: it loads once and is shared by the index, the details and the related recipes. Responses slower than 200 ms show skeletons.
 - Empty results, request errors with retry and unknown recipes have dedicated states.
 - Menus, filters and links work with the keyboard. Page changes, retry and "Clear all filters" move focus to the page heading.
-- Sections fade up once as they reach the viewport; reduced motion turns every animation off.
+- The header logo and action settle in on load, and sections fade up once as they reach the viewport; reduced motion turns every animation off.
 - A Netlify `_redirects` rule serves the app for deep links and refreshes.
 
 Recipe card titles stay complete, and search results follow the actual dataset rather than the illustrative results in the design.
@@ -74,7 +74,7 @@ Recipe card titles stay complete, and search results follow the actual dataset r
 
 ### What I learned
 
-I kept my usual feature-based structure: `home`, `about` and `recipes` hold the routed pages and their `ui` folder, with `data-access`, `types`, `constants` and `utils` beside them; `shared` follows the same layout. Routed pages own the state, while presentational components only receive inputs and emit outputs.
+I kept my usual feature-based structure: `home`, `about` and `recipes` hold the routed pages and their `ui` folder, with `data-access`, `types`, `constants` and `utils` beside them; `shared` follows the same layout. Routed pages own the state, while presentational components only receive inputs, emit outputs or project the page's actions.
 
 #### A shared resource store
 
@@ -91,7 +91,10 @@ Query parameters are bound to signal inputs, and the results are a `computed` ov
 
 ```ts
 readonly q = input('', { transform: parseQuery });
-protected readonly recipes = computed(() => filterRecipes(this.store.recipes(), this.filter()));
+
+protected readonly recipes = computed(() =>
+  filterRecipes(this.store.recipes(), this.filter()),
+);
 ```
 
 #### Moving focus after navigation
@@ -99,7 +102,9 @@ protected readonly recipes = computed(() => filterRecipes(this.store.recipes(), 
 A single-page app does not reload the document, so focus would stay on the clicked link, or fall back to `<body>` when that link was removed with the old page. Each page declares its heading, and a `PageFocus` service focuses it after every path change, so screen readers read the new title and Tab continues from the content:
 
 ```html
-<h1 appPageHeading class="text-preset-2">Explore our simple, healthy recipes</h1>
+<h1 appPageHeading class="text-preset-2">
+  Explore our simple, healthy recipes
+</h1>
 ```
 
 #### Responsive layout and images
@@ -122,7 +127,9 @@ animation:
 
 ```ts
 protected readonly state = toSignal(
-  inject(RevealObserver).reveal(inject<ElementRef<HTMLElement>>(ElementRef).nativeElement),
+  inject(RevealObserver).reveal(
+    inject<ElementRef<HTMLElement>>(ElementRef).nativeElement,
+  ),
   { initialValue: 'pending' },
 );
 ```
