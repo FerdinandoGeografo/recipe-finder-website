@@ -98,7 +98,7 @@
   <mat-divider class="recipe__divider" />
   <section class="recipe__more" aria-labelledby="more-recipes-heading">
     <h2 appReveal id="more-recipes-heading" class="text-preset-3">More recipes</h2>
-    <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" [prioritizeFirstRow]="false" />
+    <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
   </section>
 }
 <p class="cdk-visually-hidden" role="status">{{ loading ? 'Loading recipe…' : '' }}</p>

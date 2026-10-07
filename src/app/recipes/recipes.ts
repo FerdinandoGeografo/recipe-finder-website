@@ -40,6 +40,9 @@ export class Recipes {
 
   protected readonly recipes = computed(() => filterRecipes(this.store.recipes(), this.filter()));
 
+  // The unfiltered first row holds the largest images above the fold.
+  protected readonly firstRowIds = computed(() => this.store.recipes().slice(0, 3).map((recipe) => recipe.id));
+
   protected readonly resultsMessage = computed(() => {
     if (this.store.isLoading()) return 'Loading recipes…';
     if (this.store.status() !== 'success') return '';

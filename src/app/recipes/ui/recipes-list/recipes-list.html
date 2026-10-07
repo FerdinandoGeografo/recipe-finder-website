@@ -1,5 +1,5 @@
 <ul class="recipes__list">
-  @for (recipe of recipes(); track recipe.id; let index = $index) {
+  @for (recipe of recipes(); track recipe.id) {
     <li class="recipe" appReveal>
       <mat-card appearance="outlined" class="recipe__card">
         <div class="recipe__media">
@@ -10,7 +10,7 @@
             sizes="(min-width: 64em) min(30vw, 22.5rem), 90vw"
             disableOptimizedSrcset
             fill
-            [priority]="prioritizeFirstRow() && index < 3"
+            [priority]="priorityRecipeIds().includes(recipe.id)"
             [alt]="recipe.title"
           />
         </div>

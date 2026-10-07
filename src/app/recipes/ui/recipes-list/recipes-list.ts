@@ -16,6 +16,6 @@ import { RecipeStats } from '../recipe-stats/recipe-stats';
 export class RecipesList {
   readonly recipes = input.required<readonly Recipe[]>();
   readonly headingLevel = input<2 | 3>(2);
-  // On the index the first row holds the largest images; under "More recipes" it does not.
-  readonly prioritizeFirstRow = input(true);
+  // NgOptimizedImage priority must not change after init, so it follows recipe ids, not positions.
+  readonly priorityRecipeIds = input<readonly number[]>([]);
 }

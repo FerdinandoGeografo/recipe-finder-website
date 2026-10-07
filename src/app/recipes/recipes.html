@@ -29,7 +29,7 @@
       }
       @default {
         @if (recipes().length) {
-          <app-recipes-list [recipes]="recipes()" />
+          <app-recipes-list [recipes]="recipes()" [priorityRecipeIds]="firstRowIds()" />
         } @else {
           <div class="state" animate.enter="fade-enter">
             <p class="text-preset-6">No recipes match your search.</p>
