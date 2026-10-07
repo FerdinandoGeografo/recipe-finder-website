@@ -1,5 +1,16 @@
 import { DestroyRef, DOCUMENT, inject, Service } from '@angular/core';
-import { EMPTY, filter, fromEvent, map, merge, Observable, of, share, Subject, take } from 'rxjs';
+import {
+  EMPTY,
+  filter,
+  fromEvent,
+  map,
+  merge,
+  Observable,
+  of,
+  share,
+  Subject,
+  take,
+} from 'rxjs';
 import { reducedMotionQuery } from '../constants/motion';
 import { RevealState } from '../types/reveal-state';
 
@@ -12,9 +23,12 @@ export class RevealObserver {
   private readonly entries$ = new Subject<IntersectionObserverEntry>();
   private readonly observer =
     this.view && 'IntersectionObserver' in this.view
-      ? new IntersectionObserver((entries) => entries.forEach((entry) => this.entries$.next(entry)), {
-          rootMargin: '0px 0px -10% 0px',
-        })
+      ? new IntersectionObserver(
+          (entries) => entries.forEach((entry) => this.entries$.next(entry)),
+          {
+            rootMargin: '0px 0px -10% 0px',
+          },
+        )
       : undefined;
   private readonly reducedMotion$ = this.motion
     ? fromEvent<MediaQueryListEvent>(this.motion, 'change').pipe(
@@ -55,7 +69,13 @@ export class RevealObserver {
 }
 
 // Elements already scrolled past (e.g. restored scroll on Back) appear without motion.
-function toRevealState({ isIntersecting, boundingClientRect, rootBounds }: IntersectionObserverEntry) {
+function toRevealState({
+  isIntersecting,
+  boundingClientRect,
+  rootBounds,
+}: IntersectionObserverEntry) {
   if (isIntersecting) return 'revealed';
-  return boundingClientRect.bottom <= (rootBounds?.top ?? 0) ? 'visible' : undefined;
+  return boundingClientRect.bottom <= (rootBounds?.top ?? 0)
+    ? 'visible'
+    : undefined;
 }

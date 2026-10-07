@@ -2,7 +2,9 @@ import { inject } from '@angular/core';
 import { isActive, Router, ViewTransitionInfo } from '@angular/router';
 
 // Filters only change query params: skip the page transition so typing stays instant.
-export function skipQueryOnlyTransitions({ transition }: ViewTransitionInfo): void {
+export function skipQueryOnlyTransitions({
+  transition,
+}: ViewTransitionInfo): void {
   const router = inject(Router);
   const target = router.currentNavigation()?.finalUrl;
   const samePage =

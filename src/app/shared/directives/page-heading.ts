@@ -8,7 +8,8 @@ import { PageFocus } from '../data-access/page-focus';
 })
 export class PageHeading {
   constructor() {
-    const heading = inject<ElementRef<HTMLHeadingElement>>(ElementRef).nativeElement;
+    const heading =
+      inject<ElementRef<HTMLHeadingElement>>(ElementRef).nativeElement;
     const pageFocus = inject(PageFocus);
 
     pageFocus.register(heading);

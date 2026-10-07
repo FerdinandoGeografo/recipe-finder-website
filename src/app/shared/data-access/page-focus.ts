@@ -20,7 +20,9 @@ export class PageFocus {
         filter(([previous, current]) => previous !== current),
         takeUntilDestroyed(),
       )
-      .subscribe(() => afterNextRender(() => this.focusHeading(), { injector }));
+      .subscribe(() =>
+        afterNextRender(() => this.focusHeading(), { injector }),
+      );
   }
 
   register(heading: HTMLElement): void {

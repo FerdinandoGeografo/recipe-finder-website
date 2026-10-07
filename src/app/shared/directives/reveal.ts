@@ -5,7 +5,6 @@ import { RevealObserver } from '../data-access/reveal-observer';
 // Hidden from the first render until the element enters the viewport; focus shows it at once.
 @Directive({
   selector: '[appReveal]',
-  // The static class hides the element from creation, before the first change detection.
   host: {
     class: 'reveal-pending',
     '[class.reveal-pending]': "state() === 'pending'",
@@ -14,7 +13,9 @@ import { RevealObserver } from '../data-access/reveal-observer';
 })
 export class Reveal {
   protected readonly state = toSignal(
-    inject(RevealObserver).reveal(inject<ElementRef<HTMLElement>>(ElementRef).nativeElement),
+    inject(RevealObserver).reveal(
+      inject<ElementRef<HTMLElement>>(ElementRef).nativeElement,
+    ),
     { initialValue: 'pending' },
   );
 }

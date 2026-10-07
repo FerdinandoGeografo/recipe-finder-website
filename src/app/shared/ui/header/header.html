@@ -34,7 +34,12 @@
           </li>
         }
       </ul>
-      <a class="header__browse" animate.enter="drop-enter" matButton="filled" routerLink="/recipes">
+      <a
+        class="header__browse"
+        animate.enter="drop-enter"
+        matButton="filled"
+        routerLink="/recipes"
+      >
         Browse recipes
       </a>
     </nav>
@@ -60,5 +65,7 @@
       <span class="header-menu__label">{{ link.label }}</span>
     </a>
   }
-  <a mat-menu-item class="header-menu__browse" routerLink="/recipes">Browse recipes</a>
+  <a mat-menu-item class="header-menu__browse" routerLink="/recipes">
+    Browse recipes
+  </a>
 </mat-menu>

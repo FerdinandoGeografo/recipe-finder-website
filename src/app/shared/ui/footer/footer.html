@@ -4,14 +4,24 @@
 
     <p class="footer__credit text-preset-9">
       Coded by
-      <a class="footer__link" href="https://github.com/FerdinandoGeografo" target="_blank" rel="noopener noreferrer">
-        Ferdinando Geografo<span class="cdk-visually-hidden"> (opens in a new tab)</span>
+      <a
+        class="footer__link"
+        href="https://github.com/FerdinandoGeografo"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Ferdinando Geografo
+        <span class="cdk-visually-hidden"> (opens in a new tab)</span>
       </a>
     </p>
 
     <nav class="footer__socials" aria-label="Social media">
       @for (social of socialLinks; track social.name) {
-        <a class="footer__social footer__social--{{ social.name }}" [href]="social.url" [attr.aria-label]="social.label">
+        <a
+          class="footer__social footer__social--{{ social.name }}"
+          [href]="social.url"
+          [attr.aria-label]="social.label"
+        >
           <mat-icon [svgIcon]="'custom:' + social.name" aria-hidden="true" />
         </a>
       }
