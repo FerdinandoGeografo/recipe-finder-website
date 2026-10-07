@@ -1,0 +1,28 @@
+@use 'layout';
+@use 'media';
+
+:host {
+  display: block;
+}
+
+.recipe {
+  &__divider {
+    margin-inline: var(--page-gutter);
+
+    @include media.from(lg) {
+      margin-inline: 0;
+    }
+  }
+
+  &__more {
+    @include layout.container;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding-block: 4.8rem;
+
+    @include media.from(lg) {
+      padding-block: 6.4rem 9.6rem;
+    }
+  }
+}

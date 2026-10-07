@@ -1,0 +1,64 @@
+@use 'a11y';
+@use 'motion';
+
+:host {
+  display: block;
+}
+
+.recipe {
+  &__breadcrumb-list {
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+    list-style: none;
+    color: var(--neutral-900);
+
+    > li:first-child {
+      flex: 0 0 6.2rem;
+    }
+  }
+
+  &__crumb {
+    color: var(--neutral-800);
+    text-decoration: none;
+    border-radius: 2px;
+    @include motion.transition(box-shadow);
+
+    &--disabled {
+      opacity: .5;
+    }
+
+    &:any-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    &:focus-visible {
+      @include a11y.focus-ring;
+    }
+  }
+
+  &__current {
+    flex: 1;
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+    gap: .6rem;
+  }
+
+  &__separator {
+    flex: 0 0 1rem;
+    text-align: center;
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  &__breadcrumb-placeholder {
+    flex-shrink: 1;
+    align-self: center;
+  }
+}

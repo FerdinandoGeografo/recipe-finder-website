@@ -9,11 +9,12 @@ import { RecipeFilter } from './types/recipe-filter.model';
 import { RecipesFilters } from './ui/recipes-filters/recipes-filters';
 import { RecipesList } from './ui/recipes-list/recipes-list';
 import { RecipesListSkeleton } from './ui/recipes-list-skeleton/recipes-list-skeleton';
+import { StateMessage } from './ui/state-message/state-message';
 import { filterRecipes, parseMinutes, parseQuery, toQueryParams } from './utils/recipe-filter';
 
 @Component({
   selector: 'app-recipes',
-  imports: [MatButton, MatDivider, PageHeading, RecipesFilters, RecipesList, RecipesListSkeleton],
+  imports: [MatButton, MatDivider, PageHeading, RecipesFilters, RecipesList, RecipesListSkeleton, StateMessage],
   templateUrl: './recipes.html',
   styleUrl: './recipes.scss',
 })

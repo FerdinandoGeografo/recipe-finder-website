@@ -1,0 +1,32 @@
+<mat-card appearance="outlined" class="recipe__card">
+  <div class="recipe__media">
+    <img
+      class="recipe__img"
+      [ngSrc]="'/' + recipe().image.small"
+      [srcset]="'/' + recipe().image.small + ' 500w, /' + recipe().image.large + ' 1024w'"
+      sizes="(min-width: 64em) min(30vw, 22.5rem), 90vw"
+      disableOptimizedSrcset
+      fill
+      [priority]="priority()"
+      [alt]="recipe().title"
+    />
+  </div>
+  <mat-card-content class="recipe__card-content">
+    <div class="recipe__info">
+      <div class="recipe__box">
+        @if (headingLevel() === 3) {
+          <h3 class="text-preset-5">{{ recipe().title }}</h3>
+        } @else {
+          <h2 class="text-preset-5">{{ recipe().title }}</h2>
+        }
+        <p class="recipe__description text-preset-9">{{ recipe().overview }}</p>
+      </div>
+      <app-recipe-stats [recipe]="recipe()" size="compact" />
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="recipe__actions">
+    <a matButton="filled" [attr.aria-label]="'View recipe: ' + recipe().title" [routerLink]="['/recipes', recipe().slug]">
+      View Recipe
+    </a>
+  </mat-card-actions>
+</mat-card>

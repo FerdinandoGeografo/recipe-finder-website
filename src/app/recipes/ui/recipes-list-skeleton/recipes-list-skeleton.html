@@ -1,19 +1,7 @@
 <ul class="recipes__list">
   @for (card of cards; track card) {
-    <li class="recipe">
-      <div class="recipe__card recipe__skeleton">
-        <app-skeleton height="var(--recipe-image-height)" radius="1rem" />
-        <div class="recipe__card-content">
-          <div class="recipe__info">
-            <div class="recipe__box">
-              <app-skeleton width="80%" height="2.8rem" />
-              <app-skeleton height="4.8rem" />
-            </div>
-            <app-skeleton height="var(--recipe-stats-height)" />
-          </div>
-        </div>
-        <app-skeleton height="4.8rem" radius="999px" />
-      </div>
+    <li class="recipes__item">
+      <app-recipe-card-skeleton />
     </li>
   }
 </ul>

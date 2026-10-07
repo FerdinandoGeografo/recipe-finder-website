@@ -1,0 +1,95 @@
+@use '@angular/material' as mat;
+@use 'media';
+
+:host {
+  display: block;
+  height: 100%;
+  --recipe-image-height: 30rem;
+  --recipe-stats-height: 5.6rem;
+
+  @include media.from(md) {
+    --recipe-image-height: 45rem;
+    --recipe-stats-height: 2.4rem;
+  }
+
+  @include media.from(lg) {
+    --recipe-image-height: 30rem;
+    --recipe-stats-height: 5.6rem;
+  }
+}
+
+.recipe {
+  &__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 7px;
+
+    @include mat.card-overrides((
+      outlined-container-shape: 1rem,
+      outlined-outline-width: 1px,
+      outlined-outline-color: var(--neutral-300),
+      outlined-container-elevation: 0 8px 16px -9px rgb(22 58 52 / 16%),
+      outlined-container-color: var(--neutral-0),
+    ));
+  }
+
+  &__media {
+    position: relative;
+    height: var(--recipe-image-height);
+  }
+
+  &__img {
+    border-radius: 1rem;
+    object-fit: cover;
+  }
+
+  &__card-content {
+    flex: 1;
+    padding: 1.6rem 0;
+
+    &:last-child {
+      padding-bottom: 1.6rem;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding-inline: .8rem;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__description {
+    color: var(--neutral-800);
+  }
+
+  &__actions {
+    min-height: auto;
+    padding: 0;
+
+    a {
+      flex: 1;
+    }
+
+    @include mat.button-overrides((
+      filled-container-shape: var(--mat-sys-corner-full),
+      filled-container-height: 4.8rem,
+      filled-label-text-font: var(--ff-sans),
+      filled-label-text-size: 1.6rem,
+      filled-label-text-tracking: -.3px,
+    ));
+  }
+
+  &__skeleton {
+    border: 1px solid var(--neutral-300);
+    border-radius: 1rem;
+    background: var(--neutral-0);
+  }
+}

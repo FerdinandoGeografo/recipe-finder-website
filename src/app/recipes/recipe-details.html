@@ -1,25 +1,7 @@
 @let currentRecipe = recipe();
 @let loading = store.isLoading();
 <section class="recipe__details" [attr.aria-busy]="loading">
-  <nav class="recipe__breadcrumbs text-preset-7" aria-label="Breadcrumb">
-    <ol class="recipe__breadcrumb-list">
-      <li>
-        @if (loading) {
-          <span class="recipe__crumb recipe__crumb--disabled">Recipes</span>
-        } @else {
-          <a class="recipe__crumb" routerLink="/recipes">Recipes</a>
-        }
-      </li>
-      <li class="recipe__current" aria-current="page">
-        <span class="recipe__separator" aria-hidden="true">/</span>
-        @if (loading) {
-          <app-skeleton class="recipe__breadcrumb-placeholder" width="20rem" height="1.8rem" radius=".4rem" />
-        } @else {
-          <span class="recipe__name">{{ pageName() }}</span>
-        }
-      </li>
-    </ol>
-  </nav>
+  <app-recipe-breadcrumb [name]="pageName()" [loading]="loading" />
 
   <div class="recipe__content" [class.recipe__content--state]="!loading && !currentRecipe">
     @if (loading) {
@@ -44,62 +26,26 @@
         {{ pageName() }}
       </h1>
       @if (loading) {
-        <div class="recipe__skeleton" animate.leave="loading-leave" aria-hidden="true">
-          <app-skeleton class="recipe__title-placeholder" />
-          <app-skeleton class="recipe__description-placeholder" />
-          <app-skeleton class="recipe__stats-placeholder" width="75%" />
-          @for (section of skeletonSections; track section.key) {
-            <div class="recipe__list-box">
-              <app-skeleton width="40%" height="3.1rem" />
-              <div class="recipe__list">
-                @for (line of section.lines; track line; let last = $last) {
-                  <app-skeleton height="3rem" [width]="last ? '75%' : '100%'" />
-                }
-              </div>
-            </div>
-          }
-        </div>
+        <app-recipe-details-skeleton animate.leave="loading-leave" />
       } @else if (currentRecipe) {
         <p class="text-preset-6">{{ currentRecipe.overview }}</p>
         <app-recipe-stats [recipe]="currentRecipe" />
-        <section class="recipe__list-box" appReveal aria-labelledby="ingredients-heading">
-          <h2 id="ingredients-heading" class="text-preset-4">Ingredients:</h2>
-          <ul class="recipe__list" role="list">
-            @for (ingredient of currentRecipe.ingredients; track $index) {
-              <li class="recipe__item">
-                <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
-                <p class="text-preset-6">{{ ingredient }}</p>
-              </li>
-            }
-          </ul>
-        </section>
-        <section class="recipe__list-box" appReveal aria-labelledby="instructions-heading">
-          <h2 id="instructions-heading" class="text-preset-4">Instructions:</h2>
-          <ol class="recipe__list" role="list">
-            @for (instruction of currentRecipe.instructions; track $index) {
-              <li class="recipe__item">
-                <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
-                <p class="text-preset-6">{{ instruction }}</p>
-              </li>
-            }
-          </ol>
-        </section>
+        <app-recipe-steps appReveal heading="Ingredients:" [items]="currentRecipe.ingredients" />
+        <app-recipe-steps appReveal heading="Instructions:" [items]="currentRecipe.instructions" ordered />
       } @else if (store.status() === 'error') {
-        <p class="text-preset-6" role="alert">We couldn’t load this recipe.</p>
-        <button matButton="filled" type="button" (click)="retry()">Try again</button>
+        <app-state-message role="alert" message="We couldn’t load this recipe.">
+          <button matButton="filled" type="button" (click)="retry()">Try again</button>
+        </app-state-message>
       } @else {
-        <p class="text-preset-6">This recipe doesn’t exist or may have moved.</p>
-        <a matButton="filled" routerLink="/recipes">Browse recipes</a>
+        <app-state-message message="This recipe doesn’t exist or may have moved.">
+          <a matButton="filled" routerLink="/recipes">Browse recipes</a>
+        </app-state-message>
       }
     </div>
   </div>
 </section>
 @if (currentRecipe && !loading) {
-  <mat-divider class="recipe__divider" />
-  <section class="recipe__more" aria-labelledby="more-recipes-heading">
-    <h2 appReveal id="more-recipes-heading" class="text-preset-3">More recipes</h2>
-    <app-recipes-list [recipes]="moreRecipes()" [headingLevel]="3" />
-  </section>
+  <app-more-recipes [recipes]="moreRecipes()" />
 }
 <p class="cdk-visually-hidden" role="status">{{ loading ? 'Loading recipe…' : '' }}</p>
 <mat-divider />

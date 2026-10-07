@@ -1,0 +1,19 @@
+<h2 class="text-preset-4" [id]="headingId()">{{ heading() }}</h2>
+@if (ordered()) {
+  <ol class="recipe__list" role="list">
+    <ng-container [ngTemplateOutlet]="listItems" />
+  </ol>
+} @else {
+  <ul class="recipe__list" role="list">
+    <ng-container [ngTemplateOutlet]="listItems" />
+  </ul>
+}
+
+<ng-template #listItems>
+  @for (item of items(); track $index) {
+    <li class="recipe__item">
+      <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
+      <p class="text-preset-6">{{ item }}</p>
+    </li>
+  }
+</ng-template>

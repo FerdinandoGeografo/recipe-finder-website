@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.recipe {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: start;
+    gap: .8rem;
+  }
+
+  &__list-icon {
+    flex: 0 0 2.4rem;
+    height: 2.4rem;
+    margin-top: .3rem;
+  }
+
+  ul.recipe__list .recipe__item,
+  ol.recipe__list .recipe__item:not(:first-child) {
+    align-items: center;
+
+    .recipe__list-icon {
+      margin-top: 0;
+    }
+  }
+}

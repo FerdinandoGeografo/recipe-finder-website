@@ -20,23 +20,17 @@
         <app-recipes-list-skeleton animate.leave="loading-leave" />
       }
       @case ('error') {
-        <div class="state" animate.enter="fade-enter" role="alert">
-          <p class="text-preset-6">We couldn’t load the recipes.</p>
-          <button matButton="filled" type="button" (click)="retry()">
-            Try again
-          </button>
-        </div>
+        <app-state-message class="state" animate.enter="fade-enter" role="alert" message="We couldn’t load the recipes.">
+          <button matButton="filled" type="button" (click)="retry()">Try again</button>
+        </app-state-message>
       }
       @default {
         @if (recipes().length) {
           <app-recipes-list [recipes]="recipes()" [priorityRecipeIds]="firstRowIds()" />
         } @else {
-          <div class="state" animate.enter="fade-enter">
-            <p class="text-preset-6">No recipes match your search.</p>
-            <button matButton="outlined" type="button" (click)="clearFilters()">
-              Clear all filters
-            </button>
-          </div>
+          <app-state-message class="state" animate.enter="fade-enter" message="No recipes match your search.">
+            <button matButton="outlined" type="button" (click)="clearFilters()">Clear all filters</button>
+          </app-state-message>
         }
       }
     }

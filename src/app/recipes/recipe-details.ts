@@ -4,20 +4,36 @@ import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
 import { PageFocus } from '../shared/data-access/page-focus';
 import { PageHeading } from '../shared/directives/page-heading';
 import { Reveal } from '../shared/directives/reveal';
 import { Skeleton } from '../shared/ui/skeleton/skeleton';
 import { pageTitle } from '../shared/utils/page-title';
-import { skeletonSections } from './constants/detail-skeleton';
 import { RecipesStore } from './data-access/recipes-store';
+import { MoreRecipes } from './ui/more-recipes/more-recipes';
+import { RecipeBreadcrumb } from './ui/recipe-breadcrumb/recipe-breadcrumb';
+import { RecipeDetailsSkeleton } from './ui/recipe-details-skeleton/recipe-details-skeleton';
 import { RecipeStats } from './ui/recipe-stats/recipe-stats';
-import { RecipesList } from './ui/recipes-list/recipes-list';
+import { RecipeSteps } from './ui/recipe-steps/recipe-steps';
+import { StateMessage } from './ui/state-message/state-message';
 
 @Component({
   selector: 'app-recipe-details',
-  imports: [NgOptimizedImage, RouterLink, MatButton, MatDivider, MatIcon, PageHeading, Reveal, Skeleton, RecipeStats, RecipesList],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    MatButton,
+    MatDivider,
+    PageHeading,
+    Reveal,
+    Skeleton,
+    MoreRecipes,
+    RecipeBreadcrumb,
+    RecipeDetailsSkeleton,
+    RecipeStats,
+    RecipeSteps,
+    StateMessage,
+  ],
   templateUrl: './recipe-details.html',
   styleUrl: './recipe-details.scss',
 })
@@ -27,8 +43,6 @@ export class RecipeDetails {
   protected readonly store = inject(RecipesStore);
 
   readonly slug = input.required<string>();
-
-  protected readonly skeletonSections = skeletonSections;
 
   protected readonly recipe = computed(() =>
     this.store.recipes().find((r) => r.slug === this.slug()),

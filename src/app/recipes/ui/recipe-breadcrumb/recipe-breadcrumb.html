@@ -1,0 +1,19 @@
+<nav class="recipe__breadcrumbs text-preset-7" aria-label="Breadcrumb">
+  <ol class="recipe__breadcrumb-list">
+    <li>
+      @if (loading()) {
+        <span class="recipe__crumb recipe__crumb--disabled">Recipes</span>
+      } @else {
+        <a class="recipe__crumb" routerLink="/recipes">Recipes</a>
+      }
+    </li>
+    <li class="recipe__current" aria-current="page">
+      <span class="recipe__separator" aria-hidden="true">/</span>
+      @if (loading()) {
+        <app-skeleton class="recipe__breadcrumb-placeholder" width="20rem" height="1.8rem" radius=".4rem" />
+      } @else {
+        <span class="recipe__name">{{ name() }}</span>
+      }
+    </li>
+  </ol>
+</nav>

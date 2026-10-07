@@ -1,0 +1,13 @@
+<app-skeleton class="recipe__title-placeholder" />
+<app-skeleton class="recipe__description-placeholder" />
+<app-skeleton class="recipe__stats-placeholder" width="75%" />
+@for (section of sections; track section.key) {
+  <div class="recipe__list-box">
+    <app-skeleton width="40%" height="3.1rem" />
+    <div class="recipe__list">
+      @for (line of section.lines; track line; let last = $last) {
+        <app-skeleton height="3rem" [width]="last ? '75%' : '100%'" />
+      }
+    </div>
+  </div>
+}

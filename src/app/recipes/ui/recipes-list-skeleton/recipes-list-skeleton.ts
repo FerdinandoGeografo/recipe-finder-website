@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Skeleton } from '../../../shared/ui/skeleton/skeleton';
 import { listSkeletonCards } from '../../constants/list-skeleton';
+import { RecipeCardSkeleton } from '../recipe-card-skeleton/recipe-card-skeleton';
 
 @Component({
   selector: 'app-recipes-list-skeleton',
-  imports: [Skeleton],
+  imports: [RecipeCardSkeleton],
   templateUrl: './recipes-list-skeleton.html',
-  // Shares the card layout so the placeholders keep the real geometry.
+  // Same grid as the real list.
   styleUrl: '../recipes-list/recipes-list.scss',
   host: {
     'aria-hidden': 'true',

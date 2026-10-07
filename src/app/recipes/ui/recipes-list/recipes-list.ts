@@ -1,15 +1,11 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MatButton } from '@angular/material/button';
-import { MatCard, MatCardActions, MatCardContent } from '@angular/material/card';
 import { Reveal } from '../../../shared/directives/reveal';
 import { Recipe } from '../../types/recipe.model';
-import { RecipeStats } from '../recipe-stats/recipe-stats';
+import { RecipeCard } from '../recipe-card/recipe-card';
 
 @Component({
   selector: 'app-recipes-list',
-  imports: [NgOptimizedImage, RouterLink, MatButton, MatCard, MatCardActions, MatCardContent, Reveal, RecipeStats],
+  imports: [Reveal, RecipeCard],
   templateUrl: './recipes-list.html',
   styleUrl: './recipes-list.scss',
 })
