@@ -9,16 +9,24 @@
       <app-logo aria-hidden="true" />
     </a>
     <button
-      #menuTrigger="matMenuTrigger"
+      #menuButton
       class="header__toggle"
       animate.enter="drop-enter"
       type="button"
-      [matMenuTriggerFor]="mobileMenu"
-      [attr.aria-label]="menuTrigger.menuOpen ? 'Close menu' : 'Open menu'"
+      aria-controls="primary-nav"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="menuOpen.update((open) => !open)"
     >
       <mat-icon svgIcon="custom:hamburger" aria-hidden="true" />
+      <span class="cdk-visually-hidden">Menu</span>
     </button>
-    <nav #navigation class="header__nav" aria-label="Primary">
+    <nav
+      #navigation
+      id="primary-nav"
+      class="header__nav"
+      [class.header__nav--open]="menuOpen()"
+      aria-label="Primary"
+    >
       <ul class="header__links">
         @for (link of navigationLinks; track link.path) {
           <li>
@@ -45,27 +53,3 @@
     </nav>
   </div>
 </header>
-
-<mat-menu
-  #mobileMenu="matMenu"
-  class="header-menu"
-  xPosition="before"
-  [overlapTrigger]="false"
-  aria-label="Primary navigation"
->
-  @for (link of navigationLinks; track link.path) {
-    <a
-      mat-menu-item
-      class="header-menu__link"
-      [routerLink]="link.path"
-      routerLinkActive="active"
-      ariaCurrentWhenActive="page"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      <span class="header-menu__label">{{ link.label }}</span>
-    </a>
-  }
-  <a mat-menu-item class="header-menu__browse" routerLink="/recipes">
-    Browse recipes
-  </a>
-</mat-menu>
