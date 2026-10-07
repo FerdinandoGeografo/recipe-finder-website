@@ -1,7 +1,9 @@
 import { Component, computed, inject, input } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
+import { debounceTime } from 'rxjs';
 import { PageFocus } from '../shared/data-access/page-focus';
 import { PageHeading } from '../shared/directives/page-heading';
 import { RecipesStore } from './data-access/recipes-store';
@@ -71,6 +73,12 @@ export class Recipes {
     const count = this.recipes().length;
     return count === 1 ? '1 recipe found' : `${count} recipes found`;
   });
+
+  // Filtering stays instant; the live region speaks once typing pauses.
+  protected readonly announcement = toSignal(
+    toObservable(this.resultsMessage).pipe(debounceTime(500)),
+    { initialValue: '' },
+  );
 
   protected updateFilter(change: Partial<RecipeFilter>): void {
     this.navigate(toQueryParams(change), 'merge');
