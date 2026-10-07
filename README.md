@@ -36,6 +36,7 @@ Users should be able to:
 - The static dataset is treated as a recipes API: it loads once and is shared by the index, the details and the related recipes. Responses slower than 200 ms show skeletons.
 - Empty results, request errors with retry and unknown recipes have dedicated states.
 - Menus, filters and links work with the keyboard. Page changes, retry and "Clear all filters" move focus to the page heading.
+- The header stays pinned to the top while scrolling, so the navigation is always within reach; keyboard focus scrolls content into view below it.
 - The header logo and action settle in on load, and sections fade up once as they reach the viewport; reduced motion turns every animation off.
 - A Netlify `_redirects` rule serves the app for deep links and refreshes.
 

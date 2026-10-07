@@ -4,9 +4,11 @@
   :root {
     --page-gutter: 1.6rem;
     --content-max-width: 119.2rem;
+    --header-height: 7.2rem;
 
     @include media.from(md) {
       --page-gutter: 3.2rem;
+      --header-height: 9.2rem;
     }
 
     @include media.from(lg) {

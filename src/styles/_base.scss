@@ -35,6 +35,8 @@ html {
   color-scheme: light;
   font-size: 62.5%;
   background: var(--neutral-100);
+  // Keyboard focus scrolls content into view below the sticky header.
+  scroll-padding-top: var(--header-height);
 }
 
 ::-webkit-scrollbar {

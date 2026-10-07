@@ -7,5 +7,7 @@ import { Header } from './shared/ui/header/header';
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
+  // A block root spans the whole page, so the sticky header stays pinned to the end.
+  styles: ':host { display: block; }',
 })
 export class App {}

@@ -4,8 +4,11 @@
 
 :host {
   display: block;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 10;
+  background: var(--neutral-100);
+  view-transition-name: site-header;
 }
 
 .header {
@@ -28,12 +31,11 @@
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 1.2rem;
-    min-height: calc(7.2rem - 1px);
+    min-height: calc(var(--header-height) - 1px);
     padding-block-start: 1px;
     padding-inline: 1.6rem;
 
     @include media.from(md) {
-      min-height: calc(9.2rem - 1px);
       padding-inline: 3.2rem;
     }
 
