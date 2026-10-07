@@ -10,7 +10,12 @@
     <li class="recipe__current" aria-current="page">
       <span class="recipe__separator" aria-hidden="true">/</span>
       @if (loading()) {
-        <app-skeleton class="recipe__breadcrumb-placeholder" width="20rem" height="1.8rem" radius=".4rem" />
+        <app-skeleton
+          class="recipe__breadcrumb-placeholder"
+          width="20rem"
+          height="1.8rem"
+          radius=".4rem"
+        />
       } @else {
         <span class="recipe__name">{{ name() }}</span>
       }

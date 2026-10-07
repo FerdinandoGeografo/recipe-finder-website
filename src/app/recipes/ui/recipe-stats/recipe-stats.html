@@ -1,6 +1,10 @@
 @for (stat of stats; track stat.field) {
   <div class="recipe-stats__item">
-    <mat-icon class="recipe-stats__icon" [svgIcon]="'custom:' + stat.icon" aria-hidden="true" />
+    <mat-icon
+      class="recipe-stats__icon"
+      [svgIcon]="'custom:' + stat.icon"
+      aria-hidden="true"
+    />
     <span [class]="size() === 'compact' ? 'text-preset-9' : 'text-preset-7'">
       {{ stat.label }}: {{ recipe()[stat.field] }}{{ stat.unit }}
     </span>

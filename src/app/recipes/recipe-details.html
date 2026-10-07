@@ -3,15 +3,28 @@
 <section class="recipe__details" [attr.aria-busy]="loading">
   <app-recipe-breadcrumb [name]="pageName()" [loading]="loading" />
 
-  <div class="recipe__content" [class.recipe__content--state]="!loading && !currentRecipe">
+  <div
+    class="recipe__content"
+    [class.recipe__content--state]="!loading && !currentRecipe"
+  >
     @if (loading) {
-      <app-skeleton class="recipe__image-placeholder" height="auto" radius="1rem" />
+      <app-skeleton
+        class="recipe__image-placeholder"
+        height="auto"
+        radius="1rem"
+      />
     } @else if (currentRecipe) {
       <img
         class="recipe__img"
         animate.enter="fade-enter"
         [ngSrc]="'/' + currentRecipe.image.small"
-        [srcset]="'/' + currentRecipe.image.small + ' 500w, /' + currentRecipe.image.large + ' 1024w'"
+        [srcset]="
+          '/' +
+          currentRecipe.image.small +
+          ' 500w, /' +
+          currentRecipe.image.large +
+          ' 1024w'
+        "
         sizes="(min-width: 64em) min(42vw, 36.25rem), (min-width: 48em) calc(100vw - 4rem), calc(100vw - 2rem)"
         disableOptimizedSrcset
         width="500"
@@ -22,7 +35,11 @@
     }
 
     <div class="recipe__info">
-      <h1 appPageHeading class="text-preset-2 recipe__title" [class.cdk-visually-hidden]="loading">
+      <h1
+        appPageHeading
+        class="text-preset-2 recipe__title"
+        [class.cdk-visually-hidden]="loading"
+      >
         {{ pageName() }}
       </h1>
       @if (loading) {
@@ -30,14 +47,27 @@
       } @else if (currentRecipe) {
         <p class="text-preset-6">{{ currentRecipe.overview }}</p>
         <app-recipe-stats [recipe]="currentRecipe" />
-        <app-recipe-steps appReveal heading="Ingredients:" [items]="currentRecipe.ingredients" />
-        <app-recipe-steps appReveal heading="Instructions:" [items]="currentRecipe.instructions" ordered />
-      } @else if (store.status() === 'error') {
+        <app-recipe-steps
+          appReveal
+          heading="Ingredients:"
+          [items]="currentRecipe.ingredients"
+        />
+        <app-recipe-steps
+          appReveal
+          heading="Instructions:"
+          [items]="currentRecipe.instructions"
+          ordered
+        />
+      } @else if (store.status() === "error") {
         <app-state-message role="alert" message="We couldn’t load this recipe.">
-          <button matButton="filled" type="button" (click)="retry()">Try again</button>
+          <button matButton="filled" type="button" (click)="retry()">
+            Try again
+          </button>
         </app-state-message>
       } @else {
-        <app-state-message message="This recipe doesn’t exist or may have moved.">
+        <app-state-message
+          message="This recipe doesn’t exist or may have moved."
+        >
           <a matButton="filled" routerLink="/recipes">Browse recipes</a>
         </app-state-message>
       }
@@ -47,5 +77,7 @@
 @if (currentRecipe && !loading) {
   <app-more-recipes [recipes]="moreRecipes()" />
 }
-<p class="cdk-visually-hidden" role="status">{{ loading ? 'Loading recipe…' : '' }}</p>
+<p class="cdk-visually-hidden" role="status">
+  {{ loading ? "Loading recipe…" : "" }}
+</p>
 <mat-divider />

@@ -10,11 +10,24 @@ import { RecipesFilters } from './ui/recipes-filters/recipes-filters';
 import { RecipesList } from './ui/recipes-list/recipes-list';
 import { RecipesListSkeleton } from './ui/recipes-list-skeleton/recipes-list-skeleton';
 import { StateMessage } from './ui/state-message/state-message';
-import { filterRecipes, parseMinutes, parseQuery, toQueryParams } from './utils/recipe-filter';
+import {
+  filterRecipes,
+  parseMinutes,
+  parseQuery,
+  toQueryParams,
+} from './utils/recipe-filter';
 
 @Component({
   selector: 'app-recipes',
-  imports: [MatButton, MatDivider, PageHeading, RecipesFilters, RecipesList, RecipesListSkeleton, StateMessage],
+  imports: [
+    MatButton,
+    MatDivider,
+    PageHeading,
+    RecipesFilters,
+    RecipesList,
+    RecipesListSkeleton,
+    StateMessage,
+  ],
   templateUrl: './recipes.html',
   styleUrl: './recipes.scss',
 })
@@ -39,10 +52,17 @@ export class Recipes {
     maxCookTime: this.maxCook(),
   }));
 
-  protected readonly recipes = computed(() => filterRecipes(this.store.recipes(), this.filter()));
+  protected readonly recipes = computed(() =>
+    filterRecipes(this.store.recipes(), this.filter()),
+  );
 
   // The unfiltered first row holds the largest images above the fold.
-  protected readonly firstRowIds = computed(() => this.store.recipes().slice(0, 3).map((recipe) => recipe.id));
+  protected readonly firstRowIds = computed(() =>
+    this.store
+      .recipes()
+      .slice(0, 3)
+      .map((recipe) => recipe.id),
+  );
 
   protected readonly resultsMessage = computed(() => {
     if (this.store.isLoading()) return 'Loading recipes…';

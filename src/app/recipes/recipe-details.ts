@@ -56,7 +56,10 @@ export class RecipeDetails {
 
     const index = recipes.indexOf(recipe);
     const length = Math.min(3, recipes.length - 1);
-    return Array.from({ length }, (_, i) => recipes[(index + i + 1) % recipes.length]);
+    return Array.from(
+      { length },
+      (_, i) => recipes[(index + i + 1) % recipes.length],
+    );
   });
 
   protected readonly pageName = computed(() => {

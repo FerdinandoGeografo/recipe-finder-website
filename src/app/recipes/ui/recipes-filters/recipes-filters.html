@@ -7,7 +7,11 @@
     [class.filters__trigger--selected]="selected !== undefined"
     [matMenuTriggerFor]="menu"
     [disabled]="disabled()"
-    [attr.aria-label]="selected === undefined ? definition.label : definition.label + ', ' + selected + ' minutes'"
+    [attr.aria-label]="
+      selected === undefined
+        ? definition.label
+        : definition.label + ', ' + selected + ' minutes'
+    "
   >
     {{ definition.label }}
     <mat-icon svgIcon="custom:chevron-down" aria-hidden="true" />
@@ -25,7 +29,9 @@
         type="button"
         class="recipe-filter-menu__option"
         [class.recipe-filter-menu__option--selected]="selected === minutes"
-        [attr.aria-label]="minutes + ' minutes' + (selected === minutes ? ', selected' : '')"
+        [attr.aria-label]="
+          minutes + ' minutes' + (selected === minutes ? ', selected' : '')
+        "
         (click)="selectTime(definition.key, minutes)"
       >
         <span class="recipe-filter-menu__indicator" aria-hidden="true"></span>

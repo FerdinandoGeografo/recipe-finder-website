@@ -9,7 +9,16 @@ import { RecipeFilter, TimeFilterKey } from '../../types/recipe-filter.model';
 
 @Component({
   selector: 'app-recipes-filters',
-  imports: [MatButton, MatFormField, MatPrefix, MatIcon, MatInput, MatMenu, MatMenuItem, MatMenuTrigger],
+  imports: [
+    MatButton,
+    MatFormField,
+    MatPrefix,
+    MatIcon,
+    MatInput,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
+  ],
   templateUrl: './recipes-filters.html',
   styleUrl: './recipes-filters.scss',
 })

@@ -12,7 +12,11 @@
 <ng-template #listItems>
   @for (item of items(); track $index) {
     <li class="recipe__item">
-      <mat-icon class="recipe__list-icon" svgIcon="custom:bullet-point" aria-hidden="true" />
+      <mat-icon
+        class="recipe__list-icon"
+        svgIcon="custom:bullet-point"
+        aria-hidden="true"
+      />
       <p class="text-preset-6">{{ item }}</p>
     </li>
   }

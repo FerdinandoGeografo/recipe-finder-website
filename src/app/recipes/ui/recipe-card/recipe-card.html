@@ -3,7 +3,13 @@
     <img
       class="recipe__img"
       [ngSrc]="'/' + recipe().image.small"
-      [srcset]="'/' + recipe().image.small + ' 500w, /' + recipe().image.large + ' 1024w'"
+      [srcset]="
+        '/' +
+        recipe().image.small +
+        ' 500w, /' +
+        recipe().image.large +
+        ' 1024w'
+      "
       sizes="(min-width: 64em) min(30vw, 22.5rem), (min-width: 48em) calc(100vw - 5rem), calc(100vw - 3rem)"
       disableOptimizedSrcset
       fill
@@ -25,7 +31,11 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="recipe__actions">
-    <a matButton="filled" [attr.aria-label]="'View recipe: ' + recipe().title" [routerLink]="['/recipes', recipe().slug]">
+    <a
+      matButton="filled"
+      [attr.aria-label]="'View recipe: ' + recipe().title"
+      [routerLink]="['/recipes', recipe().slug]"
+    >
       View Recipe
     </a>
   </mat-card-actions>

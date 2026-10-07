@@ -1,5 +1,7 @@
 <section class="hero" animate.enter="page-enter">
-  <h1 appPageHeading class="text-preset-2">Explore our simple, healthy recipes</h1>
+  <h1 appPageHeading class="text-preset-2">
+    Explore our simple, healthy recipes
+  </h1>
   <p class="text-preset-6">
     Discover eight quick, whole-food dishes that fit real-life schedules and
     taste amazing. Use the search bar to find a recipe by name or ingredient, or
@@ -16,20 +18,36 @@
 
   <div class="results" [attr.aria-busy]="store.isLoading()">
     @switch (store.status()) {
-      @case ('loading') {
+      @case ("loading") {
         <app-recipes-list-skeleton animate.leave="loading-leave" />
       }
-      @case ('error') {
-        <app-state-message class="state" animate.enter="fade-enter" role="alert" message="We couldn’t load the recipes.">
-          <button matButton="filled" type="button" (click)="retry()">Try again</button>
+      @case ("error") {
+        <app-state-message
+          class="state"
+          animate.enter="fade-enter"
+          role="alert"
+          message="We couldn’t load the recipes."
+        >
+          <button matButton="filled" type="button" (click)="retry()">
+            Try again
+          </button>
         </app-state-message>
       }
       @default {
         @if (recipes().length) {
-          <app-recipes-list [recipes]="recipes()" [priorityRecipeIds]="firstRowIds()" />
+          <app-recipes-list
+            [recipes]="recipes()"
+            [priorityRecipeIds]="firstRowIds()"
+          />
         } @else {
-          <app-state-message class="state" animate.enter="fade-enter" message="No recipes match your search.">
-            <button matButton="outlined" type="button" (click)="clearFilters()">Clear all filters</button>
+          <app-state-message
+            class="state"
+            animate.enter="fade-enter"
+            message="No recipes match your search."
+          >
+            <button matButton="outlined" type="button" (click)="clearFilters()">
+              Clear all filters
+            </button>
           </app-state-message>
         }
       }
