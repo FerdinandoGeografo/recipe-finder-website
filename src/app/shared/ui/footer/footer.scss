@@ -16,28 +16,71 @@
     gap: 2.4rem;
     padding-block: 3.2rem 2rem;
 
+    // Text, credit and socials share a row from md, with the credit centred.
     @include media.from(md) {
-      flex-direction: row;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       padding-block: 4rem;
     }
   }
 
-  &__text {
-    order: 1;
+  &__text,
+  &__credit {
     text-align: center;
     color: var(--neutral-900);
+  }
 
+  &__text {
     @include media.from(md) {
-      order: 0;
-      text-align: start;
+      justify-self: start;
+    }
+  }
+
+  &__link {
+    position: relative;
+    padding-block: .2rem;
+    border-radius: 4px;
+    color: var(--neutral-800);
+    font-weight: 700;
+    text-decoration: none;
+    @include motion.transition(color, box-shadow);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--orange-500);
+      transform: scaleX(0);
+      transition: transform var(--motion-fast) var(--motion-ease-out);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--neutral-900);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &:focus-visible {
+      @include a11y.focus-ring(var(--neutral-100));
     }
   }
 
   &__socials {
+    order: -1;
     display: flex;
     align-items: center;
     gap: 2.4rem;
+
+    @include media.from(md) {
+      order: 0;
+      justify-self: end;
+    }
   }
 
   &__social {
