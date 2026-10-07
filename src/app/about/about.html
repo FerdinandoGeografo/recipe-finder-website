@@ -1,69 +1,11 @@
-<section class="hero">
-  <div class="hero__text" animate.enter="page-enter">
-    <p class="hero__title text-preset-5">Our mission</p>
-    <h1 appPageHeading class="text-preset-2">
-      Help more people cook nourishing meals,<br class="hero__line-break" />
-      more often.
-    </h1>
-    <div class="hero__descriptions text-preset-6">
-      <p>
-        Healthy Recipe Finder was created to prove that healthy eating can be
-        convenient, affordable, and genuinely delicious.
-      </p>
-      <p>
-        We showcase quick, whole-food dishes that anyone can master—no fancy
-        equipment, no ultra-processed shortcuts—just honest ingredients and
-        straightforward steps.
-      </p>
-    </div>
-  </div>
-
-  <img
-    class="hero__img"
-    animate.enter="fade-enter"
-    ngSrc="/images/image-about-our-mission-small.webp"
-    srcset="/images/image-about-our-mission-small.webp 686w, /images/image-about-our-mission-large.webp 1236w"
-    sizes="(min-width: 64em) min(43vw, 38.6rem), 92vw"
-    disableOptimizedSrcset
-    width="686"
-    height="667"
-    priority
-    alt="A cook preparing fresh carrots in a home kitchen."
-  />
-</section>
+<app-about-hero />
 <mat-divider />
 <app-about-list class="why-list" heading="Why we exist" [items]="whyWeExist" />
 <mat-divider />
 <app-about-list heading="Our food philosophy" [items]="foodPhilosophy" />
 <mat-divider />
 <div class="beyond">
-  <div class="beyond__box">
-    <div class="beyond__text" appReveal>
-      <h2 class="text-preset-2">Beyond the plate</h2>
-      <div class="beyond__description">
-        <p class="text-preset-6">
-          We believe food is a catalyst for community and well-being. By sharing
-          approachable recipes, we hope to:
-        </p>
-        <ul class="beyond__list text-preset-6">
-          <li>Encourage family dinners and social cooking.</li>
-          <li>Reduce reliance on single-use packaging and delivery waste.</li>
-          <li>Spark curiosity about seasonal produce and local agriculture.</li>
-        </ul>
-      </div>
-    </div>
-    <img
-      class="beyond__img"
-      appReveal
-      ngSrc="/images/image-about-beyond-the-plate-small.webp"
-      srcset="/images/image-about-beyond-the-plate-small.webp 686w, /images/image-about-beyond-the-plate-large.webp 1488w"
-      sizes="(min-width: 64em) min(52vw, 46.5rem), 92vw"
-      disableOptimizedSrcset
-      width="686"
-      height="369"
-      alt="A family laughing together while preparing vegetables."
-    />
-  </div>
+  <app-beyond-the-plate />
 
   <app-call-to-action />
 </div>

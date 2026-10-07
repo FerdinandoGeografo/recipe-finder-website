@@ -1,0 +1,62 @@
+@use 'layout';
+@use 'media';
+
+:host {
+  display: block;
+}
+
+.hero {
+  @include layout.container;
+  display: grid;
+  gap: 4rem;
+  padding-block: 4.8rem 6.4rem;
+
+  @include media.from(md) {
+    gap: 6.4rem;
+    padding-block: 6.4rem 8rem;
+  }
+
+  @include media.from(lg) {
+    grid-template-columns: minmax(0, 510fr) minmax(0, 618fr);
+    align-items: center;
+    padding-block: 8rem 9.6rem;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  &__title {
+    align-self: start;
+    min-width: 11.9rem;
+    padding: .2rem .6rem;
+    border-radius: .6rem;
+    background: var(--orange-500);
+  }
+
+  &__descriptions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  &__line-break {
+    display: none;
+
+    @include media.from(lg) {
+      display: inline;
+    }
+  }
+}
+
+.hero__img {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  object-fit: cover;
+  // 20px corners of the desktop frame, scaled with the image on both axes.
+  aspect-ratio: 618 / 600;
+  border-radius: calc(100% * 20 / 618) / calc(100% * 20 / 600);
+}

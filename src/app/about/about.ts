@@ -1,15 +1,14 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
-import { PageHeading } from '../shared/directives/page-heading';
-import { Reveal } from '../shared/directives/reveal';
 import { CallToAction } from '../shared/ui/call-to-action/call-to-action';
 import { foodPhilosophy, whyWeExist } from './constants/about-content';
+import { AboutHero } from './ui/about-hero/about-hero';
 import { AboutList } from './ui/about-list/about-list';
+import { BeyondThePlate } from './ui/beyond-the-plate/beyond-the-plate';
 
 @Component({
   selector: 'app-about',
-  imports: [NgOptimizedImage, MatDivider, PageHeading, Reveal, CallToAction, AboutList],
+  imports: [MatDivider, CallToAction, AboutHero, AboutList, BeyondThePlate],
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })
